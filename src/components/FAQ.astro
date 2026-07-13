@@ -1,0 +1,14 @@
+---
+const faqs = [
+['Ele substitui meu comercial?','Não. O agente atende, identifica intenção, captura o contato e entrega o contexto para sua equipe assumir no momento certo.'],
+['Funciona com WhatsApp e Instagram?','A implantação depende dos ativos, permissões e canais disponíveis na empresa. Durante o diagnóstico, avaliamos quais integrações fazem sentido.'],
+['Preciso trocar meu CRM?','Não necessariamente. A operação pode ser conectada ao fluxo atual ou começar de forma concierge enquanto a estrutura é organizada.'],
+['A IA responde qualquer coisa?','Não. O agente opera com contexto, regras comerciais, limites definidos e critérios de encaminhamento humano.'],
+['A empresa precisa já investir em anúncios?','Não. A operação também pode atender tráfego orgânico, contatos diretos e leads gerados por páginas, WhatsApp ou Instagram.'],
+['Quanto tempo leva para implantar?','O prazo depende dos canais, ativos e integrações necessários. A primeira etapa é uma auditoria rápida da operação atual.']
+];
+---
+<section class="section faq" id="faq">
+  <div class="section-head"><span class="kicker">08 / FAQ</span><h2>Perguntas antes de colocar<br /><em>a operação para rodar.</em></h2></div>
+  <div class="faq-list">{faqs.map(([q,a], index) => <details class="reveal"><summary><span>0{index+1}</span>{q}<i>+</i></summary><p>{a}</p></details>)}</div>
+</section>
