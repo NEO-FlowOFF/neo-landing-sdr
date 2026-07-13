@@ -1,0 +1,1 @@
+{"name":"neo-landing-sdr","type":"module","version":"1.0.0","scripts":{"dev":"astro dev","build":"astro build","preview":"astro preview"},"dependencies":{"@astrojs/cloudflare":"^12.6.8","astro":"^5.12.0"},"devDependencies":{}}
