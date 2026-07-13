@@ -5,6 +5,7 @@ import Hero from '../components/Hero.astro';
 import OperationFlow from '../components/OperationFlow.astro';
 import LiveDemo from '../components/LiveDemo.astro';
 import FAQ from '../components/FAQ.astro';
+import ChatBubble from '../components/ChatBubble.astro';
 const chat = 'https://chat.neoflowoff.agency';
 const benefits = [['Menos oportunidades perdidas','Leads são atendidos antes que o interesse desapareça.'],['Mais contexto para o comercial','A equipe recebe nome, contato, origem, necessidade e histórico da conversa.'],['Dados conectados à aquisição','Origem, eventos e conversões continuam sendo registrados.']];
 const infra = ['Página','Agente SDR','Captura','Dados','CRM','Handoff humano','Meta CAPI'];
@@ -22,7 +23,7 @@ const offer = ['Diagnóstico inicial da jornada','Configuração do Agente SDR',
     <FAQ />
     <section class="section final-cta"><div class="final-signal"><i></i><span>OPERAÇÃO PRONTA PARA RECEBER SINAL</span></div><h2>Se o lead chegou, ele já custou<br /><em>atenção, tempo ou dinheiro.</em></h2><p>Agora precisamos garantir que a operação faça alguma coisa com ele.</p><a class="button" href={chat}>Iniciar diagnóstico <span>↗</span></a><small>Converse com o NΞØ:One e mostre como os leads chegam hoje na sua empresa.</small></section>
   </main><footer><a class="brand" href="#top">NEØ<span>FLOWOFF</span><small>.agency</small></a><p>Agentes de IA, páginas, CRM e fluxos comerciais para empresas.<br />Marketing com infraestrutura.</p><div><a href="https://www.instagram.com/neoflw.agency">Instagram</a><a href="https://linkedin.com/company/neoflw-agency">LinkedIn</a><a href={chat}>Contato</a><a href={chat}>Conversar com o NΞØ:One</a></div><small>© {new Date().getFullYear()} neoflowoff.agency</small></footer></div>
-  <a class="chat-bubble" href={chat} aria-label="Conversar com o NΞØ:One"><i></i><span>NΞØ:One<small>Iniciar diagnóstico</small></span><b>↗</b></a>
+  <ChatBubble />
   <script>const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(e=>observer.observe(e));</script>
 </Layout>
 <style is:global>
