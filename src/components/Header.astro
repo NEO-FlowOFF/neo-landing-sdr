@@ -1,0 +1,8 @@
+---
+const links = [['Como funciona','#como-funciona'],['Demonstração','#demonstracao'],['Infraestrutura','#infraestrutura'],['Oferta','#oferta'],['FAQ','#faq']];
+---
+<header class="header">
+  <a class="brand" href="#top" aria-label="neoflowoff.agency — início">NEØ<span>FLOWOFF</span><small>.agency</small></a>
+  <nav aria-label="Navegação principal">{links.map(([label, href]) => <a href={href}>{label}</a>)}</nav>
+  <a class="button button-small" href="https://chat.neoflowoff.agency">Iniciar diagnóstico <span>↗</span></a>
+</header>
