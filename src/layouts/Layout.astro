@@ -1,0 +1,21 @@
+---
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#090a09" />
+    <meta property="og:title" content="Seu lead chegou. A operação precisa agir antes que ele esfrie." />
+    <meta property="og:description" content="Veja uma Operação SDR IA atendendo, qualificando e encaminhando oportunidades em tempo real." />
+    <meta property="og:type" content="website" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body><slot /></body>
+</html>
