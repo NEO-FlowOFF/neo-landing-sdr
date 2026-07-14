@@ -39,7 +39,7 @@ help: ## Exibe o menu de comandos disponíveis
 
 install: ## Instala as dependências isoladas (pnpm install --ignore-workspace)
 	@printf "$(CYAN)◆ Instalando dependências (isolado da raiz)...$(RESET)\n"
-	pnpm install --ignore-workspace
+	pnpm install --ignore-workspace --config.minimum-release-age=0
 
 dev: ## Inicia o servidor local de desenvolvimento Astro isolado
 	@printf "$(CYAN)◆ Subindo servidor local de desenvolvimento...$(RESET)\n"
@@ -55,7 +55,7 @@ preview: ## Pré-visualiza o build localmente isolado
 
 check: ## Executa a verificação estática do projeto Astro isolado
 	@printf "$(CYAN)◆ Verificando tipagem e integridade...$(RESET)\n"
-	npx astro check
+	pnpm exec astro check
 
 clean: ## Limpa cache e arquivos de build gerados (.astro, dist, node_modules)
 	@printf "$(CYAN)◆ Limpando artefatos de build e cache...$(RESET)\n"

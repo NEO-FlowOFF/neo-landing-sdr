@@ -8,7 +8,7 @@ const faqs = [
 ['Quanto tempo leva para implantar?','O prazo depende dos canais, ativos e integrações necessários. A primeira etapa é uma auditoria rápida da operação atual.']
 ];
 ---
-<section class="section faq" id="faq">
+<section class="section faq light-section" id="faq">
   <div class="section-head"><span class="kicker">08 / FAQ</span><h2>Perguntas antes de colocar<br /><em>a operação para rodar.</em></h2></div>
   <div class="faq-list">{faqs.map(([q,a], index) => <details class="reveal"><summary><span>0{index+1}</span>{q}<i>+</i></summary><p>{a}</p></details>)}</div>
 </section>
