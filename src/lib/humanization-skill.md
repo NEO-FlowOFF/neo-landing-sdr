@@ -159,13 +159,13 @@ Quando eu falo de Agent SDR, pensa numa parada bem menos glamourosa: é consegui
 
 ---
 
-## PHASE 2 — THE THREE PROOFS OF INTENT
+## PHASE 2 — HUMANIZATION CHECKS
 
 Apply these three filters before any delivery. These are not suggestions — they are requirements.
 
 ---
 
-### Proof 1: The Voice Note Test
+### Check 1: The Voice Note Test
 
 **Rule:** The text must sound like a WhatsApp voice note sent to a close friend — NOT like institutional video voiceover.
 
@@ -199,7 +199,7 @@ Aí a gente meteu o produto na rua. Antes do time. Pra conversar primeiro, sabe?
 
 ---
 
-### Proof 2: The Detour
+### Check 2: The Detour
 
 **Rule:** The text **CANNOT** follow a straight line (Point A → Point B → Point C). It must contain small tangents that simulate real human thought.
 
@@ -232,7 +232,7 @@ Muita venda morre em detalhe chato. E eu não tô falando de erro estratégico. 
 
 ---
 
-### Proof 3: Kill the Numbering (Continuous Threads)
+### Check 3: Continuous Threads
 
 **Rule:** Threads are not numbered lists. They are chained thoughts that hold up without numbering. If each post works standalone, it's a carousel of slides — not a thread.
 

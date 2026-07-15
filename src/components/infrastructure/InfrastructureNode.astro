@@ -1,0 +1,43 @@
+---
+export interface NodeProps {
+  id: string;
+  x: number;
+  y: number;
+  label: string;
+  isCore?: boolean;
+  isBeta?: boolean;
+}
+
+const { x, y, label, isCore = false, isBeta = false } = Astro.props;
+
+const nodeWidth = isCore ? 120 : 160;
+const nodeHeight = isCore ? 40 : 50;
+---
+<g class:list={["infra-node", { "core-node": isCore }]} transform={`translate(${x - nodeWidth/2}, ${y - nodeHeight/2})`}>
+  <rect
+    class="node-rect"
+    width={nodeWidth}
+    height={nodeHeight}
+    rx="5"
+    ry="5"
+  />
+  <text
+    class="node-label"
+    x={nodeWidth / 2}
+    y={nodeHeight / 2}
+    text-anchor="middle"
+    alignment-baseline="middle"
+  >
+    {label}
+  </text>
+  {isBeta && (
+    <text
+      class="node-beta-label"
+      x={nodeWidth - 5}
+      y={12}
+      text-anchor="end"
+    >
+      BETA
+    </text>
+  )}
+</g>
