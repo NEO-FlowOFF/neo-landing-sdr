@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+<Layout title="Termos de Uso | neoflowoff.agency" description="Termos de Uso e Condições Gerais da arquitetura e operação comercial da neoflowoff.agency.">
+  <div class="page-shell">
+    <Header />
+    <main class="section" style="max-width: 900px; margin: auto; padding-top: 60px; padding-bottom: 120px;">
+      <span class="kicker" style="background: var(--olive); color: var(--acid); padding: 5px 11px; border-radius: 4px; font-weight: 600;">INSTITUCIONAL</span>
+      <h1 style="font-size: clamp(36px, 4vw, 54px); margin: 24px 0;">Termos de <span style="color: var(--acid);">Uso</span></h1>
+      
+      <div style="color: #cdd2c8; font-size: 15px; line-height: 1.8; display: flex; flex-direction: column; gap: 24px;">
+        <p>Estes Termos de Uso regulamentam o acesso, a navegação e a utilização das superfícies digitais, páginas e agentes conversacionais providos pela <strong>neoflowoff.agency</strong>.</p>
+
+        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">1. Aceitação dos Termos</h2>
+        <p>Ao acessar nosso site ou iniciar uma conversa com o agente <strong>NΞØ:One</strong>, você declara estar ciente e concordar integralmente com as condições estipuladas neste documento e na nossa Política de Privacidade.</p>
+
+        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">2. Natureza das Demonstrações</h2>
+        <p>A superfície interativa apresentada neste site funciona tanto como demonstração técnica de nossa arquitetura quanto como canal de atendimento real para diagnóstico de sua operação comercial. As estimativas de impacto, economia de CPA e projeções de ROAS fornecidas em calculadoras ou em conversas têm caráter diagnóstico e pedagógico, dependendo das especificidades e execução de cada operação.</p>
+
+        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">3. Propriedade Intelectual</h2>
+        <p>Todo o design, código-fonte, metodologias operacionais (NEØ Growth System, NEØ Protocol), identidade visual, marcas e prompts arquiteturais exibidos neste site são de propriedade exclusiva da neoflowoff.agency, sendo vedada a reprodução, cópia ou engenharia reversa sem autorização expressa por escrito.</p>
+
+        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">4. Limitação de Responsabilidade</h2>
+        <p>A neoflowoff.agency não se responsabiliza por indisponibilidades temporárias decorrentes de manutenções na infraestrutura de borda ou interrupções provocadas por provedores de inteligência artificial e telecomunicações de terceiros.</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: var(--panel); border: 1px solid var(--line);">
+          <strong>Ficou com alguma dúvida?</strong><br />
+          Converse em tempo real acessando <a href="https://chat.neoflowoff.agency" style="color: var(--acid); text-decoration: underline;">https://chat.neoflowoff.agency</a>.
+        </div>
+      </div>
+    </main>
+    <footer style="padding: 40px 7vw; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+      <span>© {new Date().getFullYear()} neoflowoff.agency</span>
+      <div style="display: flex; gap: 20px;">
+        <a href="/">Voltar ao início</a>
+        <a href="/privacidade">Política de Privacidade</a>
+        <a href="/tratamento-dados">Tratamento de Dados</a>
+      </div>
+    </footer>
+  </div>
+</Layout>

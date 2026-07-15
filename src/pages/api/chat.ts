@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
-import systemPromptRaw from "../../lib/system-prompt.md?raw";
-import humanizationSkill from "../../lib/humanization-skill.md?raw";
 import ecosystemContextRaw from "../../lib/CONTEXT.json?raw";
+import humanizationSkill from "../../lib/humanization-skill.md?raw";
+import systemPromptRaw from "../../lib/system-prompt.md?raw";
 
 export const prerender = false;
 
@@ -17,30 +17,95 @@ export const POST: APIRoute = async ({ request, locals }) => {
         JSON.stringify({
           error: "OPENAI_API_KEY não configurada no servidor de borda.",
         }),
-        { status: 500, headers: { "Content-Type": "application/json" } }
+        { status: 500, headers: { "Content-Type": "application/json" } },
       );
     }
 
     const body = (await request.json()) as {
       messages?: { role: string; content: string }[];
+      session?: {
+        session_id?: string;
+        utms?: Record<string, string>;
+        _fbp?: string | null;
+        _fbc?: string | null;
+        landing_url?: string;
+      };
     };
     const userMessages = body.messages || [];
+    const session = body.session || {};
 
     if (userMessages.length === 0) {
       return new Response(
         JSON.stringify({ error: "Nenhuma mensagem enviada." }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
+
+    // Identificar se há captura de contato nas mensagens do usuário (WhatsApp/Email/Nome)
+    const lastUserMsg = userMessages[userMessages.length - 1]?.content || "";
+    const hasPhone =
+      /(?:\+?55\s?)?(?:\(?\d{2}\)?\s?)?(?:9\d{4}[-.\s]?\d{4}|\d{4}[-.\s]?\d{4})/i.test(
+        lastUserMsg,
+      );
+    const hasEmail = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i.test(
+      lastUserMsg,
+    );
+
+    if (hasPhone || hasEmail) {
+      const leadEvent = {
+        timestamp: new Date().toISOString(),
+        session_id: session.session_id || "unknown",
+        contact_raw: lastUserMsg,
+        utms: session.utms || {},
+        _fbp: session._fbp || null,
+        _fbc: session._fbc || null,
+        landing_url: session.landing_url || "",
+      };
+      console.log(
+        "[NEO-SDR-CAPTURE] Lead de contato identificado na conversa:",
+        JSON.stringify(leadEvent),
+      );
+
+      // Persistência em KV de borda se disponível no ambiente Cloudflare
+      const kv =
+        (locals as any)?.runtime?.env?.SDR_LEADS ||
+        (locals as any)?.runtime?.env?.KV_SDR;
+      if (kv && typeof kv.put === "function") {
+        try {
+          await kv.put(
+            `lead:${leadEvent.session_id}:${Date.now()}`,
+            JSON.stringify(leadEvent),
+          );
+          console.log(
+            "[NEO-SDR-CAPTURE] Lead gravado no Cloudflare KV com sucesso.",
+          );
+        } catch (e) {
+          console.error("[NEO-SDR-CAPTURE] Erro ao gravar lead no KV:", e);
+        }
+      }
+    }
+
+    const sessionContextStr = session.session_id
+      ? `\n--- DADOS DE SESSÃO E ORIGEM DO LEAD ---
+Session ID: ${session.session_id}
+UTMs: ${JSON.stringify(session.utms || {})}
+FBP/FBC: ${session._fbp || "N/A"} / ${session._fbc || "N/A"}
+Landing URL: ${session.landing_url || "N/A"}
+----------------------------------------`
+      : "";
 
     const fullSystemPrompt = [
       systemPromptRaw.trim(),
       humanizationSkill.trim(),
       `--- ECOSYSTEM CONTEXT ---\n${ecosystemContextRaw.trim()}\n--- END CONTEXT ---`,
+      sessionContextStr,
       `INSTRUÇÕES ADICIONAIS DA BOLHA (EMBED WIDGET):
 Você está atendendo o visitante diretamente no widget flutuante da Landing Page sdr.neoflowoff.agency.
-Seja conciso, natural, focado em qualificar o lead (Nome e WhatsApp) e demonstrar como o NEØ Growth System elimina o gargalo comercial dele.`,
-    ].join("\n\n");
+Seja conciso, natural, focado em qualificar o lead (Nome e WhatsApp) e demonstrar como o NEØ Growth System elimina o gargalo comercial dele.
+Sempre conduza o lead para o handoff humano ou para o diagnóstico completo em https://chat.neoflowoff.agency.`,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
 
     const model =
       import.meta.env.OPENAI_MODEL ||
@@ -59,7 +124,10 @@ Seja conciso, natural, focado em qualificar o lead (Nome e WhatsApp) e demonstra
         messages: [
           { role: "system", content: fullSystemPrompt },
           ...userMessages.map((m) => ({
-            role: m.role === "agent" || m.role === "assistant" ? "assistant" : "user",
+            role:
+              m.role === "agent" || m.role === "assistant"
+                ? "assistant"
+                : "user",
             content: m.content,
           })),
         ],
@@ -75,7 +143,10 @@ Seja conciso, natural, focado em qualificar o lead (Nome e WhatsApp) e demonstra
           error: "Erro na resposta do provedor OpenAI.",
           details: errText,
         }),
-        { status: response.status, headers: { "Content-Type": "application/json" } }
+        {
+          status: response.status,
+          headers: { "Content-Type": "application/json" },
+        },
       );
     }
 
@@ -84,17 +155,20 @@ Seja conciso, natural, focado em qualificar o lead (Nome e WhatsApp) e demonstra
       data.choices?.[0]?.message?.content ??
       "Olá! Como posso ajudar na sua operação comercial hoje?";
 
-    return new Response(JSON.stringify({ reply }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ reply, session_id: session.session_id }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
   } catch (error: any) {
     return new Response(
       JSON.stringify({
         error: "Erro interno no servidor do widget.",
         message: error?.message || String(error),
       }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
 };

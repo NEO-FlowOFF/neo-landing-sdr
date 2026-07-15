@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+<Layout title="Política de Privacidade | neoflowoff.agency" description="Política de Privacidade e Proteção de Dados da neoflowoff.agency e do Agente SDR NΞØ:One.">
+  <div class="page-shell">
+    <Header />
+    <main class="section" style="max-width: 900px; margin: auto; padding-top: 60px; padding-bottom: 120px;">
+      <span class="kicker" style="background: var(--olive); color: var(--acid); padding: 5px 11px; border-radius: 4px; font-weight: 600;">INSTITUCIONAL</span>
+      <h1 style="font-size: clamp(36px, 4vw, 54px); margin: 24px 0;">Política de <span style="color: var(--acid);">Privacidade</span></h1>
+      
+      <div style="color: #cdd2c8; font-size: 15px; line-height: 1.8; display: flex; flex-direction: column; gap: 24px;">
+        <p>Esta Política de Privacidade descreve como a <strong>neoflowoff.agency</strong> coleta, processa, armazena e protege os dados pessoais dos visitantes e leads ao interagirem com nossas superfícies digitais, páginas de conversão e agentes de inteligência artificial automotivos (em especial, o <strong>NΞØ:One</strong>).</p>
+
+        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">1. Coleta de Dados e Finalidade</h2>
+        <p>Coletamos apenas as informações estritamente necessárias para o diagnóstico da operação comercial, atendimento automatizado e handoff para a equipe comercial, incluindo:</p>
+        <ul style="list-style: disc; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>Dados de Identificação e Contato:</strong> Nome, telefone/WhatsApp e e-mail fornecidos voluntariamente durante a interação com o agente NΞØ:One ou formulários de contato.</li>
+          <li><strong>Dados Técnicos e de Navegação:</strong> Parâmetros de campanha (UTM source, medium, campaign, content, term), identificadores de cookie primário do Meta Pixel (<code>_fbp</code>) e Facebook Click ID (<code>_fbc</code>), além de endereço de origem e dados de sessão anônimos para fins de atribuição de marketing.</li>
+        </ul>
+
+        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">2. Processamento por Inteligência Artificial</h2>
+        <p>As interações realizadas via chat são processadas com apoio de modelos de linguagem (OpenAI/Claude) operando em canais criptografados via API corporativa (Responses/Chat Completions API). Não autorizamos que provedores externos utilizem seus dados de conversação para treinamento público de modelos base.</p>
+
+        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">3. Compartilhamento e Segurança</h2>
+        <p>Seus dados são utilizados exclusivamente no âmbito das interações entre a sua empresa e a neoflowoff.agency. Não vendemos, alugamos ou repassamos seus dados de contato a terceiros não envolvidos no provimento da infraestrutura de atendimento ou conversão.</p>
+
+        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">4. Seus Direitos (LGPD)</h2>
+        <p>Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você pode a qualquer momento solicitar a confirmação da existência de tratamento, o acesso, a retificação ou a exclusão de seus dados pessoais armazenados em nossos sistemas através do contato direto com nosso atendimento.</p>
+
+        <div style="margin-top: 30px; padding: 20px; background: var(--panel); border: 1px solid var(--line);">
+          <strong>Dúvidas ou solicitações?</strong><br />
+          Entre em contato diretamente pelo WhatsApp oficial ou com nosso agente em <a href="https://chat.neoflowoff.agency" style="color: var(--acid); text-decoration: underline;">https://chat.neoflowoff.agency</a>.
+        </div>
+      </div>
+    </main>
+    <footer style="padding: 40px 7vw; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+      <span>© {new Date().getFullYear()} neoflowoff.agency</span>
+      <div style="display: flex; gap: 20px;">
+        <a href="/">Voltar ao início</a>
+        <a href="/termos">Termos de Uso</a>
+        <a href="/tratamento-dados">Tratamento de Dados</a>
+      </div>
+    </footer>
+  </div>
+</Layout>

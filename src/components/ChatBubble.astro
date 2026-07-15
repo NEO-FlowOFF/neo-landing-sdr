@@ -9,14 +9,14 @@
     <div class="drawer-header">
       <div class="header-status">
         <span class="status-dot"></span>
-        <span class="header-title">NΞØ:One <small>[SDR AUTÔNOMO]</small></span>
+        <span class="header-title">NΞØ:One <small>[neoflowoff.agency]</small></span>
       </div>
       <div class="header-actions">
         <a
           href="https://chat.neoflowoff.agency"
           target="_blank"
           rel="noopener noreferrer"
-          class="full-btn"
+          class="full-btn neo-sdr-link"
           title="Abrir em Tela Cheia"
         >
           ↗ Tela Cheia
@@ -27,9 +27,9 @@
 
     <div id="chat-messages" class="drawer-messages">
       <div class="msg-item agent">
-        <span class="msg-label">NEØ:One</span>
+        <span class="msg-label">NΞØ:One</span>
         <div class="msg-bubble">
-          Olá! Sou o <b>NΞØ:One</b>, agente SDR autônomo da NEØ. Me conta, como funciona a recepção e qualificação de leads na sua operação comercial hoje?
+          Olá! Sou o <b>NΞØ:One</b>, agente SDR autônomo da <b>neoflowoff.agency</b>. Me conta, como funciona a recepção e qualificação de leads na sua operação comercial hoje?
         </div>
       </div>
     </div>
@@ -49,6 +49,9 @@
         </svg>
       </button>
     </form>
+    <div class="drawer-footer-fallback" style="padding: 6px 14px 10px; text-align: center; font-size: 11px; border-top: 1px solid rgba(255,255,255,.05);">
+      <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21+Gostaria+de+avaliar+minha+opera%C3%A7%C3%A3o+com+a+neoflowoff.agency" target="_blank" rel="noopener noreferrer" style="color: #92978f; text-decoration: underline;">Ou falar diretamente pelo WhatsApp ↗</a>
+    </div>
   </div>
 
   <!-- Bolha Flutuante (Botão Acionador) -->
@@ -92,7 +95,7 @@
     
     const label = document.createElement("span");
     label.className = "msg-label";
-    label.textContent = role === "user" ? "VISITANTE" : "NEØ:One";
+    label.textContent = role === "user" ? "VISITANTE" : "NΞØ:One";
 
     const bubble = document.createElement("div");
     bubble.className = "msg-bubble";
@@ -109,7 +112,7 @@
     const item = document.createElement("div");
     item.className = "msg-item agent typing";
     item.innerHTML = `
-      <span class="msg-label">NEØ:One</span>
+      <span class="msg-label">NΞØ:One</span>
       <div class="msg-bubble">
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
@@ -118,6 +121,8 @@
     messagesBox.scrollTop = messagesBox.scrollHeight;
     return item;
   }
+
+  import { initOrGetSession } from "../lib/session-handler";
 
   chatForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -130,12 +135,13 @@
     chatInput.disabled = true;
 
     const typingEl = appendTyping();
+    const sessionPayload = initOrGetSession();
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, session: sessionPayload }),
       });
 
       if (typingEl && typingEl.parentNode) {
