@@ -14,9 +14,9 @@ Version: v1.0.0
 
 ## ⟠ Visão Geral
 
-O repositório **neo-landing-sdr** é a página pública de captura e vitrine tecnológica da oferta comercial **SDR IA Plug & Play** da [neoflowoff.agency](https://neoflowoff.agency).
+O repositório **neo-landing-sdr** é a página pública de captura e vitrine tecnológica da oferta comercial **Operação SDR IA Plug & Play** e da categoria **Agent SDR IA** da [neoflowoff.agency](https://neoflowoff.agency).
 
-Desenvolvido para máxima velocidade em borda (*edge runtime*), este projeto atua como primeiro ponto de contato na Operação Tração (V1), qualificando o visitante através da vitrine de diferenciais e encaminhando o lead para fechamento no agente de conversão.
+Desenvolvido para máxima velocidade em borda (*edge runtime*), este projeto atua como primeiro ponto de contato na Operação Tração (V1), qualificando o visitante através da vitrine de diferenciais e encaminhando o lead para fechamento no agente de conversão e diagnóstico operacional **NEØ:one**.
 
 ────────────────────────────────────────
 
@@ -24,7 +24,7 @@ Desenvolvido para máxima velocidade em borda (*edge runtime*), este projeto atu
 
 * **Core Framework:** Astro 5 (`^5.12.0`)
 * **Deployment Adapter:** Cloudflare Edge (`@astrojs/cloudflare ^14.0.0` em modo `static` híbrido)
-* **Atendimento na Borda (Widget Flutuante):** Componente `ChatBubble.astro` consumindo a rota `/api/chat` integrada na própria nuvem Edge via OpenAI, carregando os prompts de qualificação em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`).
+* **Atendimento na Borda (Widget Flutuante):** Componente `ChatBubble.astro` consumindo a rota `/api/chat` integrada na própria nuvem Edge via OpenAI, carregando os prompts de qualificação do agente **NEØ:one** em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`).
 * **Destino Comercial Fullscreen (CTAs):** `https://chat.neoflowoff.agency` (`neoflowoff-chat-ui`)
 * **Estética Visual:** Matte Black (`#09131A`), tipografia geométrica e acentos neon Cyan (`#6EE7F9`) e Acid Green (`#D7FF64`).
 

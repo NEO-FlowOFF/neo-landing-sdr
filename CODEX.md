@@ -12,9 +12,9 @@ Version: v1.0.0
 
 ## ⟠ Visão Geral do Projeto
 
-O repositório `neo-landing-sdr` é a superfície pública de captura e vitrine tecnológica comercial da oferta **AI SDR Plug & Play** do ecossistema `NEO-FlowOFF`.
+O repositório `neo-landing-sdr` é a superfície pública de captura e vitrine tecnológica comercial da oferta **Operação SDR IA Plug & Play** e categoria **Agent SDR IA** do ecossistema `NEO-FlowOFF`.
 
-Foi projetado para operar sem latência, convertendo visitantes em leads qualificados e direcionando todas as interações comerciais para o Agente SDR em `https://chat.neoflowoff.agency`.
+Foi projetado para operar sem latência, convertendo visitantes em leads qualificados e direcionando todas as interações comerciais para o agente operacional **NEØ:one** em `https://chat.neoflowoff.agency`.
 
 ────────────────────────────────────────
 
@@ -24,7 +24,7 @@ Foi projetado para operar sem latência, convertendo visitantes em leads qualifi
 * **Edge Adapter:** `@astrojs/cloudflare` (`^14.1.3` em modo `static` híbrido)
 * **Gerenciador de Pacotes:** `npm` / `pnpm`
 * **Ambiente de Hospedagem:** Cloudflare Pages
-* **Motor Cognitivo do SDR:** OpenAI API (`OPENAI_API_KEY`) no Edge via rota `/api/chat`
+* **Motor Cognitivo do SDR:** OpenAI API (`OPENAI_API_KEY`) no Edge via rota `/api/chat` operando com a persona e governança do **NEØ:one**
 
 ────────────────────────────────────────
 

@@ -28,7 +28,7 @@ Antes do deploy, garantir que o bundle estático/edge do Astro 5 compila sem reg
 
 ## ◈ Fase 1.5 — Alinhamento Canônico da Paleta de Cores (Proporcional)
 
-Aplicar a paleta de cores canônica NΞØ com rigor nas proporções visuais antes de publicar na borda:
+Aplicar a paleta de cores canônica NEØ com rigor nas proporções visuais antes de publicar na borda:
 
 * [x] **1.5.1. Ajuste de Tokens CSS (`:root`):** Configurar no `index.astro` e componentes os tokens oficiais:
   * `#000000` (**~50% da proporção visual**): Fundo principal e superfícies escuras profundas.

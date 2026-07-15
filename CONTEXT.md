@@ -12,9 +12,9 @@ Version: v1.0.0
 
 ## ⟠ Contexto do Negócio e Tração (V1)
 
-O `neo-landing-sdr` é a vitrine tecnológica e página de captura comercial para a oferta **SDR IA Plug & Play** da **neoflowoff.agency**.
+O `neo-landing-sdr` é a vitrine tecnológica e página de captura comercial para a oferta **Operação SDR IA Plug & Play** e categoria **Agent SDR IA** da **neoflowoff.agency**.
 
-Sua missão não é apenas apresentar informações estáticas, mas provar imediatamente o valor da nossa tecnologia conversacional e direcionar leads qualificados para o agente de fechamento.
+Sua missão não é apenas apresentar informações estáticas, mas provar imediatamente o valor da nossa tecnologia conversacional com o agente operacional **NEØ:one** e direcionar leads qualificados para o handoff humano e diagnóstico comercial.
 
 ────────────────────────────────────────
 
@@ -23,9 +23,9 @@ Sua missão não é apenas apresentar informações estáticas, mas provar imedi
 1. **Superfície de Captura (`neo-landing-sdr` & `sdr.neoflowoff.agency`):**
    * Apresenta calculadora de ROAS, economia de CPA e vitrine dos diferenciais da infraestrutura autônoma.
    * Embarca o componente Glassmorphic flutuante (`ChatBubble.astro`), que processa as interações comerciais diretamente na borda via rota `/api/chat` conectada à OpenAI (`OPENAI_API_KEY`).
-   * A rota do Edge consome os arquivos de governança conversacional em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`) via imports estáticos `?raw`.
+   * A rota do Edge consome os arquivos de governança conversacional do agente **NEØ:one** em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`) via imports estáticos `?raw`.
 2. **Superfície de Conversão Fullscreen (`neoflowoff-chat-ui`):**
-   * Todos os CTAs e botões principais de aquisição direcionam o visitante para a experiência dedicada em tela cheia em `https://chat.neoflowoff.agency`.
+   * Todos os CTAs e botões principais de aquisição direcionam o visitante para a experiência dedicada em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency`.
 3. **Motor Inclusivo de Eventos (`neo-growth-system`):**
    * Conecta conversões ao CAPI da Meta para otimização contínua das campanhas.
 

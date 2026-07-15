@@ -1,7 +1,7 @@
+import ecosystemContext from "@/lib/CONTEXT.json";
+import humanizationSkill from "@/lib/humanization-skill.md?raw";
+import systemPrompt from "@/lib/system-prompt.md?raw";
 import type { APIRoute } from "astro";
-import ecosystemContextRaw from "../../lib/CONTEXT.json?raw";
-import humanizationSkill from "../../lib/humanization-skill.md?raw";
-import systemPromptRaw from "../../lib/system-prompt.md?raw";
 
 export const prerender = false;
 
@@ -95,13 +95,13 @@ Landing URL: ${session.landing_url || "N/A"}
       : "";
 
     const fullSystemPrompt = [
-      systemPromptRaw.trim(),
+      systemPrompt.trim(),
       humanizationSkill.trim(),
-      `--- ECOSYSTEM CONTEXT ---\n${ecosystemContextRaw.trim()}\n--- END CONTEXT ---`,
+      `--- ECOSYSTEM CONTEXT ---\n${JSON.stringify(ecosystemContext, null, 2)}\n--- END CONTEXT ---`,
       sessionContextStr,
       `INSTRUÇÕES ADICIONAIS DA BOLHA (EMBED WIDGET):
 Você está atendendo o visitante diretamente no widget flutuante da Landing Page sdr.neoflowoff.agency.
-Seja conciso, natural, focado em qualificar o lead (Nome e WhatsApp) e demonstrar como o NEØ Growth System elimina o gargalo comercial dele.
+Seja conciso, natural, focado em qualificar o lead (Nome e WhatsApp) e mostrar na prática como a Operação SDR IA elimina o gargalo comercial dele.
 Sempre conduza o lead para o handoff humano ou para o diagnóstico completo em https://chat.neoflowoff.agency.`,
     ]
       .filter(Boolean)

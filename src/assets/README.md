@@ -1,4 +1,4 @@
-# NΞØ Assets · Component Assets (`src/assets/`)
+# NEØ Assets · Component Assets (`src/assets/`)
 
 Este diretório destina-se a **imagens e recursos importados diretamente dentro dos componentes Astro (`.astro`)** para otimização automática pelo pipeline do Astro (`astro:assets`).
 

@@ -1,4 +1,4 @@
-# NΞØ Assets · Public Directory (`public/`)
+# NEØ Assets · Public Directory (`public/`)
 
 Este diretório destina-se a **arquivos estáticos servidos diretamente na raiz do site sem processamento** pelo pipeline do Astro.
 

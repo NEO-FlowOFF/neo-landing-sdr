@@ -1,46 +1,974 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
+import Header from '@/components/Header.astro';
+import Layout from '@/layouts/Layout.astro';
+
+const lastUpdated = '15 de julho de 2026';
+
+const controller = {
+  brand: 'neoflowoff.agency',
+
+  // Preencha antes do deploy, caso a operação possua razão social e CNPJ próprios.
+  legalName: '',
+  cnpj: '',
+
+  // Recomendo criar uma caixa dedicada, como:
+  // privacidade@neoflowoff.agency
+  privacyEmail: '',
+
+  chatUrl: 'https://chat.neoflowoff.agency',
+};
+
+const privacyContactHref = controller.privacyEmail
+  ? `mailto:${controller.privacyEmail}`
+  : controller.chatUrl;
+
+const privacyContactLabel = controller.privacyEmail
+  ? controller.privacyEmail
+  : 'chat.neoflowoff.agency';
 ---
-<Layout title="Política de Privacidade | neoflowoff.agency" description="Política de Privacidade e Proteção de Dados da neoflowoff.agency e do Agente SDR NΞØ:One.">
+
+<Layout
+  title="Política de Privacidade | neoflowoff.agency"
+  description="Política de Privacidade, Proteção de Dados e uso de inteligência artificial nas superfícies digitais da neoflowoff.agency."
+>
   <div class="page-shell">
     <Header />
-    <main class="section" style="max-width: 900px; margin: auto; padding-top: 60px; padding-bottom: 120px;">
-      <span class="kicker" style="background: var(--olive); color: var(--acid); padding: 5px 11px; border-radius: 4px; font-weight: 600;">INSTITUCIONAL</span>
-      <h1 style="font-size: clamp(36px, 4vw, 54px); margin: 24px 0;">Política de <span style="color: var(--acid);">Privacidade</span></h1>
-      
-      <div style="color: #cdd2c8; font-size: 15px; line-height: 1.8; display: flex; flex-direction: column; gap: 24px;">
-        <p>Esta Política de Privacidade descreve como a <strong>neoflowoff.agency</strong> coleta, processa, armazena e protege os dados pessoais dos visitantes e leads ao interagirem com nossas superfícies digitais, páginas de conversão e agentes de inteligência artificial automotivos (em especial, o <strong>NΞØ:One</strong>).</p>
 
-        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">1. Coleta de Dados e Finalidade</h2>
-        <p>Coletamos apenas as informações estritamente necessárias para o diagnóstico da operação comercial, atendimento automatizado e handoff para a equipe comercial, incluindo:</p>
-        <ul style="list-style: disc; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
-          <li><strong>Dados de Identificação e Contato:</strong> Nome, telefone/WhatsApp e e-mail fornecidos voluntariamente durante a interação com o agente NΞØ:One ou formulários de contato.</li>
-          <li><strong>Dados Técnicos e de Navegação:</strong> Parâmetros de campanha (UTM source, medium, campaign, content, term), identificadores de cookie primário do Meta Pixel (<code>_fbp</code>) e Facebook Click ID (<code>_fbc</code>), além de endereço de origem e dados de sessão anônimos para fins de atribuição de marketing.</li>
-        </ul>
+    <main class="privacy-page">
+      <article class="privacy-document">
+        <header class="document-header">
+          <span class="kicker">PRIVACIDADE · LGPD</span>
 
-        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">2. Processamento por Inteligência Artificial</h2>
-        <p>As interações realizadas via chat são processadas com apoio de modelos de linguagem (OpenAI/Claude) operando em canais criptografados via API corporativa (Responses/Chat Completions API). Não autorizamos que provedores externos utilizem seus dados de conversação para treinamento público de modelos base.</p>
+          <h1>
+            Política de
+            <span>Privacidade</span>
+          </h1>
 
-        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">3. Compartilhamento e Segurança</h2>
-        <p>Seus dados são utilizados exclusivamente no âmbito das interações entre a sua empresa e a neoflowoff.agency. Não vendemos, alugamos ou repassamos seus dados de contato a terceiros não envolvidos no provimento da infraestrutura de atendimento ou conversão.</p>
+          <p class="document-intro">
+            Esta Política explica como a <strong>neoflowoff.agency</strong>
+            coleta, utiliza, armazena, compartilha e protege dados pessoais
+            durante o acesso às nossas páginas, formulários, canais de
+            atendimento e agentes de inteligência artificial, incluindo o
+            <strong>NEØ:one</strong>.
+          </p>
 
-        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">4. Seus Direitos (LGPD)</h2>
-        <p>Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você pode a qualquer momento solicitar a confirmação da existência de tratamento, o acesso, a retificação ou a exclusão de seus dados pessoais armazenados em nossos sistemas através do contato direto com nosso atendimento.</p>
+          <div class="document-meta">
+            <span>Última atualização: {lastUpdated}</span>
+            <span>Aplicável às superfícies da neoflowoff.agency</span>
+          </div>
+        </header>
 
-        <div style="margin-top: 30px; padding: 20px; background: var(--panel); border: 1px solid var(--line);">
-          <strong>Dúvidas ou solicitações?</strong><br />
-          Entre em contato diretamente pelo WhatsApp oficial ou com nosso agente em <a href="https://chat.neoflowoff.agency" style="color: var(--acid); text-decoration: underline;">https://chat.neoflowoff.agency</a>.
+        <aside class="summary-card" aria-label="Resumo da Política de Privacidade">
+          <strong>Em termos diretos</strong>
+
+          <p>
+            Utilizamos dados para atender, entender a necessidade comercial,
+            qualificar oportunidades, medir campanhas, proteger nossos sistemas
+            e cumprir obrigações legais. Não comercializamos dados pessoais.
+          </p>
+        </aside>
+
+        <nav class="document-index" aria-label="Índice da política">
+          <strong>Nesta política</strong>
+
+          <div class="index-links">
+            <a href="#controlador">Controlador</a>
+            <a href="#dados-coletados">Dados coletados</a>
+            <a href="#finalidades">Finalidades</a>
+            <a href="#inteligencia-artificial">Inteligência artificial</a>
+            <a href="#cookies">Cookies e mensuração</a>
+            <a href="#compartilhamento">Compartilhamento</a>
+            <a href="#transferencia">Transferência internacional</a>
+            <a href="#retencao">Retenção</a>
+            <a href="#seguranca">Segurança</a>
+            <a href="#direitos">Seus direitos</a>
+          </div>
+        </nav>
+
+        <div class="document-content">
+          <section id="controlador">
+            <h2>
+              <span class="section-number">01</span>
+              Identificação e papel no tratamento
+            </h2>
+
+            <p>
+              Nas interações realizadas diretamente com nossas páginas,
+              campanhas e canais comerciais, a
+              <strong>{controller.brand}</strong> atua como controladora dos
+              dados pessoais, definindo as finalidades e os meios essenciais do
+              tratamento.
+            </p>
+
+            {
+              (controller.legalName || controller.cnpj) && (
+                <div class="identity-card">
+                  {controller.legalName && (
+                    <p>
+                      <strong>Responsável jurídico:</strong>{' '}
+                      {controller.legalName}
+                    </p>
+                  )}
+
+                  {controller.cnpj && (
+                    <p>
+                      <strong>CNPJ:</strong> {controller.cnpj}
+                    </p>
+                  )}
+                </div>
+              )
+            }
+
+            <p>
+              Quando implantamos infraestrutura para empresas clientes, a
+              definição dos papéis poderá variar conforme o projeto e o
+              contrato. Nesse contexto, o cliente poderá atuar como controlador
+              e a neoflowoff.agency como operadora ou fornecedora de
+              infraestrutura.
+            </p>
+          </section>
+
+          <section id="dados-coletados">
+            <h2>
+              <span class="section-number">02</span>
+              Dados que podemos coletar
+            </h2>
+
+            <p>
+              A coleta depende da forma como você utiliza nossas superfícies.
+              Podemos tratar as seguintes categorias:
+            </p>
+
+            <div class="data-grid">
+              <div class="data-card">
+                <h3>Identificação e contato</h3>
+                <p>
+                  Nome, empresa, cargo, telefone, WhatsApp, e-mail e outras
+                  informações fornecidas voluntariamente.
+                </p>
+              </div>
+
+              <div class="data-card">
+                <h3>Interações comerciais</h3>
+                <p>
+                  Mensagens enviadas ao agente, necessidades informadas,
+                  intenção de contratação, urgência, perfil da empresa e estágio
+                  da oportunidade.
+                </p>
+              </div>
+
+              <div class="data-card">
+                <h3>Navegação e dispositivo</h3>
+                <p>
+                  Endereço IP, data e horário de acesso, tipo de dispositivo,
+                  navegador, páginas acessadas, eventos de sessão e registros
+                  técnicos de segurança.
+                </p>
+              </div>
+
+              <div class="data-card">
+                <h3>Campanhas e atribuição</h3>
+                <p>
+                  Parâmetros UTM, origem da visita, identificadores de campanha
+                  e, quando habilitados, identificadores como
+                  <code>_fbp</code> e <code>_fbc</code>.
+                </p>
+              </div>
+            </div>
+
+            <p class="notice">
+              Não solicitamos dados pessoais sensíveis durante o atendimento
+              comercial comum. Evite enviar informações médicas, biométricas,
+              documentos, senhas, dados financeiros completos ou outros
+              conteúdos desnecessários para a conversa.
+            </p>
+          </section>
+
+          <section id="finalidades">
+            <h2>
+              <span class="section-number">03</span>
+              Finalidades e bases legais
+            </h2>
+
+            <p>
+              O tratamento será realizado de acordo com a finalidade da
+              interação e com uma base legal prevista na Lei Geral de Proteção
+              de Dados.
+            </p>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Finalidade</th>
+                    <th>Exemplos de tratamento</th>
+                    <th>Base legal possível</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Atendimento e diagnóstico</td>
+                    <td>
+                      Responder mensagens, entender necessidades e preparar uma
+                      proposta.
+                    </td>
+                    <td>
+                      Procedimentos preliminares relacionados a contrato.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Operação comercial</td>
+                    <td>
+                      Qualificar oportunidades, organizar contatos e encaminhar
+                      conversas ao time responsável.
+                    </td>
+                    <td>
+                      Execução contratual, procedimentos preliminares ou
+                      legítimo interesse.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Mensuração e melhoria</td>
+                    <td>
+                      Avaliar campanhas, origem dos contatos e desempenho das
+                      superfícies digitais.
+                    </td>
+                    <td>
+                      Consentimento ou legítimo interesse, conforme o recurso e
+                      o contexto.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Segurança e prevenção</td>
+                    <td>
+                      Identificar abuso, fraude, ataques, falhas e acessos não
+                      autorizados.
+                    </td>
+                    <td>
+                      Legítimo interesse, proteção de direitos e cumprimento de
+                      obrigações legais.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Obrigações legais</td>
+                    <td>
+                      Manter registros necessários, responder autoridades e
+                      exercer direitos em processos.
+                    </td>
+                    <td>
+                      Cumprimento de obrigação legal ou regulatória e exercício
+                      regular de direitos.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="inteligencia-artificial">
+            <h2>
+              <span class="section-number">04</span>
+              Processamento por inteligência artificial
+            </h2>
+
+            <p>
+              O NEØ:one utiliza modelos de linguagem e componentes de automação
+              para compreender mensagens, gerar respostas, identificar sinais
+              de intenção comercial, organizar informações e sugerir o próximo
+              encaminhamento da conversa.
+            </p>
+
+            <p>
+              Para realizar essas funções, o conteúdo enviado ao chat poderá ser
+              transmitido a provedores de modelos de linguagem, hospedagem,
+              banco de dados, observabilidade e segurança contratados para
+              operar a infraestrutura.
+            </p>
+
+            <div class="highlight-card">
+              <strong>Triagem assistida por IA</strong>
+
+              <p>
+                O agente pode classificar sinais comerciais, resumir conversas e
+                indicar prioridades. Essas classificações apoiam o atendimento e
+                podem ser revistas por uma pessoa responsável.
+              </p>
+            </div>
+
+            <p>
+              Sempre que possível, aplicamos minimização de dados e
+              configurações empresariais ou de API que limitem o uso das
+              interações para treinamento geral de modelos. As condições
+              específicas também dependem dos contratos e configurações dos
+              fornecedores utilizados em cada momento.
+            </p>
+
+            <p>
+              Nenhuma resposta gerada por inteligência artificial deve ser
+              interpretada como aconselhamento jurídico, médico, contábil,
+              financeiro ou profissional especializado.
+            </p>
+          </section>
+
+          <section id="cookies">
+            <h2>
+              <span class="section-number">05</span>
+              Cookies, pixels e mensuração
+            </h2>
+
+            <p>
+              Podemos utilizar cookies, armazenamento local, pixels e
+              tecnologias semelhantes para manter funcionalidades essenciais,
+              proteger a aplicação, compreender a navegação e medir resultados
+              de campanhas.
+            </p>
+
+            <ul>
+              <li>
+                <strong>Essenciais:</strong> necessários para funcionamento,
+                segurança e continuidade da sessão.
+              </li>
+
+              <li>
+                <strong>Analíticos:</strong> utilizados para compreender uso,
+                desempenho e possíveis falhas.
+              </li>
+
+              <li>
+                <strong>Marketing e atribuição:</strong> utilizados para
+                relacionar visitas, campanhas e conversões, incluindo
+                tecnologias de plataformas publicitárias.
+              </li>
+            </ul>
+
+            <p>
+              Tecnologias não essenciais serão utilizadas conforme as
+              preferências apresentadas ao visitante e as configurações
+              efetivamente disponíveis na superfície acessada.
+            </p>
+
+            <p>
+              Você também pode controlar cookies diretamente nas configurações
+              do navegador. O bloqueio de tecnologias essenciais poderá afetar o
+              funcionamento de determinadas áreas.
+            </p>
+          </section>
+
+          <section id="compartilhamento">
+            <h2>
+              <span class="section-number">06</span>
+              Compartilhamento e fornecedores
+            </h2>
+
+            <p>
+              Não vendemos nem alugamos dados pessoais. O compartilhamento pode
+              ocorrer somente quando necessário para operar a infraestrutura,
+              atender uma solicitação ou cumprir uma obrigação.
+            </p>
+
+            <p>Os dados poderão ser tratados por fornecedores das seguintes categorias:</p>
+
+            <ul>
+              <li>hospedagem, computação em nuvem e banco de dados;</li>
+              <li>modelos de linguagem e serviços de inteligência artificial;</li>
+              <li>CRM, atendimento, comunicação e automação;</li>
+              <li>analytics, publicidade e mensuração de conversões;</li>
+              <li>observabilidade, logs, segurança e prevenção a fraudes;</li>
+              <li>consultores profissionais e autoridades competentes.</li>
+            </ul>
+
+            <p>
+              Esses fornecedores recebem apenas os dados necessários para a
+              execução de suas atividades e ficam sujeitos às condições
+              contratuais, técnicas e legais aplicáveis.
+            </p>
+          </section>
+
+          <section id="transferencia">
+            <h2>
+              <span class="section-number">07</span>
+              Transferência internacional
+            </h2>
+
+            <p>
+              Alguns fornecedores de tecnologia podem processar ou armazenar
+              dados em outros países. Nesses casos, buscamos utilizar
+              fornecedores com medidas adequadas de segurança e mecanismos
+              contratuais compatíveis com a legislação aplicável à transferência
+              internacional de dados.
+            </p>
+          </section>
+
+          <section id="retencao">
+            <h2>
+              <span class="section-number">08</span>
+              Armazenamento e retenção
+            </h2>
+
+            <p>
+              Os dados são mantidos pelo período necessário para cumprir as
+              finalidades descritas nesta política, incluindo continuidade do
+              atendimento, gestão da oportunidade comercial, execução
+              contratual, segurança e cumprimento de obrigações legais.
+            </p>
+
+            <p>
+              Os prazos poderão variar de acordo com a categoria do dado, o
+              relacionamento mantido, os requisitos técnicos e os prazos legais
+              aplicáveis. Encerrada a finalidade, os dados serão eliminados,
+              anonimizados ou conservados apenas nas hipóteses autorizadas pela
+              legislação.
+            </p>
+          </section>
+
+          <section id="seguranca">
+            <h2>
+              <span class="section-number">09</span>
+              Segurança e incidentes
+            </h2>
+
+            <p>
+              Adotamos medidas técnicas e administrativas compatíveis com o
+              contexto da operação para reduzir riscos de acesso não autorizado,
+              perda, alteração, destruição ou divulgação indevida de dados.
+            </p>
+
+            <p>Essas medidas podem incluir:</p>
+
+            <ul>
+              <li>conexões criptografadas;</li>
+              <li>controle de acesso e autenticação;</li>
+              <li>separação de ambientes e credenciais;</li>
+              <li>registros técnicos e monitoramento;</li>
+              <li>limitação de acesso conforme necessidade operacional;</li>
+              <li>rotinas de backup, atualização e resposta a incidentes.</li>
+            </ul>
+
+            <p>
+              Nenhum sistema é completamente imune a incidentes. Caso ocorra um
+              evento que possa gerar risco ou dano relevante, adotaremos as
+              medidas de contenção, investigação e comunicação exigidas pela
+              legislação e pelas normas da Autoridade Nacional de Proteção de
+              Dados.
+            </p>
+          </section>
+
+          <section id="direitos">
+            <h2>
+              <span class="section-number">10</span>
+              Direitos do titular
+            </h2>
+
+            <p>
+              Nos termos da LGPD, você poderá solicitar, conforme aplicável:
+            </p>
+
+            <ul>
+              <li>confirmação da existência de tratamento;</li>
+              <li>acesso aos dados pessoais;</li>
+              <li>correção de dados incompletos, inexatos ou desatualizados;</li>
+              <li>
+                anonimização, bloqueio ou eliminação de dados desnecessários,
+                excessivos ou tratados em desconformidade;
+              </li>
+              <li>portabilidade, observadas as normas aplicáveis;</li>
+              <li>informação sobre compartilhamentos realizados;</li>
+              <li>revogação do consentimento, quando essa for a base legal;</li>
+              <li>
+                eliminação dos dados tratados com consentimento, ressalvadas as
+                hipóteses legais de conservação;
+              </li>
+              <li>oposição a tratamento realizado em desconformidade;</li>
+              <li>
+                revisão e informações sobre classificações automatizadas que
+                afetem seus interesses.
+              </li>
+            </ul>
+
+            <p>
+              Para proteger o titular, poderemos solicitar informações
+              adicionais para confirmar a identidade de quem realiza o pedido.
+            </p>
+          </section>
+
+          <section id="menores">
+            <h2>
+              <span class="section-number">11</span>
+              Crianças e adolescentes
+            </h2>
+
+            <p>
+              Nossas superfícies comerciais são direcionadas a representantes
+              de empresas e profissionais. Não buscamos coletar
+              intencionalmente dados de crianças.
+            </p>
+
+            <p>
+              Caso você seja responsável legal e identifique que uma criança
+              forneceu dados indevidamente, entre em contato para que a situação
+              seja analisada.
+            </p>
+          </section>
+
+          <section id="alteracoes">
+            <h2>
+              <span class="section-number">12</span>
+              Alterações desta política
+            </h2>
+
+            <p>
+              Esta política poderá ser atualizada para refletir mudanças
+              operacionais, tecnológicas, contratuais ou regulatórias. A versão
+              vigente será sempre identificada pela data de atualização exibida
+              no início da página.
+            </p>
+          </section>
+
+          <section id="contato">
+            <h2>
+              <span class="section-number">13</span>
+              Canal de privacidade
+            </h2>
+
+            <div class="contact-card">
+              <div>
+                <span class="contact-label">
+                  Dúvidas ou solicitações relacionadas aos seus dados?
+                </span>
+
+                <p>
+                  Entre em contato pelo canal abaixo e descreva sua solicitação.
+                </p>
+              </div>
+
+              <a
+                href={privacyContactHref}
+                target={controller.privacyEmail ? undefined : '_blank'}
+                rel={controller.privacyEmail ? undefined : 'noreferrer'}
+                class="contact-button"
+              >
+                {privacyContactLabel}
+              </a>
+            </div>
+          </section>
         </div>
-      </div>
+
+        <aside class="legal-note">
+          <strong>Nota de transparência</strong>
+
+          <p>
+            Esta página apresenta informações gerais sobre o tratamento de dados
+            nas superfícies da neoflowoff.agency. Contratos, propostas e
+            operações implantadas para clientes podem conter regras adicionais
+            e específicas.
+          </p>
+        </aside>
+      </article>
     </main>
-    <footer style="padding: 40px 7vw; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+
+    <footer class="page-footer">
       <span>© {new Date().getFullYear()} neoflowoff.agency</span>
-      <div style="display: flex; gap: 20px;">
+
+      <nav aria-label="Links institucionais">
         <a href="/">Voltar ao início</a>
         <a href="/termos">Termos de Uso</a>
         <a href="/tratamento-dados">Tratamento de Dados</a>
-      </div>
+      </nav>
     </footer>
   </div>
 </Layout>
+
+<style>
+  .privacy-page {
+    width: 100%;
+    padding: 72px 7vw 120px;
+  }
+
+  .privacy-document {
+    width: min(100%, 980px);
+    margin: 0 auto;
+  }
+
+  .document-header {
+    max-width: 850px;
+  }
+
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 1px solid color-mix(in srgb, var(--acid) 28%, transparent);
+    border-radius: 5px;
+    background: var(--olive);
+    color: var(--acid);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  h1 {
+    margin: 26px 0 20px;
+    color: #fff;
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  h1 span {
+    color: var(--acid);
+  }
+
+  .document-intro {
+    max-width: 760px;
+    margin: 0;
+    color: #d3d8d0;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.7;
+  }
+
+  .document-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-top: 28px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .summary-card,
+  .legal-note {
+    margin-top: 42px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--acid) 6%, transparent),
+        transparent 55%
+      ),
+      var(--panel);
+  }
+
+  .summary-card strong,
+  .legal-note strong {
+    color: var(--acid);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .summary-card p,
+  .legal-note p {
+    margin: 10px 0 0;
+    color: #d1d6ce;
+    line-height: 1.7;
+  }
+
+  .document-index {
+    margin: 24px 0 64px;
+    padding: 22px 24px;
+    border: 1px solid var(--line);
+  }
+
+  .document-index > strong {
+    display: block;
+    margin-bottom: 16px;
+    color: #fff;
+    font-size: 13px;
+  }
+
+  .index-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .index-links a {
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: #cbd0c7;
+    font-size: 12px;
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      color 160ms ease,
+      background 160ms ease;
+  }
+
+  .index-links a:hover {
+    border-color: var(--acid);
+    background: color-mix(in srgb, var(--acid) 7%, transparent);
+    color: var(--acid);
+  }
+
+  .document-content {
+    color: #cdd2c8;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  section {
+    padding: 44px 0;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 110px;
+  }
+
+  section:first-child {
+    border-top: 0;
+  }
+
+  h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 0 0 22px;
+    color: #fff;
+    font-size: clamp(22px, 3vw, 29px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .section-number {
+    flex: 0 0 auto;
+    color: var(--acid);
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  p {
+    margin: 0 0 18px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+    padding-left: 21px;
+  }
+
+  li::marker {
+    color: var(--acid);
+  }
+
+  code {
+    padding: 2px 5px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: #11140f;
+    color: var(--acid);
+    font-size: 0.88em;
+  }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 28px 0;
+  }
+
+  .data-card {
+    padding: 20px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .data-card p {
+    margin: 0;
+    color: #bfc5bb;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .notice {
+    padding: 18px 20px;
+    border-left: 2px solid var(--acid);
+    background: color-mix(in srgb, var(--acid) 5%, transparent);
+  }
+
+  .highlight-card {
+    margin: 26px 0;
+    padding: 22px;
+    border: 1px solid color-mix(in srgb, var(--acid) 34%, var(--line));
+    background: color-mix(in srgb, var(--acid) 5%, var(--panel));
+  }
+
+  .highlight-card strong {
+    color: var(--acid);
+  }
+
+  .highlight-card p {
+    margin: 8px 0 0;
+  }
+
+  .identity-card {
+    margin: 22px 0;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .identity-card p {
+    margin: 4px 0;
+  }
+
+  .table-wrapper {
+    width: 100%;
+    margin: 26px 0;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+  }
+
+  table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 16px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: var(--panel);
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  td {
+    color: #c2c8be;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 24px;
+    padding: 26px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .contact-label {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .contact-card p {
+    margin: 7px 0 0;
+  }
+
+  .contact-button {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    border: 1px solid var(--acid);
+    border-radius: 4px;
+    color: var(--acid);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      background 160ms ease,
+      color 160ms ease;
+  }
+
+  .contact-button:hover {
+    background: var(--acid);
+    color: #080a07;
+  }
+
+  .legal-note {
+    margin-top: 32px;
+  }
+
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px 7vw;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .page-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .page-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .page-footer a:hover {
+    color: var(--acid);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 720px) {
+    .privacy-page {
+      padding: 52px 20px 90px;
+    }
+
+    .data-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .document-index {
+      margin-bottom: 42px;
+      padding: 18px;
+    }
+
+    section {
+      padding: 36px 0;
+    }
+
+    .contact-card {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .contact-button {
+      width: 100%;
+      text-align: center;
+    }
+
+    .page-footer {
+      flex-direction: column;
+      padding: 32px 20px;
+    }
+  }
+</style>

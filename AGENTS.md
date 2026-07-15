@@ -33,6 +33,12 @@ Atue como um Engenheiro Sênior de Operação: preciso, conservador com alteraç
    * O projeto utiliza **Astro 5** com o adaptador `@astrojs/cloudflare` em modo `static` (com suporte híbrido via `export const prerender = false`).
    * **Protocolo de Acoplamento (`_worker.js`):** O `Makefile` está configurado para copiar e acoplar automaticamente todo o conteúdo de `dist/server/` para dentro de `dist/client/_worker.js/` (com `entry.mjs` renomeado para `index.js` e a pasta `chunks/` incluída).
    * **NUNCA altere ou remova a lógica de acoplamento do `Makefile`** nem introduza arquivos `wrangler.json` com `pages_build_output_dir` dentro de `dist/server`, pois isso causará regressões (erros 404 ou falhas na resolução de chunks no Cloudflare Pages).
+4. **Regras de Nomenclatura e Hierarquia Comercial (Node Redactor):**
+   * **Identificação do Agente:** Usar estritamente **NEØ:one** (nunca NΞØ:One, Agente demonstrador, Chatbot, Assistente virtual ou Demo de IA).
+   * **Categoria Principal:** **Agent SDR IA**.
+   * **Produto Comercial Contratado:** **Operação SDR IA Plug & Play** por neoflowoff.agency.
+   * **Promessa Central:** **Diagnóstico e instalação rápida**.
+   * **Posicionamento da Página:** Superfície ativa e real de atendimento comercial, diagnóstico da operação e verificação da arquitetura conversacional. Proibido enquadrar como "protótipo" ou apenas "demonstração".
 
 ────────────────────────────────────────
 
