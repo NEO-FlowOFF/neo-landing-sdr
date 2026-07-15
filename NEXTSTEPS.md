@@ -64,7 +64,7 @@ Aplicar efeitos de vidro fosco (`backdrop-filter: blur`), bordas translúcidas i
 Conforme `docs/SDR_Agent_Roadmap.md`, a página é a superfície de contato; a conversão acontece no chat e no backend.
 
 * [ ] **3.1. Webhook de Ingestão (`neo-growth-system`):** Subir o endpoint do serviço `neo-event-ingestor` para receber chamadas da Meta (WhatsApp / Instagram Direct).
-* [ ] **3.2. Roteamento do Agente SDR:** Conectar o prompt de qualificação comercial com a rota de recepção de mensagens no `chat.neoflowoff.agency`.
+* [x] **3.2. Roteamento do Agente SDR (`sdr.neoflowoff.agency` & `chat.neoflowoff.agency`):** Conectado o prompt de qualificação comercial (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`) diretamente na rota de borda `/api/chat` com widget Glassmorphic flutuante integrado na Landing Page operando via OpenAI, além do link em tela cheia para `chat.neoflowoff.agency`.
 * [ ] **3.3. Disparo Server-Side (Meta CAPI):** Configurar o envio de evento de conversão via CAPI assim que o Agente SDR capturar e qualificar o lead.
 
 ────────────────────────────────────────
