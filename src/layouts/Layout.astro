@@ -1,4 +1,6 @@
 ---
+import SEO from '@/components/SEO.astro';
+
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
 ---
@@ -7,22 +9,14 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
     <meta name="theme-color" content="#000000" />
-    <meta property="og:title" content="Seu lead chegou. A operação precisa agir antes que ele esfrie." />
-    <meta property="og:description" content="Veja uma Operação SDR IA atendendo, qualificando e encaminhando oportunidades em tempo real." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://sdr.neoflowoff.agency/" />
-    <meta property="og:image" content="/og-image.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/og-image.png" />
-    <link rel="canonical" href="https://sdr.neoflowoff.agency/" />
+    <SEO title={title} description={description} type="SoftwareApplication" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
   </head>
   <body><slot /></body>
 </html>

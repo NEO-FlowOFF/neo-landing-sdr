@@ -1,0 +1,9 @@
+# NEØ PROTOCOL — Canonical Robots & Crawler Policy
+# neoflowoff.agency / Operação SDR IA Plug & Play
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://sdr.neoflowoff.agency/sitemap.xml

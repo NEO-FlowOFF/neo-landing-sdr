@@ -2,65 +2,70 @@
 import InfrastructureNode from './InfrastructureNode.astro';
 import type { NodeProps } from './InfrastructureNode.astro';
 
-const VIEWBOX_WIDTH = 2000;
-const VIEWBOX_HEIGHT = 1200;
+const VIEWBOX_WIDTH_DESKTOP = 1200;
+const VIEWBOX_HEIGHT_DESKTOP = 1040;
 
-// DESKTOP LAYOUT
+const VIEWBOX_WIDTH_MOBILE = 460;
+const VIEWBOX_HEIGHT_MOBILE = 1420;
+
+// DESKTOP LAYOUT (1200 x 1040)
 const nodesDesktop: NodeProps[] = [
-  { id: 'd-neo-one', x: 1000, y: 550, label: 'NEØ:one', isCore: true },
-  { id: 'd-agent-sdr', x: 1000, y: 620, label: 'AGENT SDR IA', isCore: true, isBeta: true },
-  { id: 'd-orchestration', x: 1000, y: 690, label: 'ORCHESTRATION ACTIVE', isCore: true },
-  { id: 'd-origin', x: 300, y: 250, label: 'Página / Origem' },
-  { id: 'd-intent', x: 650, y: 250, label: 'Intenção' },
-  { id: 'd-capture', x: 1000, y: 250, label: 'Captura e consentimento' },
-  { id: 'd-qualification', x: 1350, y: 250, label: 'Qualificação' },
-  { id: 'd-memory', x: 1000, y: 950, label: 'Data / Memory' },
-  { id: 'd-crm', x: 1700, y: 550, label: 'CRM / Pipeline' },
-  { id: 'd-handoff', x: 1700, y: 650, label: 'Handoff humano' },
-  { id: 'd-conversion', x: 1700, y: 750, label: 'Conversão / Meta CAPI' },
+  { id: 'd-origin', x: 600, y: 65, label: 'ORIGEM / CANAL', microtext: 'redes sociais · whatsapp · trafego pago · webapp', nodeWidth: 320, nodeHeight: 68 },
+  { id: 'd-neo-one', x: 600, y: 205, label: 'AGENT SDR IA', telemetry: 'ORCHESTRATION: ACTIVE', isCore: true, nodeWidth: 310, nodeHeight: 118 },
+  { id: 'd-intent', x: 270, y: 360, label: 'proof of intention (POI)', nodeWidth: 230, nodeHeight: 62 },
+  { id: 'd-capture', x: 600, y: 360, label: 'CAPTURA DE CONTATO', microtext: 'permissões · preferências · contexto', nodeWidth: 280, nodeHeight: 74 },
+  { id: 'd-qualification', x: 930, y: 360, label: 'QUALIFICAÇÃO', nodeWidth: 230, nodeHeight: 62 },
+  { id: 'd-context', x: 600, y: 505, label: 'CONTEXTO / QUALIFICAÇÃO', nodeWidth: 260, nodeHeight: 64 },
+  { id: 'd-crm', x: 600, y: 620, label: 'CRM / DADOS', nodeWidth: 260, nodeHeight: 64 },
+  { id: 'd-handoff', x: 600, y: 735, label: 'ATENDIMENTO HUMANO', microtext: 'Ativo ou por solicitação do cliente', nodeWidth: 260, nodeHeight: 64 },
+  { id: 'd-conversion', x: 600, y: 850, label: 'COMERCIAL + CONVERSÃO', nodeWidth: 260, nodeHeight: 64 },
+  { id: 'd-signal', x: 600, y: 965, label: 'CAMADA DE SINAIS / META CAPI', microtext: 'PIXEL · EVENTS · CATÁLOGO · SEGUIDOR', nodeWidth: 310, nodeHeight: 74 },
 ];
 
 const pathsDesktop = [
-  { d: 'M 380 250 H 640' }, // origin -> intent
-  { d: 'M 730 250 H 990' }, // intent -> capture
-  { d: 'M 1000 290 V 540' }, // capture -> neo-one
-  { d: 'M 1000 590 V 610' }, // neo-one -> agent-sdr
-  { d: 'M 1000 660 V 680' }, // agent-sdr -> orchestration
-  { d: 'M 1080 550 C 1200 550, 1350 400, 1350 290' }, // neo-one -> qualification
-  { d: 'M 1000 730 V 940' }, // orchestration -> memory
-  { d: 'M 1080 950 C 1250 950, 1250 700, 1080 640' }, // memory -> agent-sdr (feedback)
-  { d: 'M 1430 250 C 1550 250, 1650 450, 1690 550' }, // qualification -> crm
-  { d: 'M 1700 630 V 590' }, // handoff -> crm
-  { d: 'M 1700 730 V 590' }, // conversion -> crm
+  { d: 'M 600 99 V 146' }, // origin -> neo-one
+  { d: 'M 550 264 C 550 306, 270 295, 270 329' }, // neo-one -> intent
+  { d: 'M 600 264 V 323' }, // neo-one -> capture
+  { d: 'M 650 264 C 650 306, 930 295, 930 329' }, // neo-one -> qualification
+  { d: 'M 385 360 H 460' }, // intent -> capture
+  { d: 'M 740 360 H 815' }, // capture -> qualification
+  { d: 'M 340 391 C 340 445, 860 445, 860 391' }, // intent -> qualification (direct curve)
+  { d: 'M 270 391 C 270 450, 560 440, 560 473' }, // intent -> context
+  { d: 'M 600 397 V 473' }, // capture -> context
+  { d: 'M 930 391 C 930 450, 640 440, 640 473' }, // qualification -> context
+  { d: 'M 600 537 V 588' }, // context -> crm
+  { d: 'M 600 652 V 703' }, // crm -> handoff
+  { d: 'M 600 767 V 818' }, // handoff -> conversion
+  { d: 'M 600 882 V 928' }, // conversion -> signal
+  { d: 'M 755 965 C 1130 965, 1130 65, 760 65' }, // signal -> origin (Feedback Loop!)
 ];
 
-// MOBILE LAYOUT (Vertical)
+// MOBILE LAYOUT (460 x 1420)
 const nodesMobile: NodeProps[] = [
-  { id: 'm-origin', x: 1000, y: 150, label: 'Página / Origem' },
-  { id: 'm-intent', x: 1000, y: 250, label: 'Intenção' },
-  { id: 'm-capture', x: 1000, y: 350, label: 'Captura e consentimento' },
-  { id: 'm-neo-one', x: 1000, y: 500, label: 'NEØ:one', isCore: true },
-  { id: 'm-agent-sdr', x: 1000, y: 570, label: 'AGENT SDR IA', isCore: true, isBeta: true },
-  { id: 'm-orchestration', x: 1000, y: 640, label: 'ORCHESTRATION ACTIVE', isCore: true },
-  { id: 'm-qualification', x: 1000, y: 790, label: 'Qualificação' },
-  { id: 'm-memory', x: 1000, y: 890, label: 'Data / Memory' },
-  { id: 'm-crm', x: 1000, y: 1040, label: 'CRM / Pipeline' },
-  { id: 'm-handoff', x: 1000, y: 1140, label: 'Handoff humano' },
-  { id: 'm-conversion', x: 1000, y: 1240, label: 'Conversão / Meta CAPI' },
+  { id: 'm-origin', x: 230, y: 75, label: 'ORIGEM / CANAL', microtext: 'redes sociais · whatsapp · trafego pago · webapp', nodeWidth: 330, nodeHeight: 68 },
+  { id: 'm-neo-one', x: 230, y: 215, label: 'AGENT SDR IA', telemetry: 'ORCHESTRATION: ACTIVE', isCore: true, nodeWidth: 340, nodeHeight: 118 },
+  { id: 'm-intent', x: 230, y: 360, label: 'proof of intention (POI)', nodeWidth: 320, nodeHeight: 60 },
+  { id: 'm-capture', x: 230, y: 475, label: 'CAPTURA DE CONTATO', microtext: 'permissões · preferências · contexto', nodeWidth: 330, nodeHeight: 74 },
+  { id: 'm-qualification', x: 230, y: 590, label: 'QUALIFICAÇÃO', nodeWidth: 320, nodeHeight: 60 },
+  { id: 'm-context', x: 230, y: 705, label: 'CONTEXTO / QUALIFICAÇÃO', nodeWidth: 320, nodeHeight: 62 },
+  { id: 'm-crm', x: 230, y: 820, label: 'CRM / DADOS', nodeWidth: 320, nodeHeight: 62 },
+  { id: 'm-handoff', x: 230, y: 935, label: 'ATENDIMENTO HUMANO', microtext: 'Ativo ou por solicitação do cliente', nodeWidth: 320, nodeHeight: 64 },
+  { id: 'm-conversion', x: 230, y: 1050, label: 'COMERCIAL + CONVERSÃO', nodeWidth: 320, nodeHeight: 62 },
+  { id: 'm-signal', x: 230, y: 1175, label: 'CAMADA DE SINAIS / META CAPI', microtext: 'PIXEL · EVENTS · CATÁLOGO · SEGUIDOR', nodeWidth: 340, nodeHeight: 74 },
 ];
 
 const pathsMobile = [
-  { d: 'M 1000 190 V 240' }, // origin -> intent
-  { d: 'M 1000 290 V 340' }, // intent -> capture
-  { d: 'M 1000 390 V 490' }, // capture -> neo-one
-  { d: 'M 1000 540 V 560' }, // neo-one -> agent-sdr
-  { d: 'M 1000 610 V 630' }, // agent-sdr -> orchestration
-  { d: 'M 1000 680 V 780' }, // orchestration -> qualification
-  { d: 'M 1000 830 V 880' }, // qualification -> memory
-  { d: 'M 1080 890 C 1250 890, 1250 650, 1080 590' }, // memory -> agent-sdr (feedback)
-  { d: 'M 1000 930 V 1030' }, // memory -> crm
-  { d: 'M 1000 1080 V 1130' }, // crm -> handoff
-  { d: 'M 1000 1180 V 1230' }, // handoff -> conversion
+  { d: 'M 230 109 V 156' }, // origin -> neo-one
+  { d: 'M 230 274 V 330' }, // neo-one -> intent
+  { d: 'M 230 390 V 438' }, // intent -> capture
+  { d: 'M 390 360 C 440 360, 440 590, 390 590' }, // intent -> qualification direct curve
+  { d: 'M 230 512 V 560' }, // capture -> qualification
+  { d: 'M 230 620 V 674' }, // qualification -> context
+  { d: 'M 230 736 V 789' }, // context -> crm
+  { d: 'M 230 851 V 904' }, // crm -> handoff
+  { d: 'M 230 966 V 1019' }, // handoff -> conversion
+  { d: 'M 230 1081 V 1138' }, // conversion -> signal
+  { d: 'M 60 1175 C 15 1175, 15 75, 65 75' }, // signal -> origin (Feedback Loop!)
 ];
 ---
 
@@ -69,57 +74,68 @@ const pathsMobile = [
 </style>
 
 <div id="infra-map-wrapper" class="infra-map-container">
+  <!-- Desktop SVG -->
   <svg 
-    id="infra-map-svg"
-    class="infra-map-svg"
-    viewBox=`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`
+    id="infra-map-svg-desktop"
+    class="infra-map-svg desktop-svg"
+    viewBox=`0 0 ${VIEWBOX_WIDTH_DESKTOP} ${VIEWBOX_HEIGHT_DESKTOP}`
     preserveAspectRatio="xMidYMid meet"
   >
     <defs>
-      <pattern id="grid-pattern" width="100" height="100" patternUnits="userSpaceOnUse">
-        <path d="M 100 0 L 0 0 0 100" fill="none" stroke="var(--color-grid)" stroke-width="1"/>
+      <pattern id="grid-pattern-desktop" width="80" height="80" patternUnits="userSpaceOnUse">
+        <path d="M 80 0 L 0 0 0 80" fill="none" stroke="var(--color-grid)" stroke-width="1"/>
       </pattern>
-      <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="5" refY="1.75" orient="auto">
-        <polygon points="0 0, 5 1.75, 0 3.5" class="arrowhead-polygon" />
+      <marker id="arrowhead-desktop" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+        <polygon points="0 0, 6 2, 0 4" class="arrowhead-polygon" />
       </marker>
-      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
-        <feMerge>
-          <feMergeNode in="coloredBlur"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
     </defs>
 
-    <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+    <rect width="100%" height="100%" fill="url(#grid-pattern-desktop)" />
 
-    <!-- Desktop Layout -->
     <g class="desktop-layout">
       <g class="connections-group">
         {pathsDesktop.map((path, index) => (
-          <path class="connection-path" d={path.d} style={`--animation-delay: ${index * 0.5}s`} />
+          <path class:list={["connection-path", { "return-loop-path": index === pathsDesktop.length - 1 }]} d={path.d} style={`--animation-delay: ${index * 0.35}s`} marker-end="url(#arrowhead-desktop)" />
         ))}
+      </g>
+      <g class="core-cluster-boundary">
+        <rect x="435" y="136" width="330" height="138" rx="16" />
       </g>
       <g class="nodes-group">
         {nodesDesktop.map(node => <InfrastructureNode {...node} />)}
       </g>
-      <g class="core-cluster-boundary">
-        <rect x="920" y="520" width="160" height="210" rx="15" />
-      </g>
     </g>
+  </svg>
 
-    <!-- Mobile Layout -->
+  <!-- Mobile SVG -->
+  <svg 
+    id="infra-map-svg-mobile"
+    class="infra-map-svg mobile-svg"
+    viewBox=`0 0 ${VIEWBOX_WIDTH_MOBILE} ${VIEWBOX_HEIGHT_MOBILE}`
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <defs>
+      <pattern id="grid-pattern-mobile" width="60" height="60" patternUnits="userSpaceOnUse">
+        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="var(--color-grid)" stroke-width="1"/>
+      </pattern>
+      <marker id="arrowhead-mobile" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+        <polygon points="0 0, 6 2, 0 4" class="arrowhead-polygon" />
+      </marker>
+    </defs>
+
+    <rect width="100%" height="100%" fill="url(#grid-pattern-mobile)" />
+
     <g class="mobile-layout">
-       <g class="connections-group">
+      <g class="connections-group">
         {pathsMobile.map((path, index) => (
-          <path class="connection-path" d={path.d} style={`--animation-delay: ${index * 0.3}s`} />
+          <path class:list={["connection-path", { "return-loop-path": index === pathsMobile.length - 1 }]} d={path.d} style={`--animation-delay: ${index * 0.3}s`} marker-end="url(#arrowhead-mobile)" />
         ))}
+      </g>
+      <g class="core-cluster-boundary">
+        <rect x="50" y="146" width="360" height="138" rx="16" />
       </g>
       <g class="nodes-group">
         {nodesMobile.map(node => <InfrastructureNode {...node} />)}
-      </g>
-      <g class="core-cluster-boundary">
-        <rect x="920" y="470" width="160" height="210" rx="15" />
       </g>
     </g>
   </svg>

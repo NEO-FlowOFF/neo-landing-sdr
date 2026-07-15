@@ -10,30 +10,14 @@ import { MessageSquare } from "lucide-astro";
     <div class="drawer-header">
       <div class="header-status">
         <span class="status-dot"></span>
-        <span class="header-title">NEØ:one <small>[neoflowoff.agency]</small></span>
+        <span class="header-title">NEØ:one <small>[agent SDR IA]</small></span>
       </div>
       <div class="header-actions">
-        <a
-          href="https://chat.neoflowoff.agency"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="full-btn neo-sdr-link"
-          title="Abrir em Tela Cheia"
-        >
-          ↗ Tela Cheia
-        </a>
-        <button id="close-drawer-btn" class="close-btn" aria-label="Fechar Chat">×</button>
+        <button id="close-drawer-btn" class="close-btn" aria-label="Fechar chat">×</button>
       </div>
     </div>
 
-    <div id="chat-messages" class="drawer-messages">
-      <div class="msg-item agent">
-        <span class="msg-label">NEØ:one</span>
-        <div class="msg-bubble">
-          Olá! Sou o <b>NEØ:one</b>, Agent SDR IA da <b>neoflowoff.agency</b>. Me conta, como funciona a recepção e qualificação de leads na sua operação comercial hoje?
-        </div>
-      </div>
-    </div>
+    <div id="chat-messages" class="drawer-messages"></div>
 
     <form id="chat-form" class="drawer-input-bar">
       <input
@@ -56,8 +40,8 @@ import { MessageSquare } from "lucide-astro";
   </div>
 
   <!-- Bolha Flutuante (Botão Acionador) -->
-  <button id="neo-sdr-bubble-btn" class="chat-bubble" aria-label="Conversar com o NEØ:one">
-    <i></i><span>NEØ:one<small>Iniciar diagnóstico</small></span><b><MessageSquare size={18} stroke-width={1.5} /></b>
+  <button id="neo-sdr-bubble-btn" class="chat-bubble" aria-label="Conversar com Agent SDR">
+    <i></i><b><MessageSquare size={28} stroke-width={1.5} /></b>
   </button>
 </div>
 
@@ -70,8 +54,43 @@ import { MessageSquare } from "lucide-astro";
   const chatInput = document.getElementById("chat-input") as HTMLInputElement;
   const messagesBox = document.getElementById("chat-messages");
 
+  import { initOrGetSession } from "@/lib/session-handler";
+
   let isOpen = false;
   let history: { role: string; content: string }[] = [];
+  let hasBootstrapped = false;
+
+  async function bootstrapAgentGreeting() {
+    if (hasBootstrapped) return;
+    hasBootstrapped = true;
+    const typingEl = appendTyping();
+    const sessionPayload = initOrGetSession();
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: "[INICIAR_DIAGNOSTICO]" }],
+          session: sessionPayload,
+        }),
+      });
+      if (typingEl && typingEl.parentNode) {
+        typingEl.parentNode.removeChild(typingEl);
+      }
+      if (!res.ok) throw new Error("Status: " + res.status);
+      const data = await res.json();
+      const reply = data.reply || "Para avaliarmos sua estrutura comercial: onde está o maior gargalo na sua recepção de leads hoje — tempo de resposta, qualificação ou integração com o CRM?";
+      appendMessage("agent", reply);
+      history.push({ role: "assistant", content: reply });
+    } catch (err) {
+      if (typingEl && typingEl.parentNode) {
+        typingEl.parentNode.removeChild(typingEl);
+      }
+      const fallbackMsg = "Para avaliarmos sua estrutura comercial: onde está o maior gargalo na sua recepção de leads hoje — tempo de resposta, qualificação ou integração com o CRM?";
+      appendMessage("agent", fallbackMsg);
+      history.push({ role: "assistant", content: fallbackMsg });
+    }
+  }
 
   function toggleDrawer(open?: boolean) {
     if (!drawer) return;
@@ -79,6 +98,9 @@ import { MessageSquare } from "lucide-astro";
     if (isOpen) {
       drawer.classList.add("open");
       drawer.setAttribute("aria-hidden", "false");
+      if (history.length === 0 && !hasBootstrapped) {
+        bootstrapAgentGreeting();
+      }
       setTimeout(() => chatInput?.focus(), 150);
     } else {
       drawer.classList.remove("open");
@@ -88,6 +110,51 @@ import { MessageSquare } from "lucide-astro";
 
   bubbleBtn?.addEventListener("click", () => toggleDrawer(true));
   closeBtn?.addEventListener("click", () => toggleDrawer(false));
+
+  chatForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!chatInput) return;
+    const userText = chatInput.value.trim();
+    if (!userText) return;
+
+    chatInput.value = "";
+    appendMessage("user", userText);
+    history.push({ role: "user", content: userText });
+
+    const typingEl = appendTyping();
+    const sessionPayload = initOrGetSession();
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: history,
+          session: sessionPayload,
+        }),
+      });
+      if (typingEl && typingEl.parentNode) {
+        typingEl.parentNode.removeChild(typingEl);
+      }
+      if (!res.ok) throw new Error("Status: " + res.status);
+      const data = await res.json();
+      const reply = data.reply || "Desculpe, tive um breve desvio de rota na conexão com o orquestrador. Pode repetir sua mensagem?";
+      appendMessage("agent", reply);
+      history.push({ role: "assistant", content: reply });
+    } catch (err) {
+      if (typingEl && typingEl.parentNode) {
+        typingEl.parentNode.removeChild(typingEl);
+      }
+      const fallbackMsg = "Ocorreu um desvio momentâneo na conexão com nosso nó de borda. Por favor, tente enviar novamente.";
+      appendMessage("agent", fallbackMsg);
+      history.push({ role: "assistant", content: fallbackMsg });
+    }
+  });
+
+  setTimeout(() => {
+    if (history.length === 0 && !hasBootstrapped) {
+      bootstrapAgentGreeting();
+    }
+  }, 700);
 
   function appendMessage(role: "user" | "agent", text: string) {
     if (!messagesBox) return;
@@ -122,54 +189,6 @@ import { MessageSquare } from "lucide-astro";
     messagesBox.scrollTop = messagesBox.scrollHeight;
     return item;
   }
-
-  import { initOrGetSession } from "@/lib/session-handler";
-
-  chatForm?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const text = chatInput?.value?.trim();
-    if (!text || !chatInput) return;
-
-    appendMessage("user", text);
-    history.push({ role: "user", content: text });
-    chatInput.value = "";
-    chatInput.disabled = true;
-
-    const typingEl = appendTyping();
-    const sessionPayload = initOrGetSession();
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history, session: sessionPayload }),
-      });
-
-      if (typingEl && typingEl.parentNode) {
-        typingEl.parentNode.removeChild(typingEl);
-      }
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ error: "Erro na requisição" }));
-        appendMessage("agent", `[!] ${err.error || "Ocorreu uma instabilidade pontual. Tente novamente."}`);
-      } else {
-        const data = await res.json();
-        const reply = data.reply || "Desculpe, não consegui processar sua resposta.";
-        appendMessage("agent", reply);
-        history.push({ role: "assistant", content: reply });
-      }
-    } catch (err) {
-      if (typingEl && typingEl.parentNode) {
-        typingEl.parentNode.removeChild(typingEl);
-      }
-      appendMessage("agent", "[!] Erro de rede. Por favor, verifique sua conexão.");
-    } finally {
-      if (chatInput) {
-        chatInput.disabled = false;
-        chatInput.focus();
-      }
-    }
-  });
 </script>
 
 <style>
@@ -187,33 +206,33 @@ import { MessageSquare } from "lucide-astro";
     align-items: center;
     gap: 14px;
     padding: 14px 22px;
-    background: rgba(10, 10, 12, 0.88);
-    border: 1px solid rgba(0, 243, 255, 0.35);
+    background: rgba(16, 18, 16, 0.65);
+    border: 1px solid rgba(237, 255, 0, 0.22);
     border-radius: 100px;
-    color: #fff;
+    color: var(--text);
     cursor: pointer;
     box-shadow:
       0 12px 32px rgba(0, 0, 0, 0.6),
-      0 0 24px rgba(0, 243, 255, 0.15);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
+      0 0 20px rgba(237, 255, 0, 0.08);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(20px) saturate(140%);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .chat-bubble:hover {
     transform: translateY(-3px) scale(1.02);
-    border-color: #00f3ff;
+    border-color: rgba(237, 255, 0, 0.5);
     box-shadow:
       0 16px 42px rgba(0, 0, 0, 0.8),
-      0 0 36px rgba(0, 243, 255, 0.35);
+      0 0 28px rgba(237, 255, 0, 0.15);
   }
 
   .chat-bubble i {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #00ff66;
-    box-shadow: 0 0 10px #00ff66;
+    background: var(--acid);
+    box-shadow: 0 0 8px var(--acid);
     animation: pulse 2s infinite;
   }
 
@@ -224,12 +243,12 @@ import { MessageSquare } from "lucide-astro";
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: -0.02em;
-    color: #fff;
+    color: var(--text);
   }
 
   .chat-bubble span small {
     font-size: 0.72rem;
-    color: #00f3ff;
+    color: var(--acid);
     font-weight: 500;
   }
 
@@ -245,14 +264,14 @@ import { MessageSquare } from "lucide-astro";
     width: 380px;
     height: 540px;
     max-height: calc(100vh - 110px);
-    background: rgba(10, 10, 14, 0.94);
-    border: 1px solid rgba(0, 243, 255, 0.28);
+    background: rgba(16, 18, 16, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 20px;
     box-shadow:
       0 24px 70px rgba(0, 0, 0, 0.85),
-      0 0 40px rgba(0, 243, 255, 0.08);
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
+      0 0 40px rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    backdrop-filter: blur(28px) saturate(160%);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -275,8 +294,8 @@ import { MessageSquare } from "lucide-astro";
     justify-content: space-between;
     align-items: center;
     padding: 16px 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--line);
   }
 
   .header-status {
@@ -289,20 +308,20 @@ import { MessageSquare } from "lucide-astro";
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #00ff66;
-    box-shadow: 0 0 10px #00ff66;
+    background: var(--acid);
+    box-shadow: 0 0 8px var(--acid);
   }
 
   .header-title {
     font-weight: 700;
     font-size: 0.95rem;
-    color: #fff;
+    color: var(--text);
     letter-spacing: -0.01em;
   }
 
   .header-title small {
     font-size: 0.68rem;
-    color: #00f3ff;
+    color: var(--acid);
     font-family: var(--font-mono, monospace);
     margin-left: 4px;
   }
@@ -319,21 +338,21 @@ import { MessageSquare } from "lucide-astro";
     text-decoration: none;
     padding: 4px 8px;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     transition: all 0.2s;
   }
 
   .full-btn:hover {
-    color: #00f3ff;
-    border-color: #00f3ff;
-    background: rgba(0, 243, 255, 0.08);
+    color: var(--acid);
+    border-color: var(--acid);
+    background: rgba(237, 255, 0, 0.08);
   }
 
   .close-btn {
     background: none;
     border: none;
-    color: #fff;
+    color: var(--text);
     font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
@@ -344,7 +363,7 @@ import { MessageSquare } from "lucide-astro";
 
   .close-btn:hover {
     opacity: 1;
-    color: #ff0055;
+    color: var(--orange);
   }
 
   /* Área de Mensagens */
@@ -386,16 +405,16 @@ import { MessageSquare } from "lucide-astro";
   .msg-label {
     font-size: 0.66rem;
     font-family: var(--font-mono, monospace);
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.45);
     margin-bottom: 4px;
     letter-spacing: 0.04em;
   }
 
   .msg-item.agent .msg-label {
-    color: #00f3ff;
+    color: var(--acid);
   }
   .msg-item.user .msg-label {
-    color: #00ff66;
+    color: var(--orange);
   }
 
   .msg-bubble {
@@ -403,18 +422,18 @@ import { MessageSquare } from "lucide-astro";
     font-size: 0.9rem;
     line-height: 1.5;
     border-radius: 14px;
-    color: #e0e0e0;
+    color: var(--text);
   }
 
   .msg-item.agent .msg-bubble {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-top-left-radius: 4px;
   }
 
   .msg-item.user .msg-bubble {
-    background: rgba(0, 243, 255, 0.12);
-    border: 1px solid rgba(0, 243, 255, 0.25);
+    background: rgba(237, 255, 0, 0.08);
+    border: 1px solid rgba(237, 255, 0, 0.22);
     color: #fff;
     border-top-right-radius: 4px;
   }
@@ -430,7 +449,7 @@ import { MessageSquare } from "lucide-astro";
   .dot {
     width: 6px;
     height: 6px;
-    background: #00f3ff;
+    background: var(--acid);
     border-radius: 50%;
     animation: bounce 1.4s infinite ease-in-out both;
   }
@@ -448,13 +467,13 @@ import { MessageSquare } from "lucide-astro";
     gap: 10px;
     padding: 14px 16px;
     background: rgba(255, 255, 255, 0.02);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--line);
   }
 
   .drawer-input-bar input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 10px 14px;
     color: #fff;
@@ -464,13 +483,13 @@ import { MessageSquare } from "lucide-astro";
   }
 
   .drawer-input-bar input:focus {
-    border-color: #00f3ff;
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--acid);
+    background: rgba(255, 255, 255, 0.07);
   }
 
   .send-btn {
-    background: #00f3ff;
-    color: #000;
+    background: var(--acid);
+    color: var(--bg);
     border: none;
     border-radius: 10px;
     width: 42px;
@@ -482,7 +501,7 @@ import { MessageSquare } from "lucide-astro";
   }
 
   .send-btn:hover {
-    background: #00ff66;
+    background: #fff;
     transform: scale(1.05);
   }
 

@@ -12,7 +12,7 @@ Version: v1.0.0
 
 ## ⟠ Objetivo
 
-Definir a especificação visual canônica do banner SVG vetorial para o repositório `neo-landing-sdr`, assegurando coerência com a identidade institucional **NEO-FlowOFF Ecosystem**.
+Definir a especificação visual canônica do banner SVG vetorial para o repositório `neo-landing-sdr`, assegurando coerência com a identidade institucional **NEO-FlowOFF Ecosystem · neoflowoff.agency**.
 
 ────────────────────────────────────────
 
@@ -43,14 +43,14 @@ Definir a especificação visual canônica do banner SVG vetorial para o reposit
 
 1. **Símbolo Concêntrico (Esquerda):** Representa o ponto de entrada da operação de tração.
 2. **Primeiro Cartão (Funções Principais):**
-   * `captureLead(sdrPrompt)`
-   * `calculateROAS(metrics)`
-   * `routeToChatSDR(session)`
+   * `captureLead(poiSignal)`
+   * `qualifyIntent(context)`
+   * `routeToChat(NEØ_one)`
 3. **Segundo Cartão (Conceitos do Domínio):**
-   * Título: `TRACTION ENGINE V1`
-   * `Astro 5 + Cloudflare Edge Runtime`
-   * `Direct CTA to chat.neoflowoff.agency`
-   * `Meta CAPI & Server-side Conversion`
+   * Título: `AGENT SDR IA · ACTIVE`
+   * `◆ Astro 5 + Cloudflare Edge Runtime`
+   * `◆ Direct CTA to chat.neoflowoff.agency`
+   * `◆ Meta CAPI & Server-side Conversion`
 4. **Rodapé / Identidade:**
    * Título em destaque: `neo-landing-sdr`
-   * Subtítulo: `AI SDR Plug & Play Landing Page & Lead Conversion Vitrine`
+   * Subtítulo: `Operação SDR IA Plug & Play · Superfície de Atendimento e Tração`

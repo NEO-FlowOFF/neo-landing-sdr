@@ -1,39 +1,733 @@
 ---
-import Layout from '../layouts/Layout.astro';
 import Header from '@/components/Header.astro';
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdated = '15 de julho de 2026';
+
+const businessWhatsappBaseUrl =
+  import.meta.env.PUBLIC_WHATSAPP_BUSINESS_BASE_URL;
+
+const privacyEmail =
+  import.meta.env.PUBLIC_PRIVACY_EMAIL;
+
+const whatsappMessage = encodeURIComponent(
+  'Olá! Vim pela página de Tratamento de Dados e Confidencialidade do Diagnóstico da neoflowoff.agency e gostaria de esclarecer uma dúvida.'
+);
+
+const contactHref = businessWhatsappBaseUrl
+  ? `${businessWhatsappBaseUrl}?text=${whatsappMessage}`
+  : privacyEmail
+    ? `mailto:${privacyEmail}`
+    : '/contato';
+
+const contactLabel = businessWhatsappBaseUrl
+  ? 'Falar com a equipe'
+  : privacyEmail || 'Entrar em contato';
+
+const isExternalContact = contactHref.startsWith('http');
 ---
-<Layout title="Tratamento de Dados e Diagnóstico | neoflowoff.agency" description="Como tratamos e protegemos os dados de diagnóstico comercial submetidos à neoflowoff.agency.">
+
+<Layout
+  title="Tratamento de Dados e Confidencialidade do Diagnóstico | neoflowoff.agency"
+  description="Como a neoflowoff.agency trata dados pessoais e informações comerciais compartilhadas durante diagnósticos, conversas e projetos."
+>
   <div class="page-shell">
     <Header />
-    <main class="section" style="max-width: 900px; margin: auto; padding-top: 60px; padding-bottom: 120px;">
-      <span class="kicker" style="background: var(--olive); color: var(--acid); padding: 5px 11px; border-radius: 4px; font-weight: 600;">INSTITUCIONAL & SEGURANÇA</span>
-      <h1 style="font-size: clamp(36px, 4vw, 54px); margin: 24px 0;">Tratamento de Dados do <span style="color: var(--acid);">Diagnóstico</span></h1>
-      
-      <div style="color: #cdd2c8; font-size: 15px; line-height: 1.8; display: flex; flex-direction: column; gap: 24px;">
-        <p>A confidencialidade das estratégias comerciais, volumes de tráfego, taxas de conversão e gargalos operacionais da sua empresa é a premissa fundamental do trabalho da <strong>neoflowoff.agency</strong>.</p>
 
-        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">1. Isolamento das Informações de Diagnóstico</h2>
-        <p>Ao compartilhar detalhes sobre sua equipe, ferramentas (CRM, automações, Meta Ads) ou dificuldades operacionais com o agente <strong>NEØ:one</strong> ou com nossos especialistas durante o diagnóstico inicial, essas informações são tratadas sob estrito sigilo comercial e armazenadas de forma isolada.</p>
+    <main class="data-page">
+      <article class="data-document">
+        <header class="document-header">
+          <span class="kicker">PRIVACIDADE · CONFIDENCIALIDADE</span>
 
-        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">2. Não-Utilização para Fins de Concorrência</h2>
-        <p>Garantimos formalmente que nenhum dado estatístico, estratégia de aquisição ou métrica de conversão obtida durante o diagnóstico será revelada, compartilhada ou utilizada em benefício de outras empresas ou concorrentes.</p>
+          <h1>
+            Dados e informações do
+            <span>diagnóstico</span>
+          </h1>
 
-        <h2 style="font-size: 22px; color: #fff; margin-top: 16px;">3. Retenção e Exclusão Pós-Diagnóstico</h2>
-        <p>Caso a sua empresa opte por não prosseguir com a implantação da infraestrutura autônoma após a fase de diagnóstico e desenho de solução, você pode requerer a exclusão imediata e definitiva de todas as anotações, históricos de conversa e registros de diagnóstico dos nossos bancos de dados de borda.</p>
+          <p class="document-intro">
+            Durante uma conversa comercial, uma empresa pode compartilhar
+            informações sobre atendimento, equipe, mídia, vendas, processos,
+            ferramentas e gargalos internos.
+          </p>
 
-        <div style="margin-top: 30px; padding: 20px; background: var(--panel); border: 1px solid var(--line);">
-          <strong>Ficou com alguma dúvida sobre sigilo e segurança?</strong><br />
-          Fale diretamente com nossa equipe ou acesse nosso canal oficial em <a href="https://chat.neoflowoff.agency" style="color: var(--acid); text-decoration: underline;">https://chat.neoflowoff.agency</a>.
+          <p class="document-intro">
+            Esta página explica como a <strong>neoflowoff.agency</strong>
+            trata essas informações e complementa nossa
+            <a href="/privacidade">Política de Privacidade</a>.
+          </p>
+
+          <div class="document-meta">
+            <span>Última atualização: {lastUpdated}</span>
+            <span>Aplicável aos diagnósticos e conversas comerciais</span>
+          </div>
+        </header>
+
+        <aside class="summary-card">
+          <strong>Em termos diretos</strong>
+
+          <p>
+            Utilizamos o que você compartilha para compreender o cenário,
+            avaliar viabilidade, desenhar uma possível solução e conduzir a
+            relação comercial. Não utilizamos informações confidenciais
+            identificáveis para beneficiar concorrentes.
+          </p>
+        </aside>
+
+        <nav class="document-index" aria-label="Índice da página">
+          <strong>Nesta página</strong>
+
+          <div class="index-links">
+            <a href="#escopo">Escopo</a>
+            <a href="#coleta">Informações tratadas</a>
+            <a href="#finalidade">Finalidades</a>
+            <a href="#confidencialidade">Confidencialidade</a>
+            <a href="#inteligencia-artificial">Inteligência artificial</a>
+            <a href="#retencao">Retenção e exclusão</a>
+            <a href="#seguranca">Segurança</a>
+            <a href="#contato">Solicitações</a>
+          </div>
+        </nav>
+
+        <div class="document-content">
+          <section id="escopo">
+            <h2>
+              <span class="section-number">01</span>
+              Escopo desta página
+            </h2>
+
+            <p>
+              Esta página se aplica às informações compartilhadas durante
+              conversas pelo site, WhatsApp, formulários, reuniões, propostas,
+              experiências de diagnóstico e demais canais oficiais da
+              neoflowoff.agency.
+            </p>
+
+            <p>
+              Existem duas categorias que podem aparecer durante esse processo:
+            </p>
+
+            <div class="data-grid">
+              <div class="data-card">
+                <h3>Dados pessoais</h3>
+
+                <p>
+                  Informações relacionadas a uma pessoa, como nome, cargo,
+                  telefone, e-mail, mensagens e identificadores técnicos.
+                </p>
+              </div>
+
+              <div class="data-card">
+                <h3>Informações empresariais</h3>
+
+                <p>
+                  Processos, métricas, estratégias, ferramentas, fluxos,
+                  integrações, dificuldades operacionais e dados internos da
+                  organização.
+                </p>
+              </div>
+            </div>
+
+            <p>
+              Dados pessoais são tratados de acordo com a legislação aplicável.
+              Informações empresariais estratégicas são protegidas por medidas
+              de confidencialidade e, quando necessário, por propostas,
+              contratos ou acordos específicos.
+            </p>
+          </section>
+
+          <section id="coleta">
+            <h2>
+              <span class="section-number">02</span>
+              Informações que podem ser tratadas
+            </h2>
+
+            <p>
+              Dependendo da conversa e do estágio do diagnóstico, podem ser
+              compartilhadas informações como:
+            </p>
+
+            <ul>
+              <li>nome, empresa, cargo e canais de contato;</li>
+              <li>estrutura atual de atendimento e vendas;</li>
+              <li>volume aproximado de contatos ou oportunidades;</li>
+              <li>ferramentas, CRM, automações e integrações utilizadas;</li>
+              <li>canais de aquisição e operação de mídia;</li>
+              <li>gargalos, atrasos, perdas e dificuldades operacionais;</li>
+              <li>objetivos, prioridades e requisitos do projeto;</li>
+              <li>mensagens e documentos enviados voluntariamente.</li>
+            </ul>
+
+            <div class="notice">
+              <strong>Compartilhe somente o necessário.</strong>
+
+              <p>
+                Não envie senhas, chaves de API, credenciais, dados bancários
+                completos, documentos pessoais, dados médicos ou informações
+                sensíveis que não sejam indispensáveis para o diagnóstico.
+              </p>
+            </div>
+          </section>
+
+          <section id="finalidade">
+            <h2>
+              <span class="section-number">03</span>
+              Para que utilizamos essas informações
+            </h2>
+
+            <p>
+              As informações compartilhadas podem ser utilizadas para:
+            </p>
+
+            <ul>
+              <li>compreender o contexto e o problema apresentado;</li>
+              <li>avaliar viabilidade técnica, operacional e comercial;</li>
+              <li>identificar serviços e estruturas compatíveis;</li>
+              <li>preparar diagnóstico, escopo, proposta ou plano de trabalho;</li>
+              <li>dar continuidade à conversa pelo canal escolhido;</li>
+              <li>proteger nossos sistemas e prevenir abuso ou fraude;</li>
+              <li>cumprir obrigações legais e exercer direitos.</li>
+            </ul>
+
+            <p>
+              Aplicamos o princípio da minimização: buscamos trabalhar apenas
+              com as informações necessárias para a finalidade da conversa ou
+              do projeto.
+            </p>
+          </section>
+
+          <section id="confidencialidade">
+            <h2>
+              <span class="section-number">04</span>
+              Confidencialidade e uso restrito
+            </h2>
+
+            <p>
+              O acesso às informações do diagnóstico deve ficar limitado às
+              pessoas e aos fornecedores que precisem delas para atender,
+              avaliar, estruturar ou executar a relação comercial.
+            </p>
+
+            <p>
+              Não utilizamos estratégias, métricas ou informações internas
+              identificáveis de uma empresa para beneficiar diretamente outra
+              empresa ou concorrente.
+            </p>
+
+            <p>
+              Também não publicamos nomes, resultados, telas, documentos ou
+              detalhes de projetos como estudo de caso sem uma base legítima e,
+              quando necessário, autorização específica.
+            </p>
+
+            <div class="highlight-card">
+              <strong>Projetos que exigem sigilo adicional</strong>
+
+              <p>
+                Quando o diagnóstico envolver propriedade intelectual, dados
+                estratégicos relevantes ou acesso a ambientes internos, as
+                condições de confidencialidade poderão ser formalizadas em NDA,
+                proposta ou contrato próprio.
+              </p>
+            </div>
+          </section>
+
+          <section id="inteligencia-artificial">
+            <h2>
+              <span class="section-number">05</span>
+              Uso de inteligência artificial
+            </h2>
+
+            <p>
+              Algumas superfícies da neoflowoff.agency utilizam inteligência
+              artificial para compreender perguntas, organizar contexto, gerar
+              respostas, resumir informações ou apoiar a análise inicial.
+            </p>
+
+            <p>
+              Quando necessário para fornecer essas funções, trechos da
+              interação poderão ser processados por fornecedores de modelos de
+              linguagem, hospedagem, segurança, observabilidade ou
+              infraestrutura.
+            </p>
+
+            <p>
+              A presença do NEØ:one em uma página não significa,
+              automaticamente, que uma oportunidade foi registrada em CRM,
+              persistida em banco de dados ou encaminhada a uma pessoa.
+              A capacidade disponível depende da superfície e do canal
+              utilizados.
+            </p>
+
+            <p>
+              Evite inserir segredos empresariais, credenciais ou informações
+              desnecessariamente sensíveis em uma conversa automatizada.
+            </p>
+          </section>
+
+          <section id="retencao">
+            <h2>
+              <span class="section-number">06</span>
+              Retenção, encerramento e exclusão
+            </h2>
+
+            <p>
+              Os prazos de retenção podem variar conforme o canal utilizado, o
+              estágio da relação, a existência de proposta ou contrato, os
+              requisitos de segurança e as obrigações legais aplicáveis.
+            </p>
+
+            <p>
+              Caso a empresa não prossiga com o projeto, poderá solicitar a
+              exclusão de dados pessoais e registros de diagnóstico mantidos
+              diretamente sob nosso controle.
+            </p>
+
+            <p>
+              A solicitação será analisada de acordo com a legislação e poderá
+              exigir a confirmação da identidade ou da legitimidade do
+              solicitante.
+            </p>
+
+            <p>
+              Algumas informações poderão ser conservadas quando necessário
+              para cumprimento de obrigação legal, exercício regular de
+              direitos, prevenção a fraudes, segurança, manutenção de registros
+              contratuais ou durante ciclos técnicos de backup.
+            </p>
+
+            <p>
+              Quando a eliminação imediata não for tecnicamente possível,
+              buscamos restringir o acesso e concluir a remoção dentro do ciclo
+              operacional aplicável.
+            </p>
+          </section>
+
+          <section id="seguranca">
+            <h2>
+              <span class="section-number">07</span>
+              Medidas de segurança
+            </h2>
+
+            <p>
+              Adotamos medidas técnicas e administrativas compatíveis com a
+              natureza das informações e com os riscos envolvidos em cada
+              operação.
+            </p>
+
+            <p>Essas medidas podem incluir:</p>
+
+            <ul>
+              <li>controle e limitação de acessos;</li>
+              <li>autenticação e gestão de credenciais;</li>
+              <li>conexões criptografadas;</li>
+              <li>separação entre ambientes e projetos;</li>
+              <li>registros técnicos, monitoramento e auditoria;</li>
+              <li>backup e procedimentos de resposta a incidentes;</li>
+              <li>revisão de fornecedores e permissões.</li>
+            </ul>
+
+            <p>
+              Nenhum ambiente digital é completamente imune a falhas ou
+              incidentes. Caso identifiquemos um evento relevante, adotaremos
+              medidas de contenção, análise e comunicação conforme a legislação
+              aplicável.
+            </p>
+          </section>
+
+          <section id="contato">
+            <h2>
+              <span class="section-number">08</span>
+              Dúvidas e solicitações
+            </h2>
+
+            <p>
+              Para solicitar acesso, correção, exclusão ou esclarecimentos sobre
+              informações compartilhadas durante um diagnóstico, utilize nosso
+              canal oficial.
+            </p>
+
+            <div class="contact-card">
+              <div>
+                <span class="contact-label">
+                  Falar sobre privacidade ou confidencialidade
+                </span>
+
+                <p>
+                  Explique brevemente a solicitação e, quando possível, informe
+                  o canal e o período aproximado da interação.
+                </p>
+              </div>
+
+              <a
+                href={contactHref}
+                class="contact-button"
+                target={isExternalContact ? '_blank' : undefined}
+                rel={isExternalContact ? 'noreferrer' : undefined}
+              >
+                {contactLabel}
+              </a>
+            </div>
+          </section>
         </div>
-      </div>
+
+        <aside class="legal-note">
+          <strong>Relação com outros documentos</strong>
+
+          <p>
+            Esta página complementa a Política de Privacidade. Propostas,
+            contratos, NDAs e documentos específicos prevalecem quanto às
+            condições particulares de cada projeto.
+          </p>
+        </aside>
+      </article>
     </main>
-    <footer style="padding: 40px 7vw; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+
+    <footer class="page-footer">
       <span>© {new Date().getFullYear()} neoflowoff.agency</span>
-      <div style="display: flex; gap: 20px;">
+
+      <nav aria-label="Links institucionais">
         <a href="/">Voltar ao início</a>
         <a href="/privacidade">Política de Privacidade</a>
         <a href="/termos">Termos de Uso</a>
-      </div>
+      </nav>
     </footer>
   </div>
 </Layout>
+
+<style>
+  .data-page {
+    width: 100%;
+    padding: 72px 7vw 120px;
+  }
+
+  .data-document {
+    width: min(100%, 980px);
+    margin: 0 auto;
+  }
+
+  .document-header {
+    max-width: 850px;
+  }
+
+  .kicker {
+    display: inline-flex;
+    padding: 6px 12px;
+    border: 1px solid color-mix(in srgb, var(--acid) 28%, transparent);
+    border-radius: 5px;
+    background: var(--olive);
+    color: var(--acid);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  h1 {
+    margin: 26px 0 22px;
+    color: #fff;
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  h1 span {
+    display: block;
+    color: var(--acid);
+  }
+
+  .document-intro {
+    max-width: 780px;
+    margin: 0 0 12px;
+    color: #d3d8d0;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.7;
+  }
+
+  .document-intro a {
+    color: var(--acid);
+  }
+
+  .document-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-top: 28px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .summary-card,
+  .legal-note {
+    margin-top: 42px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--acid) 6%, transparent),
+        transparent 55%
+      ),
+      var(--panel);
+  }
+
+  .summary-card strong,
+  .legal-note strong {
+    color: var(--acid);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .summary-card p,
+  .legal-note p {
+    margin: 10px 0 0;
+    color: #d1d6ce;
+    line-height: 1.7;
+  }
+
+  .document-index {
+    margin: 24px 0 64px;
+    padding: 22px 24px;
+    border: 1px solid var(--line);
+  }
+
+  .document-index > strong {
+    display: block;
+    margin-bottom: 16px;
+    color: #fff;
+    font-size: 13px;
+  }
+
+  .index-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .index-links a {
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: #cbd0c7;
+    font-size: 12px;
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      color 160ms ease,
+      background 160ms ease;
+  }
+
+  .index-links a:hover {
+    border-color: var(--acid);
+    background: color-mix(in srgb, var(--acid) 7%, transparent);
+    color: var(--acid);
+  }
+
+  .document-content {
+    color: #cdd2c8;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  section {
+    padding: 44px 0;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 110px;
+  }
+
+  section:first-child {
+    border-top: 0;
+  }
+
+  h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 0 0 22px;
+    color: #fff;
+    font-size: clamp(22px, 3vw, 29px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .section-number {
+    flex: 0 0 auto;
+    color: var(--acid);
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  p {
+    margin: 0 0 18px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+    padding-left: 21px;
+  }
+
+  li::marker {
+    color: var(--acid);
+  }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 28px 0;
+  }
+
+  .data-card {
+    padding: 20px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .data-card p {
+    margin: 0;
+    color: #bfc5bb;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .notice {
+    margin: 26px 0;
+    padding: 20px;
+    border-left: 2px solid var(--acid);
+    background: color-mix(in srgb, var(--acid) 5%, transparent);
+  }
+
+  .notice strong,
+  .highlight-card strong {
+    color: var(--acid);
+  }
+
+  .notice p,
+  .highlight-card p {
+    margin: 8px 0 0;
+  }
+
+  .highlight-card {
+    margin: 26px 0;
+    padding: 22px;
+    border: 1px solid color-mix(in srgb, var(--acid) 34%, var(--line));
+    background: color-mix(in srgb, var(--acid) 5%, var(--panel));
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 24px;
+    padding: 26px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .contact-label {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .contact-card p {
+    margin: 7px 0 0;
+  }
+
+  .contact-button {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    border: 1px solid var(--acid);
+    border-radius: 4px;
+    color: var(--acid);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      background 160ms ease,
+      color 160ms ease;
+  }
+
+  .contact-button:hover {
+    background: var(--acid);
+    color: #080a07;
+  }
+
+  .legal-note {
+    margin-top: 32px;
+  }
+
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px 7vw;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .page-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .page-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .page-footer a:hover {
+    color: var(--acid);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 720px) {
+    .data-page {
+      padding: 52px 20px 90px;
+    }
+
+    .data-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .document-index {
+      margin-bottom: 42px;
+      padding: 18px;
+    }
+
+    section {
+      padding: 36px 0;
+    }
+
+    .contact-card {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .contact-button {
+      width: 100%;
+      text-align: center;
+    }
+
+    .page-footer {
+      flex-direction: column;
+      padding: 32px 20px;
+    }
+  }
+</style>

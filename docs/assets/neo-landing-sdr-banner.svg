@@ -27,7 +27,7 @@
   <rect x="40" y="40" width="1120" height="340" rx="24" fill="url(#cardGrad)" stroke="#6EE7F9" stroke-width="1.5" stroke-opacity="0.3"/>
 
   <!-- Top Left Label -->
-  <text x="80" y="90" class="mono org">NEO-FLOWOFF ECOSYSTEM</text>
+  <text x="80" y="90" class="mono org">NEO-FLOWOFF ECOSYSTEM · neoflowoff.agency</text>
 
   <!-- Concentric Symbol (Left) -->
   <g transform="translate(130, 210)">
@@ -44,9 +44,9 @@
 
   <!-- Card 1: Capabilities -->
   <rect x="230" y="140" width="310" height="140" rx="12" fill="#09131A" stroke="#6EE7F9" stroke-width="1" stroke-opacity="0.4"/>
-  <text x="255" y="180" class="mono code-accent">captureLead(sdrPrompt)</text>
-  <text x="255" y="212" class="mono code-light">calculateROAS(metrics)</text>
-  <text x="255" y="244" class="mono code-light">routeToChatSDR(session)</text>
+  <text x="255" y="180" class="mono code-accent">captureLead(poiSignal)</text>
+  <text x="255" y="212" class="mono code-light">qualifyIntent(context)</text>
+  <text x="255" y="244" class="mono code-light">routeToChat(NEØ_one)</text>
 
   <!-- Connection Arrow Card 1 -> Card 2 -->
   <line x1="540" y1="210" x2="600" y2="210" stroke="#6EE7F9" stroke-width="2"/>
@@ -54,12 +54,12 @@
 
   <!-- Card 2: Domain Concepts -->
   <rect x="620" y="125" width="480" height="170" rx="14" fill="#09131A" stroke="#D7FF64" stroke-width="1.2" stroke-opacity="0.5"/>
-  <text x="655" y="168" class="mono card-title">TRACTION ENGINE V1</text>
+  <text x="655" y="168" class="mono card-title">AGENT SDR IA · ACTIVE</text>
   <text x="655" y="205" class="mono desc">◆ Astro 5 + Cloudflare Edge Runtime</text>
   <text x="655" y="235" class="mono desc">◆ Direct CTA to chat.neoflowoff.agency</text>
   <text x="655" y="265" class="mono desc">◆ Meta CAPI &amp; Server-side Conversion</text>
 
   <!-- Bottom Left Project Name & Subtitle -->
   <text x="80" y="330" class="mono title">neo-landing-sdr</text>
-  <text x="82" y="360" class="mono subtitle">AI SDR Plug &amp; Play Landing Page &amp; Lead Conversion Vitrine</text>
+  <text x="82" y="360" class="mono subtitle">Operação SDR IA Plug &amp; Play · Superfície de Atendimento e Tração</text>
 </svg>

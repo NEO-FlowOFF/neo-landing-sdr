@@ -3,7 +3,7 @@ const steps = ['Lead chega','Agente atende','Intenção identificada','Contato c
 ---
 <section class="hero section light-section" id="top">
   <div class="hero-copy reveal">
-    <div class="eyebrow"><i></i> NEØ:one · AGENT SDR IA</div>
+    <div class="eyebrow"><i></i> AGENT SDR IA </div>
     <h1>Um Agent SDR IA<br /><span>conectado à sua</span><br />operação comercial.</h1>
     <p class="lead">Atende, identifica intenção, captura contatos, qualifica oportunidades e encaminha cada conversa ao comercial. Diagnóstico e instalação rápida.</p>
     <p class="support"><strong>Operação SDR IA Plug & Play</strong> por neoflowoff.agency, conectando página, agente, dados, Meta CAPI e handoff humano.</p>
@@ -15,7 +15,7 @@ const steps = ['Lead chega','Agente atende','Intenção identificada','Contato c
   <div class="signal-panel reveal" aria-label="Fluxo resumido da operação">
     <div class="panel-top"><span><i></i> OPERAÇÃO ATIVA</span><span>SDR.01</span></div>
     <div class="signal-core"><div class="pulse"></div><span>NEØ:one</span><small>Agent SDR IA</small></div>
-    <ol>{steps.map((step, index) => <li><span>0{index + 1}</span><b>{step}</b><i>✓</i></li>)}</ol>
+    <ol>{steps.map((step, index) => <li class="step-item" style={`--step: ${index};`}><span>0{index + 1}</span><b>{step}</b><i class="step-check">✓</i></li>)}</ol>
     <div class="panel-bottom">SINAL → CONTEXTO → OPORTUNIDADE</div>
   </div>
 </section>

@@ -14,60 +14,40 @@ Version: v1.0.0
 
 ## ⟠ Visão Geral
 
-O repositório **neo-landing-sdr** é a página pública de captura e vitrine tecnológica da oferta comercial **Operação SDR IA Plug & Play** e da categoria **Agent SDR IA** da [neoflowoff.agency](https://neoflowoff.agency).
+O repositório **neo-landing-sdr** é a superfície pública de tração comercial, diagnóstico operacional em tempo real e vitrine arquitetural da oferta **Operação SDR IA Plug & Play** e da categoria **Agent SDR IA** da [neoflowoff.agency](https://neoflowoff.agency).
 
-Desenvolvido para máxima velocidade em borda (*edge runtime*), este projeto atua como primeiro ponto de contato na Operação Tração (V1), qualificando o visitante através da vitrine de diferenciais e encaminhando o lead para fechamento no agente de conversão e diagnóstico operacional **NEØ:one**.
-
-────────────────────────────────────────
-
-## ◈ Arquitetura e Stack
-
-* **Core Framework:** Astro 5 (`^5.12.0`)
-* **Deployment Adapter:** Cloudflare Edge (`@astrojs/cloudflare ^14.0.0` em modo `static` híbrido)
-* **Atendimento na Borda (Widget Flutuante):** Componente `ChatBubble.astro` consumindo a rota `/api/chat` integrada na própria nuvem Edge via OpenAI, carregando os prompts de qualificação do agente **NEØ:one** em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`).
-* **Destino Comercial Fullscreen (CTAs):** `https://chat.neoflowoff.agency` (`neoflowoff-chat-ui`)
-* **Estética Visual:** Matte Black (`#09131A`), tipografia geométrica e acentos neon Cyan (`#6EE7F9`) e Acid Green (`#D7FF64`).
+Projetada para máxima conversão e autoridade técnica sem enquadramentos de protótipo, a página atua como primeiro ponto de contato na Operação Tração (V1), qualificando visitantes através de diferenciais operacionais e encaminhando o lead para fechamento no agente de conversão autônomo **NEØ:one**.
 
 ────────────────────────────────────────
 
-## ❖ Comandos e Desenvolvimento
+## ◈ Proposta Operacional e Superfícies
 
-A interface de terminal recomendada é o `Makefile` canônico do projeto:
+A operação conecta três camadas centrais no ecossistema comercial:
 
-```bash
-# Exibe o menu de comandos disponíveis
-make help
-
-# Instala dependências do projeto
-make install
-
-# Inicia o servidor de desenvolvimento local
-make dev
-
-# Executa o build de produção para Cloudflare Pages
-make build
-
-# Pré-visualiza o build localmente
-make preview
-```
-
-### Acoplamento Automático do Edge Worker (`_worker.js`)
-
-O comando `make build` compila o projeto gerando os arquivos estáticos em `dist/client/` e as rotas dinâmicas em `dist/server/`. 
-Para o deploy nativo no **Cloudflare Pages** sem erros de configuração (`pages_build_output_dir`) ou falha na resolução de pacotes de código (`chunks`), o `Makefile` acopla automaticamente todo o diretório `dist/server/` dentro de `dist/client/_worker.js/` (renomeando `entry.mjs` para `index.js`).
-
-Ao publicar na nuvem:
-
-```bash
-npx -y wrangler@latest pages deploy dist/client --project-name=neo-landing-sdr --branch=main
-```
-
-O Cloudflare Pages reconhece `dist/client/_worker.js/` como o diretório Advanced Mode Worker, garantindo a execução instantânea da rota `/api/chat` no Edge.
+1. **Superfície de Captura e Diagnóstico (`neo-landing-sdr`):**
+   * Apresenta calculadora de ROAS, economia operacional de CPA e diagrama vetorial em tempo real da arquitetura em 10 estágios.
+   * Embarca o widget flutuante interativo (`ChatBubble.astro`) para atendimento instantâneo na própria página.
+2. **Superfície de Conversão e Fechamento Fullscreen (`neoflowoff-chat-ui`):**
+   * Todos os botões de ação e CTAs principais direcionam o lead para a experiência de fechamento em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency`.
+3. **Persistência e Telemetria (`neo-growth-system`):**
+   * Registro integral de permissões, preferências, contexto de intenção e disparo de conversão via Meta CAPI.
 
 ────────────────────────────────────────
 
-## ⬡ Governança e Estilo
+## ❖ Guia de Setup e Documentação Técnica
 
-* **Estilo de Documentação:** Todo Markdown segue o padrão [MARKDOWN_STYLE_GUIDE.md](./MARKDOWN_STYLE_GUIDE.md).
-* **Especificação Arquitetural:** Consulte [CODEX.md](./CODEX.md) e [CONTEXT.md](./CONTEXT.md).
-* **Regras para Agentes IA:** Consulte [AGENTS.md](./AGENTS.md).
+Para instalação, comandos de terminal, especificação arquitetural (Astro 5 + Cloudflare Edge Runtime) e protocolo de acoplamento do worker em borda (`_worker.js`), consulte a documentação dedicada:
+
+* **[SETUP.md](./SETUP.md)** — Guia completo de instalação, comandos (`Makefile`) e arquitetura técnica.
+
+────────────────────────────────────────
+
+## ⬡ Governança e Instruções para Agentes IA
+
+Todo o desenvolvimento no repositório obedece a regras estritas de engenharia de operação sênior e governança visual:
+
+* **Regras para Agentes IA:** [AGENTS.md](./AGENTS.md)
+* **Especificação do Codex:** [CODEX.md](./CODEX.md)
+* **Contexto Arquitetural e de Negócio:** [CONTEXT.md](./CONTEXT.md)
+* **Guia de Estilo Markdown:** [MARKDOWN_STYLE_GUIDE.md](./MARKDOWN_STYLE_GUIDE.md)
+* **Especificação de Banners SVG:** [SVG.md](./SVG.md)

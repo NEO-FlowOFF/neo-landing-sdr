@@ -1,0 +1,85 @@
+---
+// src/components/SEO.astro — Padrão Canônico de SEO // NEØ PROTOCOL
+export interface Props {
+  title: string;
+  description: string;
+  canonicalURL?: string;
+  type?: 'WebSite' | 'WebPage' | 'SoftwareApplication' | 'Article';
+  image?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalURL,
+  type = 'SoftwareApplication',
+  image = '/og-image.png'
+} = Astro.props;
+
+// Purificação de rota server-side: garante canonical limpo de parâmetros UTM/busca
+const origin = Astro.url.origin !== 'http://localhost:4321' ? Astro.url.origin : 'https://sdr.neoflowoff.agency';
+const cleanPathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const cleanCanonical = canonicalURL || `${origin}${cleanPathname !== '/' ? cleanPathname : '/'}`;
+const absoluteImage = image.startsWith('http') ? image : `${origin}${image}`;
+
+const jsonLd: Record<string, any> = {
+  "@context": "http://schema.org",
+  "@type": type,
+  "id": cleanCanonical,
+  "url": cleanCanonical,
+  "name": title,
+  "description": description,
+  "inLanguage": "pt-BR",
+  "copyrightHolder": {
+    "@type": "Organization",
+    "name": "neoflowoff.agency",
+    "url": "https://neoflowoff.agency"
+  }
+};
+
+if (type === 'SoftwareApplication') {
+  jsonLd.applicationCategory = "BusinessApplication";
+  jsonLd.operatingSystem = "Web";
+  jsonLd.offers = {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL",
+    "description": "Diagnóstico e instalação rápida — Operação SDR IA Plug & Play"
+  };
+}
+---
+
+<meta name="description" content={description} />
+<link rel="canonical" href={cleanCanonical} />
+
+<!-- Open Graph / Meta tags canônicas -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={type === 'SoftwareApplication' ? 'website' : type.toLowerCase()} />
+<meta property="og:url" content={cleanCanonical} />
+<meta property="og:image" content={absoluteImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={absoluteImage} />
+
+<!-- JSON-LD Semantic Web // NEØ PROTOCOL -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<script is:inline>
+  // NEØ PROTOCOL Client-Side Route & Canonical Purifier
+  (function() {
+    try {
+      const url = new URL(window.location.href);
+      if (url.search || url.hash) {
+        const cleanUrl = url.origin + url.pathname;
+        let canonicalLink = document.querySelector('link[rel="canonical"]');
+        if (canonicalLink && canonicalLink.getAttribute('href') !== cleanUrl) {
+          canonicalLink.setAttribute('href', cleanUrl);
+        }
+      }
+    } catch (e) {
+      // Falha silenciosa de medição em caso de ambiente restrito
+    }
+  })();
+</script>
