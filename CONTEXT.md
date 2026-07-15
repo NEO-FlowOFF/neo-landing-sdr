@@ -20,12 +20,14 @@ Sua missão não é apenas apresentar informações estáticas, mas provar imedi
 
 ## ◈ Topologia de Integração
 
-1. **Superfície de Captura (`neo-landing-sdr`):**
-   * Apresenta calculadora de ROAS, economia de CPA e diferenciais da infraestrutura autônoma.
-2. **Superfície de Conversão (`neoflowoff-chat-ui`):**
-   * Todos os CTAs direcionam o usuário para `https://chat.neoflowoff.agency`, onde o agente SDR executa a qualificação em tempo real.
+1. **Superfície de Captura (`neo-landing-sdr` & `sdr.neoflowoff.agency`):**
+   * Apresenta calculadora de ROAS, economia de CPA e vitrine dos diferenciais da infraestrutura autônoma.
+   * Embarca o componente Glassmorphic flutuante (`ChatBubble.astro`), que processa as interações comerciais diretamente na borda via rota `/api/chat` conectada à OpenAI (`OPENAI_API_KEY`).
+   * A rota do Edge consome os arquivos de governança conversacional em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`) via imports estáticos `?raw`.
+2. **Superfície de Conversão Fullscreen (`neoflowoff-chat-ui`):**
+   * Todos os CTAs e botões principais de aquisição direcionam o visitante para a experiência dedicada em tela cheia em `https://chat.neoflowoff.agency`.
 3. **Motor Inclusivo de Eventos (`neo-growth-system`):**
-   * Conecta conversões ao CAPI da Meta para otimização de campanhas.
+   * Conecta conversões ao CAPI da Meta para otimização contínua das campanhas.
 
 ────────────────────────────────────────
 

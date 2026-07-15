@@ -23,8 +23,9 @@ Desenvolvido para máxima velocidade em borda (*edge runtime*), este projeto atu
 ## ◈ Arquitetura e Stack
 
 * **Core Framework:** Astro 5 (`^5.12.0`)
-* **Deployment Adapter:** Cloudflare Edge (`@astrojs/cloudflare ^12.6.8`)
-* **Destino Comercial (CTA):** `https://chat.neoflowoff.agency` (`neoflowoff-chat-ui`)
+* **Deployment Adapter:** Cloudflare Edge (`@astrojs/cloudflare ^14.0.0` em modo `static` híbrido)
+* **Atendimento na Borda (Widget Flutuante):** Componente `ChatBubble.astro` consumindo a rota `/api/chat` integrada na própria nuvem Edge via OpenAI, carregando os prompts de qualificação em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`).
+* **Destino Comercial Fullscreen (CTAs):** `https://chat.neoflowoff.agency` (`neoflowoff-chat-ui`)
 * **Estética Visual:** Matte Black (`#09131A`), tipografia geométrica e acentos neon Cyan (`#6EE7F9`) e Acid Green (`#D7FF64`).
 
 ────────────────────────────────────────
@@ -49,6 +50,19 @@ make build
 # Pré-visualiza o build localmente
 make preview
 ```
+
+### Acoplamento Automático do Edge Worker (`_worker.js`)
+
+O comando `make build` compila o projeto gerando os arquivos estáticos em `dist/client/` e as rotas dinâmicas em `dist/server/`. 
+Para o deploy nativo no **Cloudflare Pages** sem erros de configuração (`pages_build_output_dir`) ou falha na resolução de pacotes de código (`chunks`), o `Makefile` acopla automaticamente todo o diretório `dist/server/` dentro de `dist/client/_worker.js/` (renomeando `entry.mjs` para `index.js`).
+
+Ao publicar na nuvem:
+
+```bash
+npx -y wrangler@latest pages deploy dist/client --project-name=neo-landing-sdr --branch=main
+```
+
+O Cloudflare Pages reconhece `dist/client/_worker.js/` como o diretório Advanced Mode Worker, garantindo a execução instantânea da rota `/api/chat` no Edge.
 
 ────────────────────────────────────────
 

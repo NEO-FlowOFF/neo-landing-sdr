@@ -21,16 +21,18 @@ Foi projetado para operar sem latência, convertendo visitantes em leads qualifi
 ## ◈ Especificação Tecnológica
 
 * **Framework Core:** Astro 5 (`^5.12.0`)
-* **Edge Adapter:** `@astrojs/cloudflare` (`^12.6.8`)
+* **Edge Adapter:** `@astrojs/cloudflare` (`^14.1.3` em modo `static` híbrido)
 * **Gerenciador de Pacotes:** `npm` / `pnpm`
 * **Ambiente de Hospedagem:** Cloudflare Pages
+* **Motor Cognitivo do SDR:** OpenAI API (`OPENAI_API_KEY`) no Edge via rota `/api/chat`
 
 ────────────────────────────────────────
 
 ## ❖ Contratos Operacionais e de Tração (V1)
 
-1. **Roteamento Comercial Único:**
-   * Todos os botões de ação principal (CTAs) devem direcionar para o agente conversacional em `https://chat.neoflowoff.agency`.
+1. **Roteamento Comercial Duplo (Bolha + Fullscreen):**
+   * A Landing Page embarca o widget interativo flutuante (`ChatBubble.astro`), que processa o atendimento na própria página usando o endpoint de borda `/api/chat`.
+   * Todos os botões de ação principal (CTAs na página) direcionam para a experiência dedicada em tela cheia em `https://chat.neoflowoff.agency`.
 2. **Integração de Eventos CAPI:**
    * Eventos de conversão e rastreamento são coordenados com o control plane `neo-growth-system`.
 3. **Design System Minimalista:**
@@ -40,7 +42,8 @@ Foi projetado para operar sem latência, convertendo visitantes em leads qualifi
 
 ## ⬡ Estrutura de Diretórios
 
-* `src/pages/` — Páginas estáticas/híbridas renderizadas via Astro.
-* `src/components/` — Componentes reutilizáveis de interface e vitrine tecnológica.
+* `src/pages/` — Páginas renderizadas via Astro e rotas de API (`src/pages/api/chat.ts`).
+* `src/components/` — Componentes reutilizáveis de interface, vitrine tecnológica e widget de atendimento (`ChatBubble.astro`).
+* `src/lib/` — Base de conhecimento, prompts do Agente SDR (`system-prompt.md`, `humanization-skill.md`) e contexto de negócios (`CONTEXT.json`).
 * `src/layouts/` — Layouts estruturais base do site.
 * `docs/assets/` — Diagramas, banners SVG institucionais e documentação técnica.
