@@ -53,9 +53,9 @@ Aplicar efeitos de vidro fosco (`backdrop-filter: blur`), bordas translúcidas i
 
 ## ◈ Fase 2 — Deploy no Cloudflare Pages
 
-* [/] **2.1. Conexão do Repositório:** Configurar projeto no Cloudflare Pages apontando para o repositório `NEO-FlowOFF/neo-landing-sdr` (ou realizar deploy via terminal com `pnpm dlx wrangler pages deploy dist`).
-* [ ] **2.2. Variáveis de Ambiente e Cache:** Validar headers de cache na borda e garantir que variáveis de ambiente (se necessárias para analytics ou CAPI front) estejam injetadas.
-* [ ] **2.3. Domínio de Produção:** Apontar domínio canônico de apresentação comercial e verificar certificado SSL na borda.
+* [x] **2.1. Conexão do Repositório:** Configurar projeto no Cloudflare Pages apontando para o repositório `NEO-FlowOFF/neo-landing-sdr` (ou realizar deploy via terminal com `pnpm dlx wrangler pages deploy dist`).
+* [x] **2.2. Variáveis de Ambiente e Cache:** Validar headers de cache na borda e garantir que variáveis de ambiente (se necessárias para analytics ou CAPI front) estejam injetadas.
+* [x] **2.3. Domínio de Produção:** Apontar domínio canônico de apresentação comercial e verificar certificado SSL na borda.
 
 ────────────────────────────────────────
 
