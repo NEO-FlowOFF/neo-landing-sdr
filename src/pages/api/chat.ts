@@ -65,9 +65,18 @@ export const POST: APIRoute = async ({ request, locals }) => {
       /drop table|<script>|select \* from|union all/i.test(lastUserMsg) ||
       lastUserMsg.length > 800;
 
-    const kv =
-      (locals as any)?.runtime?.env?.SDR_LEADS ||
-      (locals as any)?.runtime?.env?.KV_SDR;
+    let kv: any = null;
+    try {
+      // Tenta acessar bindings (Astro Cloudflare adapter v6+ usa cloudflare.env, versões antigas usavam runtime.env)
+      const cfEnv = (locals as any)?.cloudflare?.env;
+      if (cfEnv) {
+        kv = cfEnv.SDR_LEADS || cfEnv.KV_SDR;
+      } else {
+        kv = (locals as any)?.runtime?.env?.SDR_LEADS || (locals as any)?.runtime?.env?.KV_SDR;
+      }
+    } catch (e) {
+      // Catch necessário pois acessar runtime.env no Astro v6 dispara um TypeError ('has been removed')
+    }
 
     if (isSuspicious) {
       const threatLog = {
