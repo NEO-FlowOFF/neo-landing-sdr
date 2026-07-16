@@ -2,96 +2,202 @@
 import TractionPipeline from '@/components/TractionPipeline.astro';
 
 const items = [
-['Atende','O visitante recebe resposta enquanto ainda está interessado.'],
-['Identifica','O agente entende o contexto, a necessidade e os sinais de intenção comercial.'],
-['Captura','Nome e WhatsApp são obtidos durante a conversa, sem formulário burocrático.'],
-['Registra','Origem, campanha, contexto e estágio do lead são armazenados.'],
-['Encaminha','O comercial recebe o contato acompanhado de um resumo da conversa.'],
-['Conecta','Os eventos de conversão podem retornar para a Meta e alimentar a operação de mídia.']
+  ['Atende', 'O visitante recebe resposta no milissegundo de maior interesse.', 'EDGE_NLP'],
+  ['Identifica', 'Entende o contexto exato e os sinais de intenção de compra.', 'CONTEXT_AI'],
+  ['Captura', 'Nome e WhatsApp são obtidos sem formulários chatos.', 'POI_ENGINE'],
+  ['Registra', 'Origem, campanha e estágio do lead são salvos no ledger.', 'DATA_NODE'],
+  ['Encaminha', 'Comercial recebe o briefing da conversa em tempo real.', 'HANDOFF'],
+  ['Conecta', 'Os dados alimentam a Meta CAPI para otimizar tráfego.', 'CAPI_SYNC']
 ];
 ---
+
 <section class="section flow-section depth-acid-noise" id="como-funciona">
-  <div class="section-head"><span class="kicker">02 / COMO FUNCIONA</span><h2>Da primeira mensagem ao comercial,<br /><em>dentro do mesmo fluxo.</em></h2></div>
+  <div class="section-head">
+    <span class="kicker">02 / COMO FUNCIONA</span>
+    <h2>Da primeira mensagem ao comercial,<br /><em>dentro do mesmo fluxo.</em></h2>
+  </div>
+
   <TractionPipeline class="flow-pipeline-connector" />
-  <div class="flow-grid">{items.map(([title, copy], index) => <article class="flow-card reveal"><div><span>0{index + 1}</span><i></i></div><h3>{title}</h3><p>{copy}</p></article>)}</div>
+
+  <div class="flow-grid">
+    {items.map(([title, copy, module], index) => (
+      <article class="flow-card reveal">
+        <div class="card-inner">
+          <div class="card-meta">
+            <span class="card-num">0{index + 1}</span>
+            <div class="status-indicator">
+              <span class="status-tag">{module}</span>
+              <span class="status-dot"></span>
+            </div>
+          </div>
+          <h3>{title}</h3>
+          <p>{copy}</p>
+        </div>
+      </article>
+    ))}
+  </div>
 </section>
+
 <style>
-.flow-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 70px;
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
-}
-.flow-card {
-  padding: 28px;
-  min-height: 250px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: rgba(11,12,11,.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: all .3s ease;
-}
-.flow-card:hover {
-  background: rgba(18,20,18,.85);
-  border-color: rgba(237,255,0,.35);
-  box-shadow: 0 15px 40px rgba(0,0,0,.6), inset 0 1px 1px rgba(255,255,255,.1);
-  transform: translateY(-3px);
-}
-.flow-card > div {
-  display: flex;
-  justify-content: space-between;
-  color: #666b64;
-  font-size: 11px;
-}
-.flow-card > div i {
-  width: 7px;
-  height: 7px;
-  border: 1px solid var(--acid);
-  border-radius: 50%;
-}
-.flow-card h3 {
-  font: 500 26px Space Grotesk;
-  margin: 55px 0 14px;
-}
-.flow-card p {
-  color: var(--muted);
-}
-.light-section .flow-card p {
-  color: var(--olive);
-}
-.light-section .flow-card {
-  background: rgba(222, 221, 211, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0,0,0,.12);
-  color: #000000;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.06), inset 0 1px 1px rgba(255,255,255,.6);
-  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.light-section .flow-card:hover {
-  background: rgba(222, 221, 211, 0.95);
-  border-color: var(--orange);
-  box-shadow: 
-    0 15px 40px rgba(0,0,0,.12), 
-    inset 0 1px 1px rgba(255,255,255,.8), 
-    0 0 0 1px var(--acid), 
-    0 8px 24px rgba(255, 122, 5, 0.15);
-  transform: translateY(-4px);
-}
-@media (max-width: 900px) {
   .flow-grid {
-    grid-template-columns: 1fr 1fr;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 70px;
   }
-}
-@media (max-width: 560px) {
-  .flow-grid {
-    grid-template-columns: 1fr;
-  }
+
   .flow-card {
-    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    min-height: 220px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    background: rgba(11, 12, 11, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
   }
-}
+
+  .flow-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250%;
+    height: 250%;
+    background-image: radial-gradient(
+      circle,
+      rgba(237, 255, 0, 0.1) 0%,
+      transparent 35%
+    );
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .card-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .flow-card:hover::before {
+    opacity: 1;
+  }
+
+  .flow-card:hover {
+    background: rgba(18, 20, 18, 0.85);
+    border-color: rgba(237, 255, 0, 0.35);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.6), 
+      0 0 20px rgba(237, 255, 0, 0.05),
+      inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .card-num {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    color: #666b64;
+    font-weight: 600;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-tag {
+    font-family: var(--font-mono, monospace);
+    font-size: 9px;
+    color: #8f9488;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--acid, #EDFF00);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--acid, #EDFF00);
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  .flow-card:hover .status-dot {
+    background-color: var(--orange, #FF7A05);
+    box-shadow: 0 0 8px var(--orange, #FF7A05);
+  }
+
+  .flow-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-top: auto;
+    margin-bottom: 12px;
+  }
+
+  .flow-card p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted, #8f9488);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .flow-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .flow-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    .flow-card {
+      padding: 16px;
+      min-height: 150px;
+      border-radius: 12px;
+    }
+
+    .flow-card h3 {
+      font-size: 18px;
+      margin: 28px 0 8px;
+    }
+
+    .flow-card p {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .status-tag {
+      font-size: 7.5px;
+    }
+
+    .status-dot {
+      width: 5px;
+      height: 5px;
+    }
+  }
 </style>
