@@ -72,7 +72,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       if (cfEnv) {
         kv = cfEnv.SDR_LEADS || cfEnv.KV_SDR;
       } else {
-        kv = (locals as any)?.runtime?.env?.SDR_LEADS || (locals as any)?.runtime?.env?.KV_SDR;
+        kv =
+          (locals as any)?.runtime?.env?.SDR_LEADS ||
+          (locals as any)?.runtime?.env?.KV_SDR;
       }
     } catch (e) {
       // Catch necessário pois acessar runtime.env no Astro v6 dispara um TypeError ('has been removed')
@@ -155,9 +157,9 @@ Landing URL: ${session.landing_url || "N/A"}`;
       sessionContextStr,
       `INSTRUÇÕES ADICIONAIS DA BOLHA (EMBED WIDGET):
 Você está atendendo o visitante diretamente no widget flutuante da Landing Page sdr.neoflowoff.agency.
-Seja conciso, natural, focado em qualificar o lead (Nome e WhatsApp) e mostrar na prática como a Operação SDR IA elimina o gargalo comercial dele.
-Se a mensagem recebida for "[INICIAR_DIAGNOSTICO]" ou "[BOOTSTRAP_SESSION]", gere imediatamente uma pergunta inicial única, cirúrgica, consultiva e personalizada de diagnóstico operacional (por exemplo, indagando sobre o principal ponto de atrito no tempo de resposta ou qualificação de leads do visitante), usando o contexto institucional (RAG). Nunca repita frases enlatadas nem saudação de chatbot padrão.
-Sempre conduza o lead para o handoff humano ou para o diagnóstico completo em https://chat.neoflowoff.agency.`,
+Seja conciso, extremamente natural e direto, como um especialista de alto nível, sem usar roteiros prontos ou parecer um bot.
+Se a mensagem recebida for "[INICIAR_DIAGNOSTICO]" ou "[BOOTSTRAP_SESSION]", inicie a conversa de forma empática e aberta para entender a dor da operação comercial do visitante, baseando-se no contexto institucional (RAG). Nunca faça perguntas em formato de múltipla escolha nem use frases enlatadas de vendas. Aja como um consultor humano sênior.
+Sempre conduza o lead de forma fluida para o handoff humano ou diagnóstico completo em https://chat.neoflowoff.agency.`,
     ]
       .filter(Boolean)
       .join("\n\n");
@@ -286,7 +288,7 @@ Sempre conduza o lead para o handoff humano ou para o diagnóstico completo em h
     }
 
     let reply =
-      "Olá! Tivemos uma pequena instabilidade de comunicação no momento, mas como posso ajudar na sua operação comercial?";
+      "⚠️ Falha de comunicação com o servidor de IA. Poderia mandar a mensagem novamente?";
 
     if (data.output && Array.isArray(data.output)) {
       let parsedReply = "";

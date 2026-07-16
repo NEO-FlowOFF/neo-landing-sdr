@@ -79,14 +79,14 @@ import { MessageSquare } from "lucide-astro";
       }
       if (!res.ok) throw new Error("Status: " + res.status);
       const data = await res.json();
-      const reply = data.reply || "Para avaliarmos sua estrutura comercial: onde está o maior gargalo na sua recepção de leads hoje — tempo de resposta, qualificação ou integração com o CRM?";
+      const reply = data.reply || "Olá! Como posso ajudar a destravar sua operação comercial hoje?";
       appendMessage("agent", reply);
       history.push({ role: "assistant", content: reply });
     } catch (err) {
       if (typingEl && typingEl.parentNode) {
         typingEl.parentNode.removeChild(typingEl);
       }
-      const fallbackMsg = "Para avaliarmos sua estrutura comercial: onde está o maior gargalo na sua recepção de leads hoje — tempo de resposta, qualificação ou integração com o CRM?";
+      const fallbackMsg = "Olá! Como posso ajudar a destravar sua operação comercial hoje?";
       appendMessage("agent", fallbackMsg);
       history.push({ role: "assistant", content: fallbackMsg });
     }
@@ -137,14 +137,14 @@ import { MessageSquare } from "lucide-astro";
       }
       if (!res.ok) throw new Error("Status: " + res.status);
       const data = await res.json();
-      const reply = data.reply || "Desculpe, tive um breve desvio de rota na conexão com o orquestrador. Pode repetir sua mensagem?";
+      const reply = data.reply || "⚠️ Sem conexão. Por favor, tente novamente.";
       appendMessage("agent", reply);
       history.push({ role: "assistant", content: reply });
     } catch (err) {
       if (typingEl && typingEl.parentNode) {
         typingEl.parentNode.removeChild(typingEl);
       }
-      const fallbackMsg = "Ocorreu um desvio momentâneo na conexão com nosso nó de borda. Por favor, tente enviar novamente.";
+      const fallbackMsg = "⚠️ Falha na conexão. Verifique sua internet e tente novamente.";
       appendMessage("agent", fallbackMsg);
       history.push({ role: "assistant", content: fallbackMsg });
     }
@@ -156,20 +156,82 @@ import { MessageSquare } from "lucide-astro";
     }
   }, 700);
 
-  function appendMessage(role: "user" | "agent", text: string) {
-    if (!messagesBox) return;
+  function escapeHtml(s: string) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function escapeAttribute(s: string) {
+    return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function formatMarkdown(text: string) {
+    const escaped = escapeHtml(text);
+    const lines = escaped.split('\n');
+    let inCodeBlock = false;
+    const codeLines: string[] = [];
+    let listType: 'ul' | 'ol' | null = null;
+    let listItems: string[] = [];
+    let paraLines: string[] = [];
+    let output = '';
+    const flushPara = () => {
+      if (!paraLines.length) return '';
+      const html = `<p>${paraLines.map(l => inlineMarkdown(l)).join(' ')}</p>`;
+      paraLines = [];
+      return html;
+    };
+    const inlineMarkdown = (value: string) => {
+      const tokens: string[] = [];
+      const preserve = (html: string) => { const index = tokens.push(html) - 1; return `\u0000${index}\u0000`; };
+      let parsed = value;
+      parsed = parsed.replace(/`([^`]+)`/g, (_, codeText) => preserve(`<code>${codeText}</code>`));
+      parsed = parsed.replace(/\[([^\]]+)]\(([^)\n]+)\)/g, (_, linkText, url) => {
+        const cleanUrl = url.trim().replace(/\s+/g, '%20');
+        const safe = /^https?:\/\//i.test(cleanUrl) ? escapeAttribute(cleanUrl) : '#';
+        return preserve(`<a href="${safe}" target="_blank" rel="noreferrer noopener">${linkText}</a>`);
+      });
+      parsed = parsed.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      parsed = parsed.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+      parsed = parsed.replace(/\u0000(\d+)\u0000/g, (_, index) => tokens[Number(index)] ?? '');
+      return parsed;
+    };
+    const flushList = () => {
+      if (!listType) return '';
+      const tag = listType === 'ul' ? 'ul' : 'ol';
+      const html = `<${tag}>${listItems.map(item => `<li>${inlineMarkdown(item.trim())}</li>`).join('')}</${tag}>`;
+      listType = null; listItems = [];
+      return html;
+    };
+    for (const line of lines) {
+      if (line.trim().startsWith('```')) {
+        if (inCodeBlock) { output += `<pre><code>${codeLines.join('\n')}</code></pre>`; codeLines.length = 0; inCodeBlock = false; }
+        else { inCodeBlock = true; }
+        continue;
+      }
+      if (inCodeBlock) { codeLines.push(line); continue; }
+      const headerMatch = line.match(/^\s{0,3}(#{1,6})\s+(.+)$/);
+      const blockquoteMatch = line.match(/^\s{0,3}>\s?(.*)$/);
+      const unorderedMatch = line.match(/^\s*[-*+]\s+(.+)$/);
+      const orderedMatch = line.match(/^\s*(\d+)\.\s+(.+)$/);
+      if (headerMatch) { output += flushPara(); output += flushList(); output += `<h${headerMatch[1].length}>${inlineMarkdown(headerMatch[2].trim())}</h${headerMatch[1].length}>`; continue; }
+      if (blockquoteMatch) { output += flushPara(); output += flushList(); output += `<blockquote>${inlineMarkdown(blockquoteMatch[1].trim())}</blockquote>`; continue; }
+      if (unorderedMatch) { output += flushPara(); if (listType === 'ol') output += flushList(); listType = 'ul'; listItems.push(unorderedMatch[1]); continue; }
+      if (orderedMatch) { output += flushPara(); if (listType === 'ul') output += flushList(); listType = 'ol'; listItems.push(orderedMatch[2]); continue; }
+      output += flushList();
+      if (line.trim() === '') { output += flushPara(); } else { paraLines.push(line); }
+    }
+    output += flushPara();
+    output += flushList();
+    return output;
+  }
+
+  function appendMessage(role: "user" | "agent", text: string) {    if (!messagesBox) return;
     const item = document.createElement("div");
     item.className = `msg-item ${role}`;
     
-    const label = document.createElement("span");
-    label.className = "msg-label";
-    label.textContent = role === "user" ? "VISITANTE" : "NEØ:one";
-
     const bubble = document.createElement("div");
     bubble.className = "msg-bubble";
-    bubble.innerHTML = text.replace(/\n/g, "<br/>");
+    bubble.innerHTML = formatMarkdown(text);
 
-    item.appendChild(label);
     item.appendChild(bubble);
     messagesBox.appendChild(item);
     messagesBox.scrollTop = messagesBox.scrollHeight;
@@ -180,7 +242,6 @@ import { MessageSquare } from "lucide-astro";
     const item = document.createElement("div");
     item.className = "msg-item agent typing";
     item.innerHTML = `
-      <span class="msg-label">NEØ:one</span>
       <div class="msg-bubble">
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
@@ -191,7 +252,7 @@ import { MessageSquare } from "lucide-astro";
   }
 </script>
 
-<style>
+<style is:global>
   .widget-container {
     position: fixed;
     bottom: 24px;
@@ -402,21 +463,6 @@ import { MessageSquare } from "lucide-astro";
     align-items: flex-end;
   }
 
-  .msg-label {
-    font-size: 0.66rem;
-    font-family: var(--font-mono, monospace);
-    color: rgba(255, 255, 255, 0.45);
-    margin-bottom: 4px;
-    letter-spacing: 0.04em;
-  }
-
-  .msg-item.agent .msg-label {
-    color: var(--acid);
-  }
-  .msg-item.user .msg-label {
-    color: var(--orange);
-  }
-
   .msg-bubble {
     padding: 12px 16px;
     font-size: 0.9rem;
@@ -436,6 +482,33 @@ import { MessageSquare } from "lucide-astro";
     border: 1px solid rgba(237, 255, 0, 0.22);
     color: #fff;
     border-top-right-radius: 4px;
+  }
+
+  /* Formatação Markdown interna */
+  .msg-bubble p {
+    margin: 0 0 8px 0;
+  }
+  .msg-bubble p:last-child {
+    margin-bottom: 0;
+  }
+  .msg-bubble strong {
+    font-weight: 700;
+    color: inherit;
+  }
+  .msg-bubble a {
+    color: var(--acid);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .msg-bubble a:hover {
+    color: var(--orange);
+  }
+  .msg-bubble ul, .msg-bubble ol {
+    margin: 8px 0;
+    padding-left: 20px;
+  }
+  .msg-bubble li {
+    margin-bottom: 4px;
   }
 
   /* Typing Indicator */
