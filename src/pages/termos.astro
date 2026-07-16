@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
 ---
 <Layout title="Termos de Uso | neoflowoff.agency" description="Termos de Uso e Condições Gerais da arquitetura e operação comercial da neoflowoff.agency.">
   <div class="page-shell">
@@ -30,13 +31,6 @@ import Header from '@/components/Header.astro';
         </div>
       </div>
     </main>
-    <footer style="padding: 40px 7vw; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
-      <span>© {new Date().getFullYear()} neoflowoff.agency</span>
-      <div style="display: flex; gap: 20px;">
-        <a href="/">Voltar ao início</a>
-        <a href="/privacidade">Política de Privacidade</a>
-        <a href="/tratamento-dados">Tratamento de Dados</a>
-      </div>
-    </footer>
+    <Footer />
   </div>
 </Layout>

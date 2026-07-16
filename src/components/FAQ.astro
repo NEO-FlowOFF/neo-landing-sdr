@@ -12,3 +12,57 @@ const faqs = [
   <div class="section-head"><span class="kicker">08 / FAQ</span><h2>Perguntas antes de colocar<br /><em>a operação para rodar.</em></h2></div>
   <div class="faq-list">{faqs.map(([q,a], index) => <details class="reveal"><summary><span>0{index+1}</span>{q}<i>+</i></summary><p>{a}</p></details>)}</div>
 </section>
+<style>
+.faq-list {
+  margin-top: 60px;
+  border-top: 1px solid var(--line);
+}
+details {
+  border-bottom: 1px solid var(--line);
+}
+summary {
+  cursor: pointer;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 60px 1fr 30px;
+  padding: 24px 0;
+  font: 500 18px Space Grotesk;
+}
+summary span {
+  font: 10px Geist;
+  color: #62675f;
+  padding-top: 6px;
+}
+summary i {
+  color: var(--acid);
+  font-style: normal;
+  font-size: 22px;
+  transition: .2s;
+}
+details[open] summary i {
+  transform: rotate(45deg);
+}
+details p {
+  margin: 0 60px 25px;
+  max-width: 700px;
+  color: var(--muted);
+}
+.light-section summary {
+  color: #000000;
+}
+.light-section summary i {
+  color: var(--orange);
+}
+.light-section details p, .light-section summary span {
+  color: var(--olive);
+}
+@media (max-width: 560px) {
+  summary {
+    grid-template-columns: 35px 1fr 25px;
+    font-size: 16px;
+  }
+  details p {
+    margin-left: 35px;
+  }
+}
+</style>

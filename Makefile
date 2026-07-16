@@ -111,9 +111,9 @@ check: ## Executa a verificação estática do projeto Astro isolado
 # ========================================
 #   CLEAN
 # ========================================
-clean: ## Remove dist/ e .astro/ — preserva o lockfile e node_modules
-	@printf "$(YELLOW)◆ Limpando artefatos de build gerados (dist/ e .astro/)...$(RESET)\n"
-	rm -rf dist .astro
+clean: ## Remove dist/, .astro/ e .wrangler/ — preserva o lockfile e node_modules
+	@printf "$(YELLOW)◆ Limpando artefatos de build gerados (dist/, .astro/ e .wrangler/)...$(RESET)\n"
+	rm -rf dist .astro .wrangler
 	@printf "$(GREEN)✓ Limpeza concluída. lockfile preservado.$(RESET)\n"
 
 # ========================================

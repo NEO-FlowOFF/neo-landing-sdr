@@ -15,3 +15,83 @@ const items = [
   <TractionPipeline class="flow-pipeline-connector" />
   <div class="flow-grid">{items.map(([title, copy], index) => <article class="flow-card reveal"><div><span>0{index + 1}</span><i></i></div><h3>{title}</h3><p>{copy}</p></article>)}</div>
 </section>
+<style>
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 70px;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.flow-card {
+  padding: 28px;
+  min-height: 250px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(11,12,11,.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all .3s ease;
+}
+.flow-card:hover {
+  background: rgba(18,20,18,.85);
+  border-color: rgba(237,255,0,.35);
+  box-shadow: 0 15px 40px rgba(0,0,0,.6), inset 0 1px 1px rgba(255,255,255,.1);
+  transform: translateY(-3px);
+}
+.flow-card > div {
+  display: flex;
+  justify-content: space-between;
+  color: #666b64;
+  font-size: 11px;
+}
+.flow-card > div i {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--acid);
+  border-radius: 50%;
+}
+.flow-card h3 {
+  font: 500 26px Space Grotesk;
+  margin: 55px 0 14px;
+}
+.flow-card p {
+  color: var(--muted);
+}
+.light-section .flow-card p {
+  color: var(--olive);
+}
+.light-section .flow-card {
+  background: rgba(222, 221, 211, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0,0,0,.12);
+  color: #000000;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06), inset 0 1px 1px rgba(255,255,255,.6);
+  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.light-section .flow-card:hover {
+  background: rgba(222, 221, 211, 0.95);
+  border-color: var(--orange);
+  box-shadow: 
+    0 15px 40px rgba(0,0,0,.12), 
+    inset 0 1px 1px rgba(255,255,255,.8), 
+    0 0 0 1px var(--acid), 
+    0 8px 24px rgba(255, 122, 5, 0.15);
+  transform: translateY(-4px);
+}
+@media (max-width: 900px) {
+  .flow-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .flow-grid {
+    grid-template-columns: 1fr;
+  }
+  .flow-card {
+    min-height: 210px;
+  }
+}
+</style>

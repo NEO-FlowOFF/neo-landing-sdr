@@ -3,8 +3,8 @@ import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import GanttDeployment from '@/components/GanttDeployment.astro';
 import ChatBubble from '@/components/ChatBubble.astro';
-import MetaProviderBadge from '@/components/MetaProviderBadge.astro';
 import AgentNodeIcon from '@/components/AgentNodeIcon.astro';
+import Footer from '@/components/Footer.astro';
 
 const chat = 'https://chat.neoflowoff.agency';
 const offer = [
@@ -74,24 +74,7 @@ const offer = [
       <!-- GRÁFICO DE GANTT / CRONOGRAMA DA IMPLANTAÇÃO -->
       <GanttDeployment />
     </main>
-
-    <footer>
-      <div class="footer-brand">
-        <a class="brand" href="/" aria-label="neoflowoff.agency — início">neoflowoff.agency</a>
-        <MetaProviderBadge variant="dark" />
-      </div>
-      <p>Agentes de IA, páginas, CRM e fluxos comerciais para empresas.<br />Marketing com infraestrutura.</p>
-      <div class="footer-links">
-        <a href="https://www.instagram.com/neoflw.agency" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://linkedin.com/company/neoflw-agency" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://wa.me/556262994789032?text=Ol%C3%A1%21+Gostaria+de+avaliar+minha+opera%C3%A7%C3%A3o+com+a+neoflowoff.agency" target="_blank" rel="noopener noreferrer">Falar pelo WhatsApp</a>
-        <a href={chat} class="neo-sdr-link">Conversar com o NEØ:one</a>
-        <a href="/privacidade">Política de Privacidade</a>
-        <a href="/termos">Termos de Uso</a>
-        <a href="/tratamento-dados">Tratamento de Dados</a>
-      </div>
-      <small>© {new Date().getFullYear()} neoflowoff.agency</small>
-    </footer>
+    <Footer />
   </div>
   <ChatBubble />
   <script>

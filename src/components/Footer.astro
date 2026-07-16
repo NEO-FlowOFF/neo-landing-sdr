@@ -1,0 +1,223 @@
+---
+import MetaProviderBadge from '@/components/MetaProviderBadge.astro';
+
+const chat = 'https://chat.neoflowoff.agency';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="neo-footer" aria-label="Rodapé do site">
+  <div class="footer-top">
+    <div class="footer-brand-col">
+      <a class="brand" href="#top" aria-label="neoflowoff.agency — início">neoflowoff.agency</a>
+      <div class="badge-wrapper">
+        <MetaProviderBadge variant="dark" />
+      </div>
+      <p class="manifesto">
+        Agentes de IA, páginas, CRM e fluxos comerciais para empresas.<br />
+        Marketing com infraestrutura e precisão operacional.
+      </p>
+    </div>
+
+    <div class="footer-nav-col">
+      <h3 class="col-title">Ecossistema & Tração</h3>
+      <ul class="footer-links-list">
+        <li>
+          <a href={chat} class="neo-sdr-link highlight-link">
+            Conversar com o NEØ:one <span class="arrow">↗</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/556262994789032?text=Ol%C3%A1%21+Gostaria+de+avaliar+minha+opera%C3%A7%C3%A3o+com+a+neoflowoff.agency" target="_blank" rel="noopener noreferrer">
+            Falar pelo WhatsApp <span class="arrow">↗</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/neoflw.agency" target="_blank" rel="noopener noreferrer">
+            Instagram <span class="arrow">↗</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://linkedin.com/company/neoflw-agency" target="_blank" rel="noopener noreferrer">
+            LinkedIn <span class="arrow">↗</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-nav-col">
+      <h3 class="col-title">Governança & Legal</h3>
+      <ul class="footer-links-list">
+        <li><a href="/privacidade">Política de Privacidade</a></li>
+        <li><a href="/termos">Termos de Uso</a></li>
+        <li><a href="/tratamento-dados">Tratamento de Dados</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-legal">
+      <span>© {currentYear} neoflowoff.agency — Todos os direitos reservados.</span>
+    </div>
+    <div class="footer-protocol">
+      <span>Protocol : NΞØ Protocol <strong class="code-law">(Code is Law)</strong></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .neo-footer {
+    background: #000000;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #f0f2ed;
+    position: relative;
+    z-index: 10;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1.2fr;
+    gap: 4vw;
+    padding: 70px 7vw 50px;
+  }
+
+  .footer-brand-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .brand {
+    font-family: var(--font-mono, monospace);
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  .brand:hover {
+    color: var(--acid, #EDFF00);
+  }
+
+  .manifesto {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #8f9488;
+    margin: 4px 0 0;
+    max-width: 360px;
+  }
+
+  .col-title {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--orange, #FF7A05);
+    margin: 0 0 18px;
+    opacity: 0.9;
+  }
+
+  .footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links-list a {
+    color: #cdd2c8;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+  }
+
+  .footer-links-list a:hover {
+    color: var(--acid, #EDFF00);
+    transform: translateX(3px);
+  }
+
+  .footer-links-list a.highlight-link {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .footer-links-list a.highlight-link:hover {
+    color: var(--acid, #EDFF00);
+  }
+
+  .arrow {
+    font-size: 11px;
+    opacity: 0.6;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .footer-links-list a:hover .arrow {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 24px 7vw;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(8, 9, 8, 0.85);
+    font-size: 11px;
+    color: #6a6f65;
+  }
+
+  .footer-protocol .code-law {
+    color: #8f9488;
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      padding: 60px max(28px, env(safe-area-inset-right)) 40px max(28px, env(safe-area-inset-left));
+    }
+
+    .footer-brand-col {
+      grid-column: span 2;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 28px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 50px max(22px, env(safe-area-inset-right)) 36px max(22px, env(safe-area-inset-left));
+    }
+
+    .footer-brand-col {
+      grid-column: span 1;
+    }
+
+    .footer-links-list a {
+      padding: 6px 0;
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 22px max(22px, env(safe-area-inset-right)) max(84px, calc(44px + env(safe-area-inset-bottom))) max(22px, env(safe-area-inset-left));
+    }
+  }
+</style>

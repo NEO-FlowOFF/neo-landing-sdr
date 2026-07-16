@@ -16,3 +16,88 @@
     <small>Você será direcionado para o agente oficial ou contato da neoflowoff.agency.</small>
   </div>
 </section>
+<style>
+.demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  background: radial-gradient(circle at 80% 50%, #EDFF0012, transparent 32%);
+}
+.demo-action {
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(14,16,14,.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 35px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.7), inset 0 1px 1px rgba(255,255,255,.1);
+  transition: all .3s ease;
+}
+.demo-action:hover {
+  border-color: rgba(237,255,0,.4);
+  box-shadow: 0 25px 60px rgba(0,0,0,.8), 0 0 30px rgba(237,255,0,.08), inset 0 1px 1px rgba(255,255,255,.15);
+  transform: translateY(-3px);
+}
+.agent-id {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 25px;
+}
+.agent-id i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: var(--acid);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--acid);
+  margin-right: 8px;
+}
+.agent-mark {
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--acid);
+  display: grid;
+  place-items: center;
+  font: 300 18px Geist, sans-serif;
+  letter-spacing: -0.02em;
+  color: var(--acid);
+}
+.agent-id strong {
+  display: block;
+  font: 300 22px Geist, sans-serif;
+  letter-spacing: -0.03em;
+}
+.agent-id span {
+  display: block;
+  color: var(--acid);
+  font-size: 9px;
+  margin-top: 6px;
+}
+.demo-action p {
+  margin: 30px 0;
+}
+.demo p {
+  color: var(--muted);
+}
+.button-wide {
+  width: 100%;
+}
+.demo-action > small {
+  display: block;
+  color: #6f756c;
+  font-size: 11px;
+  margin-top: 15px;
+  text-align: center;
+}
+@media (max-width: 900px) {
+  .demo {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .demo-action {
+    padding: 22px;
+  }
+}
+</style>
