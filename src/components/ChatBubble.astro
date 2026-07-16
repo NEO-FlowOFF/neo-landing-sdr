@@ -70,7 +70,7 @@ import { MessageSquare } from "lucide-astro";
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [{ role: "user", content: "[INICIAR_DIAGNOSTICO]" }],
+          messages: [{ role: "user", content: "[ABRIU_A_BOLHA_DE_CHAT]" }],
           session: sessionPayload,
         }),
       });
@@ -79,14 +79,14 @@ import { MessageSquare } from "lucide-astro";
       }
       if (!res.ok) throw new Error("Status: " + res.status);
       const data = await res.json();
-      const reply = data.reply || "Olá! Como posso ajudar a destravar sua operação comercial hoje?";
+      const reply = data.reply || "Opa! Fique à vontade por aqui. Se travar em algo ou só quiser bater um papo sobre a operação, estou na área.";
       appendMessage("agent", reply);
       history.push({ role: "assistant", content: reply });
     } catch (err) {
       if (typingEl && typingEl.parentNode) {
         typingEl.parentNode.removeChild(typingEl);
       }
-      const fallbackMsg = "Olá! Como posso ajudar a destravar sua operação comercial hoje?";
+            const fallbackMsg = "Opa! Fique à vontade por aqui. Se travar em algo ou só quiser bater um papo sobre a operação, estou na área.";
       appendMessage("agent", fallbackMsg);
       history.push({ role: "assistant", content: fallbackMsg });
     }
