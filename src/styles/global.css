@@ -354,10 +354,10 @@ footer > small {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
   }
-  .header nav.desktop-nav {
+  .header-nav {
     display: none;
   }
-  .header .header-actions {
+  .header-cta {
     margin-left: auto;
   }
   .section {

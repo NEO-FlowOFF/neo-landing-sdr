@@ -42,8 +42,17 @@ Projetado para máxima conversão sem latência na borda, converte visitantes em
    * **Títulos `.kicker`**: Operam com opacidade (`opacity: 0.4`) e transição para `opacity: 1` no hover.
 3. **Diagrama Arquitetural (`InfrastructureMap.astro` & `InfrastructureNode.astro`):**
    * Nó central com case exato **`NEØ:one`**, rotulado como `AGENT SDR IA` com telemetria `ORCHESTRATION: ACTIVE`.
-   * Pontos luminosos (`status-dot`) posicionados estritamente na borda superior central (`.node-entry-pin`) onde as conexões chegam.
-   * Conexões contínuas entre `proof of intention (POI)` ➔ `CAPTURA DE CONTATO` ➔ `QUALIFICAÇÃO`.
+4. **Roteamento Canônico Multi-Rotas e Oferta (`/oferta`):**
+   * A página inicial (`/`) foca em tração, calculadora de ROAS e diagnóstico. A Seção 06 reside em `src/pages/oferta.astro` (`/oferta`), estruturada como gráfico de Gantt de 14 dias (`GanttDeployment.astro`) com Concierge Executiva.
+   * Rotas de governança (`/privacidade`, `/termos`, `/tratamento-dados`) complementam a conformidade LGPD.
+5. **Componentes Vetoriais e Assinatura no DevTools:**
+   * `AgentNodeIcon.astro`: Nó vetorial limpo em `currentColor` com detalhe em `#EDFF00`.
+   * `TractionPipeline.astro`: Linha pontilhada (`stroke-dasharray="4 4"`) de separação.
+   * `console-signature.ts`: Acoplado ao `Layout.astro`, exibe no DevTools (`F12`) a assinatura do arquiteto (`"Code is law. I can see u"`), aviso Anti Self-XSS e hook de telemetria.
+6. **Blindagem Mobile (`Safe-Area & Overflow Protection`):**
+   * Metatag canônica: `<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />`.
+   * `overflow-x: hidden` e `max-width: 100%` em `html`, `body` e `.page-shell` para bloqueio de deslocamento horizontal.
+   * Paddings móveis reativos em `env(safe-area-inset-left/right/bottom)` para proteção contra *notches*, Dynamic Island e barras de gestos.
 
 ────────────────────────────────────────
 

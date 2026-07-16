@@ -74,10 +74,24 @@ Auditar e refatorar a arquitetura e renderização do diagrama de infraestrutura
 
 ────────────────────────────────────────
 
-## ◈ Fase 2 — Deploy no Cloudflare Pages (Concluída)
+## ◈ Fase 2 — Deploy no Cloudflare Pages, Roteamento e Blindagem Arquitetural (Concluída)
 
 * [x] **2.1. Publicação Inicial (`wrangler pages deploy dist/client`):** Projeto submetido e homologado no Cloudflare Pages (`neo-landing-sdr-8q7.pages.dev`).
 * [x] **2.2. Execução Edge Worker (`_worker.js`):** Rota de API e funções de borda ativadas sem erros de resolução de chunks.
+* [x] **2.3. Roteamento Dedicado de Oferta (`/oferta`) e Gráfico de Gantt:** Migração e evolução canônica da Seção 06 para a página dedicada `src/pages/oferta.astro`, integrando o cronograma de 14 dias de implantação (`GanttDeployment.astro`) com pílulas, barras reativas e checklist de entregáveis.
+* [x] **2.4. Componentes Vetoriais de Tração:**
+  * `AgentNodeIcon.astro`: Ícone de Nó de Inteligência e Orquestração (`NEØ:one`) parametrizado em `currentColor` com realce em Acid Green (`#EDFF00`).
+  * `TractionPipeline.astro`: Linha pontilhada paramétrica de fluxo com nós de entrada, processamento e conversão (`stroke-dasharray="4 4"`).
+  * `MetaProviderBadge.astro`: Selo institucional de autoridade "META Tech Provider" no rodapé.
+* [x] **2.5. Assinatura Executiva e Design Security no Console (`console-signature.ts`):**
+  * Injeção no `Layout.astro` do banner de autoridade institucional, alerta de proteção cibernética (`Anti Self-XSS` Protection) e hook de telemetria/recrutamento em `https://chat.neoflowoff.agency`.
+* [x] **2.6. Blindagem de Margens e Safe-Area Mobile:**
+  * Metatag `<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />`.
+  * Trava global anti-deslocamento horizontal (`overflow-x: hidden` e `max-width: 100%`) em `html`, `body` e `.page-shell`.
+  * Padding dinâmico com `env(safe-area-inset-left/right/bottom)` no Header, Seções, Rodapé e ChatBubble, eliminando colisões com *notches*, Dynamic Island e barras de gestos móveis.
+* [x] **2.7. Governança LGPD, SEO e Motores IA (`NEØ PROTOCOL`):**
+  * Criação de `sitemap.xml` canônico, `manifest.json` PWA e `robots.txt` com autorização explícita para crawlers de IA (`GPTBot`, `PerplexityBot`, `ClaudeBot`, etc.) protegendo `/api/`.
+  * Integração de schema JSON-LD semântico (`SoftwareApplication`) e tags de compartilhamento social em `SEO.astro`.
 
 ────────────────────────────────────────
 
@@ -95,10 +109,10 @@ Para que a vitrine converta leads reais e opere com governança completa no ambi
 
 ────────────────────────────────────────
 
-## ◈ Fase 4 — Auditoria de SEO, Domínio Canônico e Performance (Pendente)
+## ◈ Fase 4 — Auditoria de SEO, Domínio Canônico e Performance (Em Andamento)
 
 * [ ] **4.1. Configuração de Domínio Canônico e SSL:** Apontar o domínio comercial definitivo (ex: `sdr.neoflowoff.agency` ou rota em `neoflowoff.agency`) no Cloudflare Pages com redirecionamento canônico HTTPS e sem rotas duplicadas.
-* [ ] **4.2. Meta Tags e Social Graph (`src/components/SEO.astro`):** Confirmar se as tags OpenGraph (`og:title`, `og:description`, `og:image`) apontam para as imagens vetoriais finais em `docs/assets/` e URLs de produção, garantindo preview perfeito ao compartilhar no WhatsApp, LinkedIn e Slack.
+* [x] **4.2. Meta Tags, Schema Semântico e Governança Crawler (`src/components/SEO.astro`):** Schema JSON-LD canônico (`SoftwareApplication`), `sitemap.xml`, `robots.txt` e `manifest.json` integrados e validados no build e em borda.
 * [ ] **4.3. Auditoria Core Web Vitals (LCP / INP / CLS):** Testar performance em redes móveis 4G no Lighthouse/PageSpeed, garantindo:
   * **Largest Contentful Paint (LCP):** < 1.2s
   * **Interaction to Next Paint (INP):** < 100ms

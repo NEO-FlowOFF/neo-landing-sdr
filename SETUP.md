@@ -40,7 +40,7 @@ A interface canônica recomendada para interação com o repositório é o `Make
 # Exibe o menu canônico de comandos disponíveis
 make help
 
-# Instala todas as dependências do projeto via pnpm
+# Instala todas as dependências via pnpm e aprova builds nativos (pnpm approve-builds)
 make install
 
 # Inicia o servidor de desenvolvimento local
@@ -83,9 +83,16 @@ O Cloudflare Pages identifica a estrutura `dist/client/_worker.js/` como um **Ad
 
 ────────────────────────────────────────
 
-## ◈ Componentes Estruturais Chave
+## ◈ Componentes Estruturais e Canônicos Chave
 
-* **`src/pages/index.astro`**: Página canônica de tração comercial e diagnóstico operacional.
+* **`src/pages/index.astro`**: Página canônica de tração comercial, calculadora de ROAS e diagnóstico operacional em tempo real.
+* **`src/pages/oferta.astro`**: Página canônica da OFERTA (`/oferta`), estruturada em formato de gráfico de Gantt com o cronograma de implantação em 14 dias (`GanttDeployment.astro`), Concierge Executiva e checklist interativo.
+* **`src/pages/privacidade.astro` / `termos.astro` / `tratamento-dados.astro`**: Rotas canônicas de governança jurídica e conformidade LGPD.
 * **`src/components/ChatBubble.astro`**: Widget flutuante com acabamento Glassmorphic (`backdrop-filter: blur(20px)`) processando mensagens no local via `/api/chat`.
-* **`src/components/infrastructure/InfrastructureMap.astro`**: Diagrama dinâmico vetorial de arquitetura contendo o nó central **`NEØ:one`**, fluxo vertical em 10 estágios (com `proof of intention (POI)` ➔ `CAPTURA DE CONTATO` ➔ `QUALIFICAÇÃO` conectado em curva e horizontal) e loop de retorno iluminado em `#EDFF00`.
-* **`src/components/infrastructure/InfrastructureNode.astro`**: Cards interativos de diagrama com ponto de luz de entrada (`.node-entry-pin.status-dot`) posicionado na borda superior central.
+* **`src/components/infrastructure/InfrastructureMap.astro` & `InfrastructureNode.astro`**: Diagrama dinâmico vetorial de arquitetura contendo o nó central **`NEØ:one`**, fluxo vertical em 10 estágios (com `proof of intention (POI)` ➔ `CAPTURA DE CONTATO` ➔ `QUALIFICAÇÃO` conectado em curva e horizontal) e pontos de luz superiores (`.node-entry-pin.status-dot`).
+* **`src/components/GanttDeployment.astro`**: Cronograma reativo de 14 dias com pílulas monoespaçadas, barras em transição e indicadores de fases.
+* **`src/components/AgentNodeIcon.astro`**: Ícone canônico do Nó de Inteligência e Orquestração (`NEØ:one`) parametrizado em `currentColor` e `--acid` (`#EDFF00`).
+* **`src/components/TractionPipeline.astro`**: Conector vetorial de fluxo com linha pontilhada (`stroke-dasharray="4 4"`) para transições óticas e quebra de blocos.
+* **`src/components/MetaProviderBadge.astro`**: Selo de autoridade "META Tech Provider" adaptável ao tema light/dark no rodapé.
+* **`src/lib/console-signature.ts`**: Assinatura institucional de console, alerta de segurança cibernética (Anti Self-XSS) e hook de telemetria no DevTools (`window.__NEO_CONSOLE_SIGNED__ = true`).
+* **`src/layouts/Layout.astro` & `src/styles/global.css`**: Wrapper global e Design System contendo a metatag `viewport-fit=cover`, trava anti-deslocamento horizontal (`overflow-x: hidden`), paddings seguros mobile (`env(safe-area-inset-*)`) e injeção do `console-signature.ts`.

@@ -9,7 +9,7 @@ const { title, description } = Astro.props;
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#000000" />
     <SEO title={title} description={description} type="SoftwareApplication" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -20,5 +20,11 @@ const { title, description } = Astro.props;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
   </head>
-  <body><slot /></body>
+  <body>
+    <slot />
+    <script>
+      import { initConsoleSignature } from '@/lib/console-signature';
+      initConsoleSignature();
+    </script>
+  </body>
 </html>

@@ -20,23 +20,27 @@ Projetada para máxima conversão e autoridade técnica sem enquadramentos de pr
 
 ────────────────────────────────────────
 
-## ◈ Proposta Operacional e Superfícies
+## ◈ Proposta Operacional e Superfícies Canônicas
 
-A operação conecta três camadas centrais no ecossistema comercial:
+A operação conecta três camadas centrais no ecossistema comercial através de uma topologia multi-rotas na borda:
 
-1. **Superfície de Captura e Diagnóstico (`neo-landing-sdr`):**
-   * Apresenta calculadora de ROAS, economia operacional de CPA e diagrama vetorial em tempo real da arquitetura em 10 estágios.
-   * Embarca o widget flutuante interativo (`ChatBubble.astro`) para atendimento instantâneo na própria página.
+1. **Superfície de Captura, Diagnóstico e Oferta (`neo-landing-sdr`):**
+   * **Página de Tração (`/`):** Apresenta calculadora de ROAS, economia operacional de CPA, cards de impacto quantitativo e diagrama vetorial em tempo real da arquitetura em 10 estágios.
+   * **Página de Oferta (`/oferta`):** Seção dedicada à apresentação do cronograma de implantação em 14 dias (`GanttDeployment.astro`), Concierge Executiva, checklist canônico e ícone de Inteligência e Orquestração (`AgentNodeIcon.astro`).
+   * **Governança e Conformidade (`/privacidade`, `/termos`, `/tratamento-dados`):** Rotas institucionais e de conformidade LGPD.
+   * **Atendimento na Borda (`ChatBubble.astro`):** Widget flutuante Glassmorphic com blur e saturação que atende na própria página consultando `/api/chat`.
 2. **Superfície de Conversão e Fechamento Fullscreen (`neoflowoff-chat-ui`):**
    * Todos os botões de ação e CTAs principais direcionam o lead para a experiência de fechamento em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency`.
-3. **Persistência e Telemetria (`neo-growth-system`):**
-   * Registro integral de permissões, preferências, contexto de intenção e disparo de conversão via Meta CAPI.
+3. **Persistência, Segurança e Telemetria (`neo-growth-system`):**
+   * **Console Signature & Security (`src/lib/console-signature.ts`):** Assinatura executiva do arquiteto, alerta anti-engenharia social (Anti Self-XSS) e hook de telemetria visível no DevTools (`F12`).
+   * **Blindagem Mobile:** Suporte nativo a *notches* e Dynamic Island (`viewport-fit=cover`), trava anti-deslocamento horizontal (`overflow-x: hidden`) e paddings reativos via `env(safe-area-inset-*)`.
+   * **Governança Crawler:** Arquivos `robots.txt`, `sitemap.xml` e `manifest.json` com permissão para IAs de busca e bloqueio de rotas de API.
 
 ────────────────────────────────────────
 
 ## ❖ Guia de Setup e Documentação Técnica
 
-Para instalação, comandos de terminal, especificação arquitetural (Astro 5 + Cloudflare Edge Runtime) e protocolo de acoplamento do worker em borda (`_worker.js`), consulte a documentação dedicada:
+Para instalação, comandos de terminal (`make install` com aprovação automática de builds `pnpm approve-builds`), especificação arquitetural (Astro 5 + Cloudflare Edge Runtime) e protocolo de acoplamento do worker em borda (`_worker.js`), consulte a documentação dedicada:
 
 * **[SETUP.md](./SETUP.md)** — Guia completo de instalação, comandos (`Makefile`) e arquitetura técnica.
 

@@ -44,6 +44,13 @@ Atue como um Engenheiro Sênior de Operação: preciso, conservador com alteraç
    * **Nó Core do Diagrama:** O card principal (`isCore: true`) preserva `NEØ:one` em caixa alta/baixa exata sem `text-transform: uppercase`, rotulado como `AGENT SDR IA` com telemetria `ORCHESTRATION: ACTIVE`.
    * **Luz de Entrada (`status-dot`):** Os pontos de luz nos cards do diagrama de infraestrutura devem ser posicionados estritamente na borda superior central (`.node-entry-pin.status-dot`), no ponto exato onde as linhas de conexão chegam.
    * **Fluxo e Conexões POI:** `proof of intention (POI)` conecta-se à `CAPTURA DE CONTATO` e à `QUALIFICAÇÃO` por caminhos horizontais e arco inferior direto.
+6. **Roteamento Canônico, Seção de Oferta e Componentes Vetoriais:**
+   * **A OFERTA (`/oferta`):** A Seção 06 (A OFERTA / Concierge / Cronograma de 14 dias com Gráfico de Gantt) não deve existir na Home (`index.astro`). Ela habita estritamente a rota canônica `/oferta` (`src/pages/oferta.astro`), operando com `GanttDeployment.astro`, `AgentNodeIcon.astro` e checklist.
+   * **Componentes Vetoriais:** `AgentNodeIcon.astro` deve ser usado para ícones de Inteligência/Cérebro SDR (sem preenchimentos pesados, apenas contorno e detalhe em azul/acid green); `TractionPipeline.astro` deve ser usado como separador/conectante pontilhada em seções.
+7. **Blindagem Mobile, Assinatura no DevTools e Governança:**
+   * **Responsividade e Safe-Area:** Nunca remova a metatag `viewport-fit=cover` ou as travas de `overflow-x: hidden` do `global.css`. Em media queries móveis, utilize sempre `env(safe-area-inset-*)` para paddings horizontais e inferiores.
+   * **Console Signature & Telemetria:** O módulo `src/lib/console-signature.ts` é importado no `Layout.astro` e renderiza no console (`window.__NEO_CONSOLE_SIGNED__ = true`) o banner executivo e o aviso cibernético Anti Self-XSS.
+   * **Governança Crawler (`robots.txt`):** Nunca bloqueie agentes de IA em `/` (`GPTBot`, `PerplexityBot`, `ClaudeBot`, `Google-Extended`). O bloqueio no `robots.txt` deve se restringir estritamente à rota `/api/`.
 
 ────────────────────────────────────────
 

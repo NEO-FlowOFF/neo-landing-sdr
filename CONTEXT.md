@@ -23,14 +23,17 @@ Sua missão não é apenas apresentar informações estáticas ou enquadrar prot
 
 ## ◈ Topologia de Integração
 
-1. **Superfície de Captura (`neo-landing-sdr` & `sdr.neoflowoff.agency`):**
+1. **Superfície de Captura, Tração e Oferta (`neo-landing-sdr` & `sdr.neoflowoff.agency`):**
    * Apresenta calculadora de ROAS, economia de CPA e vitrine do diagrama dinâmico da infraestrutura autônoma em 10 estágios.
    * Embarca o componente Glassmorphic flutuante (`ChatBubble.astro`), que processa as interações comerciais diretamente na borda via rota `/api/chat` conectada à OpenAI (`OPENAI_API_KEY`).
    * A rota do Edge consome os arquivos de governança conversacional do agente **NEØ:one** em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`) via imports estáticos `?raw`.
+   * **Oferta e Cronograma (`/oferta`):** Seção dedicada com o cronograma de 14 dias de implantação em gráfico de Gantt (`GanttDeployment.astro`), Concierge Executiva e checklist de entregáveis.
+   * **Conformidade LGPD (`/privacidade`, `/termos`, `/tratamento-dados`):** Rotas institucionais e de governança de dados.
+   * **Segurança e Blindagem Mobile:** Assinatura no DevTools (`console-signature.ts` com aviso Anti Self-XSS) e proteção contra overflow e *notches* (`viewport-fit=cover`, `overflow-x: hidden`, `env(safe-area-inset-*)`).
 2. **Superfície de Conversão Fullscreen (`neoflowoff-chat-ui`):**
    * Todos os CTAs e botões principais de aquisição direcionam o visitante para a experiência dedicada em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency`.
-3. **Motor Inclusivo de Eventos (`neo-growth-system`):**
-   * Conecta conversões e rastreamentos de intenção ao CAPI da Meta para otimização contínua das campanhas.
+3. **Motor Inclusivo de Eventos e Telemetria (`neo-growth-system`):**
+   * Conecta conversões e rastreamentos de intenção ao CAPI da Meta para otimização contínua das campanhas, emitindo sinais de telemetria e segurança na borda.
 
 ────────────────────────────────────────
 
