@@ -260,11 +260,10 @@
     },
 
     "whatsapp_message_templates": {
-      "business_whatsapp": "Olá! Vim pelo site da neoflowoff.agency. Conversei com o NEØ:one sobre {contexto_resumido} e quero continuar o atendimento.",
-
-      "founder_whatsapp": "Olá, Neo. Vim pelo site da neoflowoff.agency. Conversei com o NEØ:one sobre {contexto_resumido} e acredito que faz sentido avançarmos diretamente.",
-
-      "without_name": "Olá! Vim pelo site da neoflowoff.agency. Conversei com o NEØ:one sobre {contexto_resumido} e quero continuar."
+      "business_whatsapp_com_contexto": "Olá! Vim pelo site da neoflowoff.agency. Conversei com o NEØ:one sobre {contexto_resumido} e quero continuar o atendimento.",
+      "business_whatsapp_sem_contexto": "Olá! Vim pelo site da neoflowoff.agency e gostaria de continuar o atendimento.",
+      "founder_whatsapp_com_contexto": "Olá, Neo. Vim pelo site da neoflowoff.agency. Conversei com o NEØ:one sobre {contexto_resumido} e acredito que faz sentido avançarmos diretamente.",
+      "founder_whatsapp_sem_contexto": "Olá, Neo. Vim pelo site da neoflowoff.agency e gostaria de falar diretamente com você."
     },
 
     "url_generation": {

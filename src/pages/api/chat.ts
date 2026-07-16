@@ -41,8 +41,56 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    // Identificar se há captura de contato nas mensagens do usuário (WhatsApp/Email/Nome)
+    // Captura de IP e Geolocalização via cabeçalhos do Cloudflare
+    const cf = (request as any).cf || (locals as any)?.runtime?.cf || {};
+    const ip =
+      request.headers.get("cf-connecting-ip") ||
+      request.headers.get("x-forwarded-for") ||
+      "desconhecido";
+    const country =
+      cf.country || request.headers.get("cf-ipcountry") || "desconhecido";
+    const city = cf.city || "desconhecida";
+    const region = cf.region || "";
+
+    const securityContext = {
+      ip,
+      location: `${city}${region ? ", " + region : ""}, ${country}`,
+      rayId: request.headers.get("cf-ray") || "desconhecido",
+    };
+
     const lastUserMsg = userMessages[userMessages.length - 1]?.content || "";
+
+    // Análise básica de segurança (SQLi, XSS ou spam extremo)
+    const isSuspicious =
+      /drop table|<script>|select \* from|union all/i.test(lastUserMsg) ||
+      lastUserMsg.length > 800;
+
+    const kv =
+      (locals as any)?.runtime?.env?.SDR_LEADS ||
+      (locals as any)?.runtime?.env?.KV_SDR;
+
+    if (isSuspicious) {
+      const threatLog = {
+        timestamp: new Date().toISOString(),
+        securityContext,
+        lastUserMsg,
+      };
+      if (kv && typeof kv.put === "function") {
+        try {
+          await kv.put(
+            `security:${Date.now()}:${securityContext.rayId}`,
+            JSON.stringify(threatLog),
+          );
+        } catch (e) {}
+      } else {
+        console.warn(
+          "[NEO-SDR-SECURITY] Atividade suspeita detectada. JSON RAW:",
+          JSON.stringify(threatLog),
+        );
+      }
+    }
+
+    // Identificar se há captura de contato nas mensagens do usuário (WhatsApp/Email)
     const hasPhone =
       /(?:\+?55\s?)?(?:\(?\d{2}\)?\s?)?(?:9\d{4}[-.\s]?\d{4}|\d{4}[-.\s]?\d{4})/i.test(
         lastUserMsg,
@@ -60,16 +108,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
         _fbp: session._fbp || null,
         _fbc: session._fbc || null,
         landing_url: session.landing_url || "",
+        security: securityContext,
       };
       console.log(
         "[NEO-SDR-CAPTURE] Lead de contato identificado na conversa:",
         JSON.stringify(leadEvent),
       );
 
-      // Persistência em KV de borda se disponível no ambiente Cloudflare
-      const kv =
-        (locals as any)?.runtime?.env?.SDR_LEADS ||
-        (locals as any)?.runtime?.env?.KV_SDR;
       if (kv && typeof kv.put === "function") {
         try {
           await kv.put(
@@ -85,14 +130,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }
     }
 
-    const sessionContextStr = session.session_id
-      ? `\n--- DADOS DE SESSÃO E ORIGEM DO LEAD ---
-Session ID: ${session.session_id}
+    let sessionContextStr = `\n--- DADOS DE SESSÃO E ORIGEM DO LEAD ---`;
+    if (session.session_id) {
+      sessionContextStr += `\nSession ID: ${session.session_id}
 UTMs: ${JSON.stringify(session.utms || {})}
 FBP/FBC: ${session._fbp || "N/A"} / ${session._fbc || "N/A"}
-Landing URL: ${session.landing_url || "N/A"}
-----------------------------------------`
-      : "";
+Landing URL: ${session.landing_url || "N/A"}`;
+    }
+    sessionContextStr += `\nLocalização Detectada: ${securityContext.location} (IP: ${securityContext.ip})\n----------------------------------------`;
 
     const fullSystemPrompt = [
       systemPrompt.trim(),
@@ -111,50 +156,151 @@ Sempre conduza o lead para o handoff humano ou para o diagnóstico completo em h
     const model =
       import.meta.env.OPENAI_MODEL ||
       (locals as any)?.runtime?.env?.OPENAI_MODEL ||
-      process.env.OPENAI_MODEL ||
-      "gpt-4o-mini";
+      process.env.OPENAI_MODEL;
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model,
-        messages: [
-          { role: "system", content: fullSystemPrompt },
-          ...userMessages.map((m) => ({
-            role:
-              m.role === "agent" || m.role === "assistant"
-                ? "assistant"
-                : "user",
-            content: m.content,
-          })),
-        ],
-        temperature: 0.7,
-        max_tokens: 600,
-      }),
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
+    if (!model) {
+      console.error(
+        "[NEO-SDR-CHAT] Erro de configuração: OPENAI_MODEL não definida.",
+      );
       return new Response(
         JSON.stringify({
-          error: "Erro na resposta do provedor OpenAI.",
-          details: errText,
+          error: "Erro de configuração no servidor de borda.",
         }),
-        {
-          status: response.status,
-          headers: { "Content-Type": "application/json" },
-        },
+        { status: 500, headers: { "Content-Type": "application/json" } },
       );
     }
 
-    const data = (await response.json()) as any;
-    const reply =
-      data.choices?.[0]?.message?.content ??
-      "Olá! Como posso ajudar na sua operação comercial hoje?";
+    const payload = {
+      model,
+      instructions: fullSystemPrompt,
+      input: userMessages.map((m) => ({
+        role:
+          m.role === "agent" || m.role === "assistant" ? "assistant" : "user",
+        content: m.content,
+      })),
+      reasoning: {
+        effort: "low",
+      },
+      text: {
+        verbosity: "low",
+      },
+      max_output_tokens: 4000,
+      store: false,
+    };
+
+    let attempt = 0;
+    const maxRetries = 1;
+    let finalResponse = null;
+    const startTime = Date.now();
+
+    while (attempt <= maxRetries) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 14000); // 14 segundos
+
+      try {
+        const response = await fetch("https://api.openai.com/v1/responses", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const status = response.status;
+          const isTransientError = [429, 500, 502, 503, 504].includes(status);
+
+          if (isTransientError && attempt < maxRetries) {
+            console.warn(
+              `[NEO-SDR-CHAT] Erro transitório ${status} na OpenAI. Tentativa ${attempt + 1} de ${maxRetries}...`,
+            );
+            attempt++;
+            await new Promise((resolve) => setTimeout(resolve, 800 * attempt));
+            continue;
+          }
+
+          console.error(
+            `[NEO-SDR-CHAT] Erro na OpenAI (Status: ${status}):`,
+            await response.text(),
+          );
+          throw new Error("Falha no provedor");
+        }
+
+        finalResponse = response;
+        break;
+      } catch (error: any) {
+        clearTimeout(timeoutId);
+
+        if (error.name === "AbortError") {
+          console.error(
+            `[NEO-SDR-CHAT] Timeout de comunicação com a OpenAI na tentativa ${attempt + 1}.`,
+          );
+        } else {
+          console.error(
+            `[NEO-SDR-CHAT] Erro de rede na comunicação com OpenAI:`,
+            error,
+          );
+        }
+
+        if (attempt < maxRetries) {
+          attempt++;
+          await new Promise((resolve) => setTimeout(resolve, 800 * attempt));
+          continue;
+        }
+        throw new Error("Falha de comunicação persistente");
+      }
+    }
+
+    if (!finalResponse) {
+      throw new Error("Não foi possível obter resposta após tentativas.");
+    }
+
+    const data = (await finalResponse.json()) as any;
+
+    // Log detalhado para o teste
+    const durationMs = Date.now() - startTime;
+    console.log(
+      `[NEO-SDR-CHAT] OpenAI call stats: status=${data.status}, model=${data.model}, total_tokens=${data.usage?.total_tokens}, output_tokens=${data.usage?.output_tokens}, reasoning_tokens=${data.usage?.output_tokens_details?.reasoning_tokens}, duration=${durationMs}ms`,
+    );
+
+    if (data.status === "incomplete") {
+      console.error(
+        `[NEO-SDR-CHAT] Resposta incompleta da OpenAI. Motivo: ${data.incomplete_details?.reason}`,
+      );
+      if (data.incomplete_details?.reason === "max_output_tokens") {
+        throw new Error("Resposta interrompida por limite de tokens.");
+      }
+    }
+
+    let reply =
+      "Olá! Tivemos uma pequena instabilidade de comunicação no momento, mas como posso ajudar na sua operação comercial?";
+
+    if (data.output && Array.isArray(data.output)) {
+      let parsedReply = "";
+      const messageItems = data.output.filter(
+        (item: any) => item.type === "message",
+      );
+
+      for (const msg of messageItems) {
+        if (msg.content && Array.isArray(msg.content)) {
+          const textContents = msg.content.filter(
+            (c: any) => c.type === "output_text",
+          );
+          for (const textItem of textContents) {
+            if (textItem.text) {
+              parsedReply += textItem.text;
+            }
+          }
+        }
+      }
+      if (parsedReply.trim().length > 0) {
+        reply = parsedReply.trim();
+      }
+    }
 
     return new Response(
       JSON.stringify({ reply, session_id: session.session_id }),
