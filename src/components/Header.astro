@@ -1,11 +1,72 @@
 ---
-const links = [['Como funciona','#como-funciona'],['Diagnóstico IA','#demonstracao'],['Infraestrutura','#infraestrutura'],['Oferta','#oferta'],['FAQ','#faq']];
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const links = [
+  ['Como funciona', isHome ? '#como-funciona' : '/#como-funciona'],
+  ['Diagnóstico IA', isHome ? '#demonstracao' : '/#demonstracao'],
+  ['Infraestrutura', isHome ? '#infraestrutura' : '/#infraestrutura'],
+  ['A Oferta & Implantação', '/oferta'],
+  ['FAQ', isHome ? '#faq' : '/#faq']
+];
+const chatUrl = "https://chat.neoflowoff.agency";
 ---
 <header class="header">
-  <a class="brand" href="#top" aria-label="neoflowoff.agency — início">neoflowoff.agency</a>
-  <nav aria-label="Navegação principal">{links.map(([label, href]) => <a href={href}>{label}</a>)}</nav>
-  <a class="button button-small neo-sdr-link" href="https://chat.neoflowoff.agency">Iniciar diagnóstico <span>↗</span></a>
+  <a class="brand" href={isHome ? "#top" : "/#top"} aria-label="neoflowoff.agency — início">
+    neoflowoff.agency
+  </a>
+  
+  <!-- DESKTOP NAV -->
+  <nav class="desktop-nav" aria-label="Navegação principal">
+    {links.map(([label, href]) => <a href={href}>{label}</a>)}
+  </nav>
+
+  <!-- HEADER ACTIONS (CTA + HAMBURGER TOGGLE) -->
+  <div class="header-actions">
+    <a class="button button-small neo-sdr-link" href={chatUrl}>
+      Iniciar diagnóstico <span>↗</span>
+    </a>
+    
+    <button 
+      class="mobile-menu-toggle" 
+      id="mobile-menu-toggle" 
+      aria-label="Abrir menu de navegação" 
+      aria-expanded="false" 
+      aria-controls="mobile-nav-drawer"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+  </div>
 </header>
+
+<!-- MOBILE NAVIGATION DRAWER -->
+<div class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+  <nav class="mobile-nav-inner" aria-label="Navegação mobile">
+    <ul class="mobile-links-list">
+      {links.map(([label, href], index) => (
+        <li style={`--i: ${index}`}>
+          <a href={href} class="mobile-nav-link">
+            <span class="link-label">{label}</span>
+            <span class="link-arrow">↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mobile-nav-footer">
+      <div class="mobile-concierge-pill">
+        <span>● OPERAÇÃO PLUG & PLAY</span>
+      </div>
+      <a class="button neo-sdr-link mobile-cta" href={chatUrl}>
+        Avaliar minha operação com NEØ:one <span>↗</span>
+      </a>
+      <a class="text-link mobile-wa" href="https://wa.me/556262994789032?text=Ol%C3%A1%21+Gostaria+de+avaliar+minha+opera%C3%A7%C3%A3o+com+a+neoflowoff.agency" target="_blank" rel="noopener noreferrer">
+        Ou falar com Arquiteto no WhatsApp <span>↗</span>
+      </a>
+    </div>
+  </nav>
+</div>
+
 <style is:global>
   .brand {
     font: 300 16px/1 Geist, Arial, sans-serif;
@@ -13,4 +74,287 @@ const links = [['Como funciona','#como-funciona'],['Diagnóstico IA','#demonstra
     color: var(--text);
     text-decoration: none;
   }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* --- DESKTOP VS MOBILE NAV VISIBILITY --- */
+  .desktop-nav {
+    display: flex;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .desktop-nav {
+      display: none !important;
+    }
+
+    .header-actions {
+      margin-left: auto;
+    }
+
+    .mobile-menu-toggle {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 40px;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s ease;
+      z-index: 30;
+    }
+
+    .mobile-menu-toggle:hover {
+      border-color: var(--acid, #edff00);
+      background: rgba(237, 255, 0, 0.08);
+    }
+
+    /* Hamburger icon bars */
+    .hamburger-box {
+      width: 20px;
+      height: 14px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hamburger-inner {
+      display: block;
+      top: 50%;
+      margin-top: -1px;
+    }
+
+    .hamburger-inner,
+    .hamburger-inner::before,
+    .hamburger-inner::after {
+      width: 20px;
+      height: 2px;
+      background-color: var(--text, #fff);
+      border-radius: 2px;
+      position: absolute;
+      transition: transform 0.25s ease, background-color 0.25s ease, top 0.25s ease;
+    }
+
+    .hamburger-inner::before,
+    .hamburger-inner::after {
+      content: "";
+      display: block;
+    }
+
+    .hamburger-inner::before {
+      top: -6px;
+    }
+
+    .hamburger-inner::after {
+      bottom: -6px;
+    }
+
+    /* Active state (X icon) */
+    .mobile-menu-toggle.is-active {
+      border-color: var(--acid, #edff00);
+      background: rgba(237, 255, 0, 0.12);
+    }
+
+    .mobile-menu-toggle.is-active .hamburger-inner {
+      background-color: transparent;
+    }
+
+    .mobile-menu-toggle.is-active .hamburger-inner::before {
+      top: 0;
+      transform: rotate(45deg);
+      background-color: var(--acid, #edff00);
+    }
+
+    .mobile-menu-toggle.is-active .hamburger-inner::after {
+      bottom: 0;
+      transform: rotate(-45deg);
+      background-color: var(--acid, #edff00);
+    }
+  }
+
+  /* --- MOBILE DRAWER PANEL --- */
+  .mobile-nav-drawer {
+    position: fixed;
+    top: 78px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 78px);
+    background: rgba(10, 11, 10, 0.94);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    z-index: 25;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-bottom: 1px solid rgba(237, 255, 0, 0.35);
+    overflow-y: auto;
+  }
+
+  @media (max-width: 560px) {
+    .mobile-nav-drawer {
+      top: 68px;
+      height: calc(100vh - 68px);
+    }
+  }
+
+  .mobile-nav-drawer.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .mobile-nav-inner {
+    padding: 24px 5vw 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: calc(100vh - 120px);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .mobile-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-links-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 4px;
+    font: 600 20px/1 "Space Grotesk", sans-serif;
+    color: #f0f2ed;
+    text-decoration: none;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+  }
+
+  .mobile-nav-link:hover, .mobile-nav-link:active {
+    color: var(--acid, #edff00);
+    padding-left: 8px;
+  }
+
+  .link-arrow {
+    font-size: 16px;
+    color: var(--orange, #ff7a05);
+    opacity: 0.7;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .mobile-nav-link:hover .link-arrow {
+    opacity: 1;
+    transform: translate(3px, -3px);
+  }
+
+  /* Footer Inside Mobile Drawer */
+  .mobile-nav-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .mobile-concierge-pill {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 6px 12px;
+    border-radius: 100px;
+    background: rgba(237, 255, 0, 0.1);
+    border: 1px solid rgba(237, 255, 0, 0.3);
+    color: var(--acid, #edff00);
+    font: 700 10px/1 "Space Grotesk", sans-serif;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-cta {
+    width: 100%;
+    justify-content: space-between !important;
+    text-align: left;
+    min-height: 56px !important;
+    font-size: 15px !important;
+  }
+
+  .mobile-wa {
+    text-align: center;
+    font-size: 13.5px;
+    padding: 10px 0;
+  }
 </style>
+
+<script>
+  function setupMobileMenu() {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const links = document.querySelectorAll('.mobile-nav-link, .mobile-cta, .mobile-wa');
+
+    if (!toggleBtn || !drawer) return;
+
+    function toggleMenu() {
+      if (!toggleBtn || !drawer) return;
+      const isOpen = drawer.classList.contains('is-open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    function openMenu() {
+      if (!toggleBtn || !drawer) return;
+      toggleBtn.classList.add('is-active');
+      drawer.classList.add('is-open');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling when open
+    }
+
+    function closeMenu() {
+      if (!toggleBtn || !drawer) return;
+      toggleBtn.classList.remove('is-active');
+      drawer.classList.remove('is-open');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    toggleBtn.addEventListener('click', toggleMenu);
+
+    // Close on link click
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (!drawer) return;
+      if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+        closeMenu();
+      }
+    });
+  }
+
+  // Run on load and after Astro view transitions if applicable
+  setupMobileMenu();
+  document.addEventListener('astro:after-swap', setupMobileMenu);
+</script>

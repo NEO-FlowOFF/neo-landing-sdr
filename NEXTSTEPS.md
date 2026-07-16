@@ -50,14 +50,14 @@ Este documento detalha o mapa de execução sequencial e operacional da vitrine 
 
 Evoluir a seção de impacto operacional (`index.astro:L18` e `L11`) para que elimine a percepção de blocos de texto estáticos e demonstre valor quantitativo imediato, reforçando autoridade perante diretores comerciais e CEOs:
 
-* [ ] **1.7.1. Estruturação de Métricas Tangíveis (`index.astro:L11`):** Substituir o array simples de títulos por cards enriquecidos com indicadores numéricos de tração:
+* [x] **1.7.1. Estruturação de Métricas Tangíveis (`index.astro:L11`):** Substituir o array simples de títulos por cards enriquecidos com indicadores numéricos de tração:
   * Card 01 (`-68% Tempo de Resposta`): Eliminação do tempo de espera fora do horário comercial, atendendo o lead no pico exato de interesse.
   * Card 02 (`+3.4x Qualificação de Intenção`): Coleta estruturada de nome, cargo, dor e histórico de conversação antes do handoff.
   * Card 03 (`100% Rastreabilidade Comercial`): Integração total de dados de origem entre captura, CRM e Meta CAPI sem perda de sinais.
-* [ ] **1.7.2. Acabamento Ótico de Alta Profundidade (`.benefit-grid` em `index.astro:L775`):**
+* [x] **1.7.2. Acabamento Ótico de Alta Profundidade (`.benefit-grid` em `index.astro:L775`):**
   * Refatorar o card em fundo `#DEDDD3` acetinado (`rgba(222, 221, 211, 0.85)`) com bordas interativas que reagem ao hover com reflexo em `#FF7A05` (Laranja) e `#EDFF00` (Acid Green).
   * Aplicar micro-animação de elevação (`translateY(-4px)`) e sombra difusa para destaque visual na rolagem.
-* [ ] **1.7.3. Hierarquia de Informação:** Destacar os indicadores quantitativos como pílulas monoespaçadas de tração (`.mono code-accent`), mantendo a leitura clara e acionável.
+* [x] **1.7.3. Hierarquia de Informação:** Destacar os indicadores quantitativos como pílulas monoespaçadas de tração (`.mono code-accent`), mantendo a leitura clara e acionável.
 
 ────────────────────────────────────────
 
@@ -65,11 +65,11 @@ Evoluir a seção de impacto operacional (`index.astro:L18` e `L11`) para que el
 
 Auditar e refatorar a arquitetura e renderização do diagrama de infraestrutura (`InfrastructureMap.astro` e `infrastructure-map.css`) na versão móvel, garantindo experiência visual perfeita em resoluções compactas (< 768px e < 480px):
 
-* [ ] **1.8.1. Auditoria e Refatoração da Topologia Mobile (`InfrastructureMap.astro`):**
+* [x] **1.8.1. Auditoria e Refatoração da Topologia Mobile (`InfrastructureMap.astro`):**
   * Revisar a estrutura de nós, espaçamento vertical e alinhamento em telas móveis, garantindo que a sequência canônica (`ORIGEM / CANAL` ➔ `NEØ:one` ➔ `proof of intention (POI)` ➔ `CAPTURA DE CONTATO` ➔ `QUALIFICAÇÃO` ➔ `CRM / DADOS` ➔ `ATENDIMENTO HUMANO` ➔ `COMERCIAL + CONVERSÃO` ➔ `CAMADA DE SINAIS / META CAPI`) permaneça 100% legível, sem sobreposição de textos, truncamento ou transbordamento lateral (`overflow-x`).
-* [ ] **1.8.2. Ajuste de Escala e Geometria dos Caminhos SVG (`#mobile-paths` / viewBox):**
+* [x] **1.8.2. Ajuste de Escala e Geometria dos Caminhos SVG (`#mobile-paths` / viewBox):**
   * Calibrar as coordenadas SVG verticais, curvas de ramificação do `proof of intention (POI)` e o posicionamento dos pinos luminosos de entrada (`.node-entry-pin.status-dot`), assegurando que as linhas de conexão alcancem milimetricamente a borda superior de cada card nas resoluções mobile.
-* [ ] **1.8.3. Otimização CSS e Ergonomia Touch (`infrastructure-map.css`):**
+* [x] **1.8.3. Otimização CSS e Ergonomia Touch (`infrastructure-map.css`):**
   * Calibrar fontes, padding dos cards (`.infra-node`) e o espaçamento vertical para smartphones, preservando a fluidez estética do Glassmorphic sem comprometer a usabilidade ao tocar ou rolar a tela.
 
 ────────────────────────────────────────
@@ -85,7 +85,7 @@ Auditar e refatorar a arquitetura e renderização do diagrama de infraestrutura
 
 Para que a vitrine converta leads reais e opere com governança completa no ambiente canônico:
 
-* [ ] **3.1. Injeção de Segredos no Cloudflare (`OPENAI_API_KEY`):** Cadastrar a chave `OPENAI_API_KEY` no painel do Cloudflare Pages (`Settings > Environment variables > Production & Preview`) para que o `ChatBubble.astro` (`/api/chat`) execute o motor cognitivo do **NEØ:one** em produção.
+* [x] **3.1. Injeção de Segredos no Cloudflare (`OPENAI_API_KEY`):** Cadastrar a chave `OPENAI_API_KEY` `OPENAI_MODEL=gpt-5.6-terra` no painel do Cloudflare Pages (`Settings > Environment variables > Production & Preview`) para que o `ChatBubble.astro` (`/api/chat`) execute o motor cognitivo do **NEØ:one** em produção.
 * [ ] **3.2. Persistência e Handoff de Leads (`neo-event-ingestor` / Cloudflare D1 / KV):**
   * Modificar a rota de borda `/api/chat.ts` para que, ao identificar intenção qualificada (nome, telefone/WhatsApp e dor do cliente), os dados sejam persistidos em banco de borda (`Cloudflare D1` ou `KV`) ou disparados via webhook HTTP POST para o control plane (`neo-growth-system` / CRM / n8n).
 * [ ] **3.3. Rastreamento Client-Side (Meta Pixel + Roteamento Duplo):**

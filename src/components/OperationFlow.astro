@@ -1,4 +1,6 @@
 ---
+import TractionPipeline from '@/components/TractionPipeline.astro';
+
 const items = [
 ['Atende','O visitante recebe resposta enquanto ainda está interessado.'],
 ['Identifica','O agente entende o contexto, a necessidade e os sinais de intenção comercial.'],
@@ -10,5 +12,6 @@ const items = [
 ---
 <section class="section flow-section depth-acid-noise" id="como-funciona">
   <div class="section-head"><span class="kicker">02 / COMO FUNCIONA</span><h2>Da primeira mensagem ao comercial,<br /><em>dentro do mesmo fluxo.</em></h2></div>
+  <TractionPipeline class="flow-pipeline-connector" />
   <div class="flow-grid">{items.map(([title, copy], index) => <article class="flow-card reveal"><div><span>0{index + 1}</span><i></i></div><h3>{title}</h3><p>{copy}</p></article>)}</div>
 </section>

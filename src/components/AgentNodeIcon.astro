@@ -1,0 +1,46 @@
+---
+interface Props {
+  size?: number | string;
+  class?: string;
+}
+
+const { size = 48, class: className = "" } = Astro.props;
+---
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  viewBox="0 0 48 48" 
+  width={size} 
+  height={size} 
+  fill="none" 
+  class:list={["agent-node-icon", className]}
+  aria-hidden="true"
+>
+  <!-- Cérebro/Nó Central (Stroke herdado ou claro no dark mode) -->
+  <rect x="12" y="12" width="24" height="24" rx="6" stroke="currentColor" stroke-width="2"/>
+  
+  <!-- Núcleo de Inteligência (Acid Green) -->
+  <circle cx="24" cy="24" r="4" stroke="var(--acid, #EDFF00)" stroke-width="2" fill="var(--bg, #101010)"/>
+  
+  <!-- Conexões Externas (APIs/Fluxos de Entrada/Saída) -->
+  <path d="M12 24H4M36 24H44M24 12V4M24 36V44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Data points / Nodes periféricos -->
+  <circle cx="4" cy="24" r="2" fill="currentColor" opacity="0.4"/>
+  <circle cx="44" cy="24" r="2" fill="var(--acid, #EDFF00)"/>
+  <circle cx="24" cy="4" r="2" fill="currentColor" opacity="0.4"/>
+  <circle cx="24" cy="44" r="2" fill="var(--orange, #FF7A05)"/>
+</svg>
+
+<style>
+  .agent-node-icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  .agent-node-icon:hover {
+    filter: drop-shadow(0 0 8px rgba(237, 255, 0, 0.45));
+    transform: scale(1.05);
+  }
+</style>

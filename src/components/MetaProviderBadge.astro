@@ -1,0 +1,137 @@
+---
+interface Props {
+  variant?: 'light' | 'dark';
+  class?: string;
+}
+const { variant = 'light', class: className = '' } = Astro.props;
+---
+
+<div class={`meta-provider-pill ${variant} ${className}`} role="status" aria-label="Selo de Autoridade: Meta Tech Provider — Official Partner">
+  <!-- Ícone Meta (Infinity Loop Canônico) -->
+  <div class="meta-icon-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="meta-infinity-svg" width="24" height="24" aria-hidden="true">
+      <path fill="#0668E1" d="M5,19.5c0-4.6,2.3-9.4,5-9.4c1.5,0,2.7,0.9,4.6,3.6c-1.8,2.8-2.9,4.5-2.9,4.5c-2.4,3.8-3.2,4.6-4.5,4.6 C5.9,22.9,5,21.7,5,19.5 M20.7,17.8L19,15c-0.4-0.7-0.9-1.4-1.3-2c1.5-2.3,2.7-3.5,4.2-3.5c3,0,5.4,4.5,5.4,10.1 c0,2.1-0.7,3.3-2.1,3.3S23.3,22,20.7,17.8 M16.4,11c-2.2-2.9-4.1-4-6.3-4C5.5,7,2,13.1,2,19.5c0,4,1.9,6.5,5.1,6.5 c2.3,0,3.9-1.1,6.9-6.3c0,0,1.2-2.2,2.1-3.7c0.3,0.5,0.6,1,0.9,1.6l1.4,2.4c2.7,4.6,4.2,6.1,6.9,6.1c3.1,0,4.8-2.6,4.8-6.7 C30,12.6,26.4,7,22.1,7C19.8,7,18,8.8,16.4,11"/>
+    </svg>
+  </div>
+
+  <!-- Divisor Vertical -->
+  <span class="meta-divider"></span>
+
+  <!-- Tipografia -->
+  <div class="meta-typography">
+    <span class="meta-main-title">META TECH PROVIDER</span>
+    <span class="meta-sub-title">OFFICIAL PARTNER</span>
+  </div>
+
+  <!-- Dot de Telemetria Ativa -->
+  <span class="meta-status-pulse" title="Integração de Sinais & Meta CAPI Verificados"></span>
+</div>
+
+<style>
+  .meta-provider-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px 8px 14px;
+    border-radius: 100px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    user-select: none;
+    max-width: fit-content;
+  }
+
+  .meta-provider-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(6, 104, 225, 0.22);
+  }
+
+  /* --- Variante Light (Fundo Branco Puro para Hero em #DEDDD3) --- */
+  .meta-provider-pill.light {
+    background: #FFFFFF;
+    border: 1.5px solid #E4E4E7;
+  }
+
+  .meta-provider-pill.light:hover {
+    border-color: rgba(6, 104, 225, 0.5);
+  }
+
+  .meta-provider-pill.light .meta-main-title {
+    color: #09090B;
+  }
+
+  .meta-provider-pill.light .meta-sub-title {
+    color: #71717A;
+  }
+
+  .meta-provider-pill.light .meta-divider {
+    background: #E4E4E7;
+  }
+
+  /* --- Variante Dark / Glass (Para Footer e Seções Escuras) --- */
+  .meta-provider-pill.dark {
+    background: rgba(16, 18, 22, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+
+  .meta-provider-pill.dark:hover {
+    border-color: rgba(6, 104, 225, 0.6);
+    background: rgba(24, 28, 36, 0.95);
+  }
+
+  .meta-provider-pill.dark .meta-main-title {
+    color: #F0F2ED;
+  }
+
+  .meta-provider-pill.dark .meta-sub-title {
+    color: #A0A69B;
+  }
+
+  .meta-provider-pill.dark .meta-divider {
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  /* --- Elementos Internos --- */
+  .meta-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .meta-infinity-svg {
+    filter: drop-shadow(0 0 5px rgba(6, 104, 225, 0.35));
+  }
+
+  .meta-divider {
+    width: 1px;
+    height: 22px;
+  }
+
+  .meta-typography {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.15;
+  }
+
+  .meta-main-title {
+    font: 700 11px/1.1 Geist, "Space Grotesk", sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  .meta-sub-title {
+    font: 500 9px/1.1 Geist, "Space Grotesk", sans-serif;
+    letter-spacing: 0.05em;
+    margin-top: 2.5px;
+  }
+
+  .meta-status-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0668E1;
+    box-shadow: 0 0 6px #0668E1;
+    margin-left: 2px;
+  }
+</style>

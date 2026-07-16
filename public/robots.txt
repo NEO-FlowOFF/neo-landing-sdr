@@ -5,5 +5,25 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# Permissão explícita para motores e IA de Busca (Search Generative Experience / GEO / AIO)
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+
 # Sitemap location
 Sitemap: https://sdr.neoflowoff.agency/sitemap.xml

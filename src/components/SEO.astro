@@ -23,13 +23,18 @@ const cleanCanonical = canonicalURL || `${origin}${cleanPathname !== '/' ? clean
 const absoluteImage = image.startsWith('http') ? image : `${origin}${image}`;
 
 const jsonLd: Record<string, any> = {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": type,
-  "id": cleanCanonical,
+  "@id": cleanCanonical,
   "url": cleanCanonical,
   "name": title,
   "description": description,
   "inLanguage": "pt-BR",
+  "publisher": {
+    "@type": "Organization",
+    "name": "neoflowoff.agency",
+    "url": "https://neoflowoff.agency"
+  },
   "copyrightHolder": {
     "@type": "Organization",
     "name": "neoflowoff.agency",
@@ -40,6 +45,15 @@ const jsonLd: Record<string, any> = {
 if (type === 'SoftwareApplication') {
   jsonLd.applicationCategory = "BusinessApplication";
   jsonLd.operatingSystem = "Web";
+  jsonLd.brand = {
+    "@type": "Brand",
+    "name": "NEØ:one"
+  };
+  jsonLd.provider = {
+    "@type": "Organization",
+    "name": "neoflowoff.agency",
+    "url": "https://neoflowoff.agency"
+  };
   jsonLd.offers = {
     "@type": "Offer",
     "price": "0",
@@ -50,6 +64,7 @@ if (type === 'SoftwareApplication') {
 ---
 
 <meta name="description" content={description} />
+<meta name="theme-color" content="#000000" />
 <link rel="canonical" href={cleanCanonical} />
 
 <!-- Open Graph / Meta tags canônicas -->
@@ -58,6 +73,8 @@ if (type === 'SoftwareApplication') {
 <meta property="og:type" content={type === 'SoftwareApplication' ? 'website' : type.toLowerCase()} />
 <meta property="og:url" content={cleanCanonical} />
 <meta property="og:image" content={absoluteImage} />
+<meta property="og:site_name" content="neoflowoff.agency" />
+<meta property="og:locale" content="pt_BR" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
