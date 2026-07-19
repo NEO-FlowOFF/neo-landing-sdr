@@ -223,7 +223,7 @@ O seu principal objetivo é ter uma conversa natural e genuína. Antes de pensar
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-          const status = response.status;
+          const {status} = response;
           const isTransientError = [429, 500, 502, 503, 504].includes(status);
 
           if (isTransientError && attempt < maxRetries) {
