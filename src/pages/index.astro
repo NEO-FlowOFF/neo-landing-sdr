@@ -1,14 +1,14 @@
 ---
-import InfrastructureMap from '@/components/infrastructure/InfrastructureMap.astro';
-import Layout from '@/layouts/Layout.astro';
-import Header from '@/components/Header.astro';
-import Hero from '@/components/Hero.astro';
-import OperationFlow from '@/components/OperationFlow.astro';
-import LiveDemo from '@/components/LiveDemo.astro';
-import FAQ from '@/components/FAQ.astro';
-import Footer from '@/components/Footer.astro';
-import ChatBubble from '@/components/ChatBubble.astro';
-import TractionPipeline from '@/components/TractionPipeline.astro';
+import InfrastructureMap from '../components/infrastructure/InfrastructureMap.astro';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import OperationFlow from '../components/OperationFlow.astro';
+import LiveDemo from '../components/LiveDemo.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+import ChatBubble from '../components/ChatBubble.astro';
+import TractionPipeline from '../components/TractionPipeline.astro';
 const benefits = [
   ['-68%', 'Tempo de Resposta', 'Eliminação do tempo de espera fora do horário comercial, atendendo o lead no pico exato de interesse.'],
   ['+3.4x', 'Qualificação de Intenção', 'Coleta estruturada de nome, cargo, dor e histórico de conversação antes do handoff.'],
@@ -28,7 +28,7 @@ const benefits = [
   </main><Footer /></div>
   <ChatBubble />
   <script>
-    import { setupClientSideSessionTracking } from '@/lib/session-handler';
+    import { setupClientSideSessionTracking } from '../lib/session-handler';
     setupClientSideSessionTracking();
     const observer = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }), { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(e => observer.observe(e));

@@ -54,7 +54,7 @@ import { MessageSquare } from "lucide-astro";
   const chatInput = document.getElementById("chat-input") as HTMLInputElement;
   const messagesBox = document.getElementById("chat-messages");
 
-  import { initOrGetSession } from "@/lib/session-handler";
+  import { initOrGetSession } from "../lib/session-handler";
 
   let isOpen = false;
   let history: { role: string; content: string }[] = [];

@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "name": "NEØ:one",
+  "description": "SDR AI orchestration agent for lead qualification and follow-up routing.",
+  "entryPoint": "https://sdr.neoflowoff.agency",
+  "capabilities": ["chat", "discovery", "content-signals"]
+}

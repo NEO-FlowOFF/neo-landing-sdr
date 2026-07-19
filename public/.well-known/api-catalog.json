@@ -1,0 +1,12 @@
+{
+  "apiVersion": "1.0",
+  "name": "NEO FlowOFF SDR landing surface",
+  "description": "Public landing page and chat endpoint for the SDR AI experience.",
+  "endpoints": [
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "description": "Send a chat payload to the embedded SDR assistant."
+    }
+  ]
+}

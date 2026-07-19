@@ -4,26 +4,32 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
 # Permissão explícita para motores e IA de Busca (Search Generative Experience / GEO / AIO)
 User-agent: GPTBot
 Allow: /
 Disallow: /api/
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
 User-agent: ChatGPT-User
 Allow: /
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /api/
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /api/
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /api/
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
 # Sitemap location
 Sitemap: https://sdr.neoflowoff.agency/sitemap.xml
