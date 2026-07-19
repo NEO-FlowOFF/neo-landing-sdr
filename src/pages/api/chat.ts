@@ -1,6 +1,6 @@
 import ecosystemContext from "../../lib/CONTEXT.json";
-import humanizationSkill from "../lib/humanization-skill.md?raw";
-import systemPrompt from "../lib/system-prompt.md?raw";
+import humanizationSkill from "../../lib/humanization-skill.md?raw";
+import systemPrompt from "../../lib/system-prompt.md?raw";
 import type { APIRoute } from "astro";
 
 export const prerender = false;
