@@ -22,7 +22,8 @@ Este documento detalha os procedimentos de instalação, comandos de desenvolvim
 * **Deployment Adapter:** Cloudflare Edge (`@astrojs/cloudflare ^14.0.0` em modo `static` híbrido via `export const prerender = false`)
 * **Gerenciador de Pacotes:** `pnpm` (`make install` / `pnpm install`)
 * **Atendimento na Borda (Widget Flutuante):** Componente `ChatBubble.astro` consumindo a rota `/api/chat` integrada na nuvem Edge via OpenAI (`OPENAI_API_KEY`), carregando os prompts de qualificação do agente **NEØ:one** em `src/lib/` (`system-prompt.md`, `humanization-skill.md`, `CONTEXT.json`).
-* **Destino Comercial Fullscreen (CTAs):** `https://chat.neoflowoff.agency` (`neoflowoff-chat-ui`)
+* **Contato Comercial Primário (CTAs):** `https://wa.me/5562994789032` (`whatsapp contact`)
+* **Experiência Fullscreen Secundária:** `https://chat.neoflowoff.agency` (`neoflowoff-chat-ui`)
 * **Design System & Paleta Proporcional:**
   * `#000000` (~50%): Fundo principal e superfícies escuras profundas.
   * `#DEDDD3` (~40%): Superfícies de alto contraste, seções claras de apoio e tipografia principal.

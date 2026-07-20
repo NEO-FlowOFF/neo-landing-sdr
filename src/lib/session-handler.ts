@@ -83,7 +83,7 @@ export function initOrGetSession(): SdrSessionPayload {
 }
 
 /**
- * Anexa todos os dados de sessão e rastreamento existentes na URL de destino (ex: chat.neoflowoff.agency).
+ * Anexa dados de sessão e rastreamento em links comerciais rastreáveis.
  */
 export function decorateUrl(targetUrl: string): string {
   if (typeof window === "undefined") return targetUrl;
@@ -106,14 +106,14 @@ export function decorateUrl(targetUrl: string): string {
 }
 
 /**
- * Decora todos os links na página apontando para chat.neoflowoff.agency ou seletores com classe .neo-sdr-link
+ * Decora links comerciais marcados com .neo-sdr-link.
  */
 export function setupClientSideSessionTracking(): void {
   if (typeof window === "undefined") return;
   initOrGetSession();
 
   const updateLinks = () => {
-    document.querySelectorAll("a[href*='chat.neoflowoff.agency'], a.neo-sdr-link").forEach((el) => {
+    document.querySelectorAll("a.neo-sdr-link").forEach((el) => {
       const anchor = el as HTMLAnchorElement;
       if (anchor.href) {
         anchor.href = decorateUrl(anchor.href);
@@ -128,7 +128,7 @@ export function setupClientSideSessionTracking(): void {
   }
 
   document.addEventListener("click", (e) => {
-    const target = (e.target as HTMLElement)?.closest("a[href*='chat.neoflowoff.agency'], a.neo-sdr-link") as HTMLAnchorElement | null;
+    const target = (e.target as HTMLElement)?.closest("a.neo-sdr-link") as HTMLAnchorElement | null;
     if (target && target.href) {
       target.href = decorateUrl(target.href);
     }

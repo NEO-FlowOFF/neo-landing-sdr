@@ -4,7 +4,6 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import OperationFlow from '../components/OperationFlow.astro';
-import LiveDemo from '../components/LiveDemo.astro';
 import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 import ChatBubble from '../components/ChatBubble.astro';
@@ -20,7 +19,6 @@ const benefits = [
     <section class="section problem depth-acid-noise"><span class="kicker">01 / O PROBLEMA REAL</span><div class="problem-grid"><h2>O lead chegou.<br /><em>A operação é que não estava pronta para recebê-lo.</em></h2><div class="scene reveal"><p>A campanha gera uma mensagem.<br />A pessoa pergunta preço.<br />Alguém demora para responder.</p><p>Quando o comercial assume, já não sabe de onde ela veio, qual anúncio iniciou a conversa ou o que ela realmente queria.</p><strong>O problema não é apenas gerar leads. É conseguir agir enquanto ainda existe intenção.</strong></div></div></section>
     <OperationFlow />
     <section class="section benefits light-section"><div class="section-head"><span class="kicker">03 / IMPACTO</span><h2>O comercial deixa de<br /><em>começar do zero.</em></h2></div><div class="benefit-grid">{benefits.map(([metric, title,copy],i)=><article class="reveal"><span>0{i+1}</span><h3><span class="mono code-accent">{metric}</span> {title}</h3><p>{copy}</p></article>)}</div></section>
-    <LiveDemo />
     <TractionPipeline class="section-divider-pipeline" />
     <InfrastructureMap />
     <section class="section proof"><span class="kicker">07 / PROVA OPERACIONAL</span><div class="proof-grid"><h2>O atendimento na página não é apenas conceito.<br /><em>É a própria arquitetura em ação.</em></h2><div><p>O mesmo sistema utilizado para receber esta conversa faz parte da infraestrutura aplicada pela neoflowoff.agency em páginas, agentes, dados e fluxos comerciais. Status atual da arquitetura:</p><div class="proof-tags">{['Landing: operacional','Agente: operacional','Captura: a validar','Persistência: a validar','Handoff: a validar','Meta CAPI: a validar'].map(x=><span>{x}</span>)}</div></div></div></section>

@@ -30,7 +30,8 @@ Atue como um Engenheiro Sênior de Operação: preciso, conservador com alteraç
    * Consulte sempre o **`SETUP.md`** como fonte canônica da arquitetura técnica (Astro 5 + Cloudflare Edge), comandos de terminal (`Makefile`) e protocolo de acoplamento do worker (`_worker.js`).
    * **NUNCA altere ou remova a lógica de acoplamento do `Makefile`** nem introduza arquivos `wrangler.json` com `pages_build_output_dir` apontando para `dist/server`.
 3. **CTAs e Roteamento Comercial:**
-   * **CTAs e Botões de Ação:** Todos os botões e links de aquisição em tela cheia apontam para `https://chat.neoflowoff.agency`.
+   * **CTAs e Botões de Ação:** O contato comercial primário é o WhatsApp `https://wa.me/5562994789032`.
+   * **Experiência NEØ:one Fullscreen:** `https://chat.neoflowoff.agency` pode existir como experiência secundária, especialmente no rodapé, mas não deve ser tratado como contato primário.
    * **Atendimento na Landing Page:** O componente flutuante (`ChatBubble.astro`) processa mensagens na própria página consultando a rota de borda `/api/chat`.
 4. **Design System & Paleta Proporcional:**
    * `#000000` (~50%): Fundo principal e superfícies escuras profundas.

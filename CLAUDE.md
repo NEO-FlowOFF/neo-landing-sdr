@@ -13,7 +13,7 @@ See `AGENTS.md`, `SETUP.md`, and `MARKDOWN_STYLE_GUIDE.md` for full operating ru
 
 - Framework: Astro 5 (`^5.12.0`) + Cloudflare Edge Adapter (`@astrojs/cloudflare` in hybrid static mode)
 - Embedded Chat & Edge API: `ChatBubble.astro` widget powered by `/api/chat` route using OpenAI API (`OPENAI_API_KEY`) and SDR knowledge (`src/lib/`)
-- Commercial CTA Destination: `https://chat.neoflowoff.agency` (`neoflowoff-chat-ui`)
+- Commercial CTA Destination: `https://wa.me/5562994789032` (`whatsapp contact`)
 - Color Palette: `#000000` (50% dark background), `#DEDDD3` (40% high contrast clear sections/text), `#EDFF00` (8% traction buttons/highlights), `#FF7A05` (2% precision borders/lines), `#1B1E00` (olive capsules).
 - Kicker Headers (`.kicker`): Render with `opacity: 0.4` and transition to `opacity: 1` on hover.
 - Diagram Nomenclature (`InfrastructureMap.astro`): Core unit exact case is **`NEØ:one`**, labeled `AGENT SDR IA` with `ORCHESTRATION: ACTIVE`. Light status dots (`.node-entry-pin.status-dot`) are placed on the top center border of cards.

@@ -29,8 +29,9 @@ A operação conecta três camadas centrais no ecossistema comercial através de
    * **Página de Oferta (`/oferta`):** Seção dedicada à apresentação do cronograma de implantação em 14 dias (`GanttDeployment.astro`), Concierge Executiva, checklist canônico e ícone de Inteligência e Orquestração (`AgentNodeIcon.astro`).
    * **Governança e Conformidade (`/privacidade`, `/termos`, `/tratamento-dados`):** Rotas institucionais e de conformidade LGPD.
    * **Atendimento na Borda (`ChatBubble.astro`):** Widget flutuante Glassmorphic com blur e saturação que atende na própria página consultando `/api/chat`.
-2. **Superfície de Conversão e Fechamento Fullscreen (`neoflowoff-chat-ui`):**
-   * Todos os botões de ação e CTAs principais direcionam o lead para a experiência de fechamento em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency`.
+2. **Superfície de Conversão e Fechamento:**
+   * O contato comercial primário direciona o lead para o WhatsApp oficial em `https://wa.me/5562994789032`.
+   * A experiência fullscreen do **NEØ:one** em `https://chat.neoflowoff.agency` pode existir como rota secundária, especialmente no rodapé.
 3. **Persistência, Segurança e Telemetria (`neo-growth-system`):**
    * **Console Signature & Security (`src/lib/console-signature.ts`):** Assinatura executiva do arquiteto, alerta anti-engenharia social (Anti Self-XSS) e hook de telemetria visível no DevTools (`F12`).
    * **Blindagem Mobile:** Suporte nativo a *notches* e Dynamic Island (`viewport-fit=cover`), trava anti-deslocamento horizontal (`overflow-x: hidden`) e paddings reativos via `env(safe-area-inset-*)`.

@@ -30,8 +30,9 @@ Sua missão não é apenas apresentar informações estáticas ou enquadrar prot
    * **Oferta e Cronograma (`/oferta`):** Seção dedicada com o cronograma de 14 dias de implantação em gráfico de Gantt (`GanttDeployment.astro`), Concierge Executiva e checklist de entregáveis.
    * **Conformidade LGPD (`/privacidade`, `/termos`, `/tratamento-dados`):** Rotas institucionais e de governança de dados.
    * **Segurança e Blindagem Mobile:** Assinatura no DevTools (`console-signature.ts` com aviso Anti Self-XSS) e proteção contra overflow e *notches* (`viewport-fit=cover`, `overflow-x: hidden`, `env(safe-area-inset-*)`).
-2. **Superfície de Conversão Fullscreen (`neoflowoff-chat-ui`):**
-   * Todos os CTAs e botões principais de aquisição direcionam o visitante para a experiência dedicada em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency`.
+2. **Superfície de Conversão e Fechamento:**
+   * O contato comercial primário direciona o visitante para o WhatsApp oficial em `https://wa.me/5562994789032`.
+   * A experiência dedicada em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency` permanece como rota secundária e demonstrativa.
 3. **Motor Inclusivo de Eventos e Telemetria (`neo-growth-system`):**
    * Conecta conversões e rastreamentos de intenção ao CAPI da Meta para otimização contínua das campanhas, emitindo sinais de telemetria e segurança na borda.
 

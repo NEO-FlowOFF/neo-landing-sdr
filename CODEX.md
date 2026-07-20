@@ -14,7 +14,7 @@ Version: v1.0.0
 
 O repositório `neo-landing-sdr` é a superfície pública de tração comercial, diagnóstico em tempo real e vitrine tecnológica da oferta **Operação SDR IA Plug & Play** e categoria **Agent SDR IA** do ecossistema `NEO-FlowOFF · neoflowoff.agency`.
 
-Projetado para máxima conversão sem latência na borda, converte visitantes em leads qualificados e direciona as interações comerciais para o agente operacional **NEØ:one** em `https://chat.neoflowoff.agency`.
+Projetado para máxima conversão sem latência na borda, converte visitantes em leads qualificados e direciona o contato comercial primário para o WhatsApp oficial em `https://wa.me/5562994789032`.
 
 ────────────────────────────────────────
 
@@ -30,9 +30,10 @@ Projetado para máxima conversão sem latência na borda, converte visitantes em
 
 ## ❖ Contratos Operacionais e de Design System
 
-1. **Roteamento Comercial Duplo (Bolha + Fullscreen):**
+1. **Roteamento Comercial Duplo (Bolha + WhatsApp):**
    * A Landing Page embarca o widget interativo flutuante (`ChatBubble.astro`) processando atendimento na página em `/api/chat`.
-   * Todos os CTAs principais direcionam para a experiência dedicada em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency`.
+   * Todos os CTAs principais direcionam para o WhatsApp oficial em `https://wa.me/5562994789032`.
+   * A experiência dedicada em tela cheia do **NEØ:one** em `https://chat.neoflowoff.agency` permanece como rota secundária.
 2. **Paleta Canônica Proporcional:**
    * `#000000` (~50%): Fundo e superfícies escuras profundas.
    * `#DEDDD3` (~40%): Superfícies claras de alto contraste e tipografia principal.

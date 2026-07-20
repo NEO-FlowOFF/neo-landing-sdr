@@ -2,12 +2,11 @@
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 const links = [
   ['Como funciona', isHome ? '#como-funciona' : '/#como-funciona'],
-  ['Diagnóstico IA', isHome ? '#demonstracao' : '/#demonstracao'],
   ['Infraestrutura', isHome ? '#infraestrutura' : '/#infraestrutura'],
   ['A Oferta & Implantação', '/oferta'],
   ['FAQ', isHome ? '#faq' : '/#faq']
 ];
-const chatUrl = "https://chat.neoflowoff.agency";
+const whatsappContactUrl = "https://wa.me/5562994789032";
 ---
 <header class="header">
   <a class="brand" href={isHome ? "#top" : "/#top"} aria-label="neoflowoff.agency — início">
@@ -21,7 +20,7 @@ const chatUrl = "https://chat.neoflowoff.agency";
 
   <!-- HEADER ACTIONS (CTA + HAMBURGER TOGGLE) -->
   <div class="header-actions">
-    <a class="button button-small neo-sdr-link" href={chatUrl}>
+    <a class="button button-small neo-sdr-link" href={whatsappContactUrl}>
       Iniciar diagnóstico <span>↗</span>
     </a>
     
@@ -57,10 +56,10 @@ const chatUrl = "https://chat.neoflowoff.agency";
       <div class="mobile-concierge-pill">
         <span>● OPERAÇÃO PLUG & PLAY</span>
       </div>
-      <a class="button neo-sdr-link mobile-cta" href={chatUrl}>
+      <a class="button neo-sdr-link mobile-cta" href={whatsappContactUrl}>
         Avaliar minha operação com NEØ:one <span>↗</span>
       </a>
-      <a class="text-link mobile-wa" href="https://wa.me/556262994789032?text=Ol%C3%A1%21+Gostaria+de+avaliar+minha+opera%C3%A7%C3%A3o+com+a+neoflowoff.agency" target="_blank" rel="noopener noreferrer">
+      <a class="text-link mobile-wa" href={whatsappContactUrl} target="_blank" rel="noopener noreferrer">
         Ou falar com Arquiteto no WhatsApp <span>↗</span>
       </a>
     </div>

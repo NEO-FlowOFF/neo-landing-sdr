@@ -103,7 +103,7 @@ Para que a vitrine converta leads reais e opere com governança completa no ambi
 * [ ] **3.2. Persistência e Handoff de Leads (`neo-event-ingestor` / Cloudflare D1 / KV):**
   * Modificar a rota de borda `/api/chat.ts` para que, ao identificar intenção qualificada (nome, telefone/WhatsApp e dor do cliente), os dados sejam persistidos em banco de borda (`Cloudflare D1` ou `KV`) ou disparados via webhook HTTP POST para o control plane (`neo-growth-system` / CRM / n8n).
 * [ ] **3.3. Rastreamento Client-Side (Meta Pixel + Roteamento Duplo):**
-  * Verificar e testar o acionamento de eventos no clique dos CTAs em tela cheia (`https://chat.neoflowoff.agency`), emitindo o evento de `Lead` ou `Contact` com `event_id` determinístico (`lib/session-handler.ts`).
+  * Verificar e testar o acionamento de eventos no clique dos CTAs comerciais primários (`https://wa.me/5562994789032`), emitindo o evento de `Lead` ou `Contact` com `event_id` determinístico (`lib/session-handler.ts`).
 * [ ] **3.4. Disparo Server-Side via Conversion API (`Meta CAPI`):**
   * Plugar o envio do evento de conversão server-side direto do worker no momento exato da qualificação no chat, imunizando a operação contra bloqueadores de anúncios (AdBlock / Safari ITP).
 
@@ -125,6 +125,6 @@ Para que a vitrine converta leads reais e opere com governança completa no ambi
 * [ ] **5.1. Simulação Real de Aquisição (E2E Lead Flow):**
   1. Acesso à Landing Page no celular e no desktop.
   2. Abertura do `ChatBubble.astro` e teste de conversação com **NEØ:one**.
-  3. Clique nos CTAs de tela cheia rumo a `https://chat.neoflowoff.agency`.
+  3. Clique nos CTAs comerciais primários rumo a `https://wa.me/5562994789032`.
   4. Validação da recepção do lead qualificado no banco de dados / CRM comercial da agência.
 * [ ] **5.2. Conciliação de Eventos Meta (Pixel + CAPI):** Validar no Gerenciador de Eventos da Meta se o rastreamento duplo está efetuando a deduplicação exata pelo parâmetro `event_id` / `fbp` / `fbc`.

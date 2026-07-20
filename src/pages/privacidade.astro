@@ -9,23 +9,20 @@ const controller = {
   brand: 'neoflowoff.agency',
 
   // Preencha antes do deploy, caso a operação possua razão social e CNPJ próprios.
-  legalName: '',
-  cnpj: '',
+  legalName: 'Flowoff Marketing e Assessoria Digital LTDA',
+  cnpj: '43.376.355/0001-92',
+  privacyEmail: 'neo@neoflowoff.agency',
 
-  // Recomendo criar uma caixa dedicada, como:
-  // privacidade@neoflowoff.agency
-  privacyEmail: '',
-
-  chatUrl: 'https://chat.neoflowoff.agency',
+  whatsappContactUrl: 'https://wa.me/5562994789032',
 };
 
 const privacyContactHref = controller.privacyEmail
   ? `mailto:${controller.privacyEmail}`
-  : controller.chatUrl;
+  : controller.whatsappContactUrl;
 
 const privacyContactLabel = controller.privacyEmail
   ? controller.privacyEmail
-  : 'chat.neoflowoff.agency';
+  : 'wa.me/5562994789032';
 ---
 
 <Layout
