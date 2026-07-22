@@ -7,12 +7,14 @@
     "build": "astro build",
     "preview": "astro preview"
   },
-  "dependencies": {
-    "@astrojs/cloudflare": "^14.1.4",
-    "@lucide/astro": "^1.25.0",
-    "astro": "^7.1.0"
+  "overrides": {
+    "sharp": "^0.35.0"
   },
-  "pnpm": {
-    "minimumReleaseAge": 0
+  "dependencies": {
+    "@lucide/astro": "^1.25.0"
+  },
+  "devDependencies": {
+    "@astrojs/cloudflare": "^14.1.4",
+    "astro": "^7.1.3"
   }
 }

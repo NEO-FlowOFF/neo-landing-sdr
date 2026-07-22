@@ -120,9 +120,9 @@ clean: ## Remove dist/, .astro/ e .wrangler/ — preserva o lockfile e node_modu
 # ========================================
 #   AUDIT
 # ========================================
-audit: ## Varredura estrita de vulnerabilidades (pnpm audit)
-	@printf "$(CYAN)◆ Auditando dependências...$(RESET)\n"
-	pnpm audit
+audit: ## Varredura estrita de vulnerabilidades de produção (pnpm audit --prod)
+	@printf "$(CYAN)◆ Auditando dependências de produção...$(RESET)\n"
+	pnpm audit --prod
 	@printf "$(GREEN)✓ Auditoria concluída.$(RESET)\n"
 
 # ========================================

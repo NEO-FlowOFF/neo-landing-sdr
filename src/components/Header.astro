@@ -20,8 +20,10 @@ const whatsappContactUrl = "https://wa.me/5562994789032";
 
   <!-- HEADER ACTIONS (CTA + HAMBURGER TOGGLE) -->
   <div class="header-actions">
-    <a class="button button-small neo-sdr-link" href={whatsappContactUrl}>
-      Iniciar diagnóstico <span>↗</span>
+    <a class="button button-small" href="#chat" data-open-chat aria-label="Iniciar diagnóstico via chat com NEØ:one">
+      <span class="cta-text-desktop">Iniciar diagnóstico</span>
+      <span class="cta-text-mobile">Diagnóstico</span>
+      <span>↗</span>
     </a>
     
     <button 
@@ -56,10 +58,10 @@ const whatsappContactUrl = "https://wa.me/5562994789032";
       <div class="mobile-concierge-pill">
         <span>● OPERAÇÃO PLUG & PLAY</span>
       </div>
-      <a class="button neo-sdr-link mobile-cta" href={whatsappContactUrl}>
+      <a class="button mobile-cta" href="#chat" data-open-chat>
         Avaliar minha operação com NEØ:one <span>↗</span>
       </a>
-      <a class="text-link mobile-wa" href={whatsappContactUrl} target="_blank" rel="noopener noreferrer">
+      <a class="text-link mobile-wa neo-sdr-link" href={whatsappContactUrl} target="_blank" rel="noopener noreferrer">
         Ou falar com Arquiteto no WhatsApp <span>↗</span>
       </a>
     </div>
@@ -80,6 +82,14 @@ const whatsappContactUrl = "https://wa.me/5562994789032";
     gap: 12px;
   }
 
+  .cta-text-desktop {
+    display: inline;
+  }
+
+  .cta-text-mobile {
+    display: none;
+  }
+
   /* --- DESKTOP VS MOBILE NAV VISIBILITY --- */
   .desktop-nav {
     display: flex;
@@ -92,6 +102,14 @@ const whatsappContactUrl = "https://wa.me/5562994789032";
   @media (max-width: 900px) {
     .desktop-nav {
       display: none !important;
+    }
+
+    .cta-text-desktop {
+      display: none;
+    }
+
+    .cta-text-mobile {
+      display: inline;
     }
 
     .header-actions {
