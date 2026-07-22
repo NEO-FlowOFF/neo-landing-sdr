@@ -1,0 +1,22 @@
+{
+  "name": "Neo Protocol — NEØ:one SDR",
+  "short_name": "NEØ Node",
+  "description": "Sovereign Neo Protocol Node for Agent SDR IA orchestration, lead capture, and commercial infrastructure by neoflowoff.agency",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

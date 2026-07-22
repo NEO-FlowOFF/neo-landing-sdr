@@ -6,6 +6,23 @@ Estilos globais, variáveis canônicas, tipografia, header, footer e utilitário
 ======================================== 
 */
 
+/* Auto-hospedagem de fontes locais: elimina requisições de terceiros a fonts.googleapis.com */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-variable.woff2') format('woff2');
+}
+
 :root {
   --acid: #edff00;
   --orange: #ff7a05;

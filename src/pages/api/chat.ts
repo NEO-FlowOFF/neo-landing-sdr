@@ -17,11 +17,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
         JSON.stringify({
           error: "OPENAI_API_KEY não configurada no servidor de borda.",
         }),
-        { status: 500, headers: { "Content-Type": "application/json" } },
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "X-Content-Type-Options": "nosniff",
+          },
+        },
       );
     }
 
-    const body = (await request.json()) as {
+    let body: {
       messages?: { role: string; content: string }[];
       session?: {
         session_id?: string;
@@ -31,15 +37,43 @@ export const POST: APIRoute = async ({ request, locals }) => {
         landing_url?: string;
       };
     };
-    const userMessages = body.messages || [];
-    const session = body.session || {};
 
-    if (userMessages.length === 0) {
+    try {
+      body = (await request.json()) as typeof body;
+    } catch {
       return new Response(
-        JSON.stringify({ error: "Nenhuma mensagem enviada." }),
-        { status: 400, headers: { "Content-Type": "application/json" } },
+        JSON.stringify({ error: "Payload JSON inválido." }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            "X-Content-Type-Options": "nosniff",
+          },
+        },
       );
     }
+
+    const rawMessages = body?.messages || [];
+    const session = body?.session || {};
+
+    if (!Array.isArray(rawMessages) || rawMessages.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Nenhuma mensagem enviada." }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            "X-Content-Type-Options": "nosniff",
+          },
+        },
+      );
+    }
+
+    // Trava de payload: limita histórico a no máximo 12 mensagens e 1000 caracteres por mensagem
+    const userMessages = rawMessages.slice(-12).map((m) => ({
+      role: m.role === "agent" || m.role === "assistant" ? "assistant" : "user",
+      content: typeof m.content === "string" ? m.content.substring(0, 1000) : "",
+    }));
 
     // Captura de IP e Geolocalização via cabeçalhos do Cloudflare
     const cf = (request as any).cf || (locals as any)?.runtime?.cf || {};
@@ -60,14 +94,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const lastUserMsg = userMessages[userMessages.length - 1]?.content || "";
 
-    // Análise básica de segurança (SQLi, XSS ou spam extremo)
+    // Análise rigorosa de segurança (SQLi, XSS ou payload gigante)
     const isSuspicious =
       /drop table|<script>|select \* from|union all/i.test(lastUserMsg) ||
       lastUserMsg.length > 800;
 
     let kv: any = null;
     try {
-      // Tenta acessar bindings (Astro Cloudflare adapter v6+ usa cloudflare.env, versões antigas usavam runtime.env)
       const cfEnv = (locals as any)?.cloudflare?.env;
       if (cfEnv) {
         kv = cfEnv.SDR_LEADS || cfEnv.KV_SDR;
@@ -77,7 +110,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
           (locals as any)?.runtime?.env?.KV_SDR;
       }
     } catch (e) {
-      // Catch necessário pois acessar runtime.env no Astro v6 dispara um TypeError ('has been removed')
+      // Ignora erro de acesso a runtime.env no Astro v6
     }
 
     if (isSuspicious) {
@@ -91,14 +124,25 @@ export const POST: APIRoute = async ({ request, locals }) => {
           await kv.put(
             `security:${Date.now()}:${securityContext.rayId}`,
             JSON.stringify(threatLog),
+            { expirationTtl: 604800 } // TTL 7 dias
           );
         } catch (e) {}
       } else {
         console.warn(
-          "[NEO-SDR-SECURITY] Atividade suspeita detectada. JSON RAW:",
+          "[NEO-SDR-SECURITY] Atividade suspeita bloqueada. JSON RAW:",
           JSON.stringify(threatLog),
         );
       }
+      return new Response(
+        JSON.stringify({ error: "Requisição bloqueada por filtro de segurança." }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            "X-Content-Type-Options": "nosniff",
+          },
+        },
+      );
     }
 
     // Identificar se há captura de contato nas mensagens do usuário (WhatsApp/Email)
@@ -131,6 +175,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
           await kv.put(
             `lead:${leadEvent.session_id}:${Date.now()}`,
             JSON.stringify(leadEvent),
+            { expirationTtl: 2592000 } // TTL 30 dias
           );
           console.log(
             "[NEO-SDR-CAPTURE] Lead gravado no Cloudflare KV com sucesso.",
@@ -160,7 +205,7 @@ Você está atendendo o visitante diretamente no widget flutuante da Landing Pag
 Seja conciso, extremamente natural e direto, como um especialista de alto nível, sem usar roteiros prontos ou parecer um bot.
 Se a mensagem recebida for "[ABRIU_A_BOLHA_DE_CHAT]", sua primeira resposta deve ser um cumprimento curto, natural e que não pressione o visitante. Reconheça que ele apenas abriu o chat. NÃO faça perguntas sobre "dores", "desafios" ou "operação". Aja como um especialista humano que está presente e disponível, mas sem interromper. Algo como "Opa, boa. Se precisar de qualquer coisa, estou por aqui." funciona bem.
 
-O seu principal objetivo é ter uma conversa natural e genuína. Antes de pensar em guiar o lead para qualquer lugar, entenda o que ele realmente disse. Responda ao contexto específico dele, não a um objetivo de vendas. Apenas se a conversa evoluir naturalmente para um interesse claro, você pode sugerir o handoff humano ou o diagnóstico completo em https://chat.neoflowoff.agency. A conversa vem primeiro, o handoff é uma consequência, não uma meta.`,
+O seu principal objetivo é ter uma conversa natural e genuína. Antes de pensar em guiar o lead para qualquer lugar, entenda o que ele realmente disse. Responda ao contexto específico dele, não a um objetivo de vendas. Apenas se a conversa evoluir naturally para um interesse claro, você pode sugerir o handoff humano ou o diagnóstico completo em https://chat.neoflowoff.agency. A conversa vem primeiro, o handoff é uma consequência, não uma meta.`,
     ]
       .filter(Boolean)
       .join("\n\n");
@@ -178,18 +223,20 @@ O seu principal objetivo é ter uma conversa natural e genuína. Antes de pensar
         JSON.stringify({
           error: "Erro de configuração no servidor de borda.",
         }),
-        { status: 500, headers: { "Content-Type": "application/json" } },
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "X-Content-Type-Options": "nosniff",
+          },
+        },
       );
     }
 
     const payload = {
       model,
       instructions: fullSystemPrompt,
-      input: userMessages.map((m) => ({
-        role:
-          m.role === "agent" || m.role === "assistant" ? "assistant" : "user",
-        content: m.content,
-      })),
+      input: userMessages,
       reasoning: {
         effort: "low",
       },
@@ -223,7 +270,7 @@ O seu principal objetivo é ter uma conversa natural e genuína. Antes de pensar
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-          const {status} = response;
+          const { status } = response;
           const isTransientError = [429, 500, 502, 503, 504].includes(status);
 
           if (isTransientError && attempt < maxRetries) {
@@ -273,10 +320,9 @@ O seu principal objetivo é ter uma conversa natural e genuína. Antes de pensar
 
     const data = (await finalResponse.json()) as any;
 
-    // Log detalhado para o teste
     const durationMs = Date.now() - startTime;
     console.log(
-      `[NEO-SDR-CHAT] OpenAI call stats: status=${data.status}, model=${data.model}, total_tokens=${data.usage?.total_tokens}, output_tokens=${data.usage?.output_tokens}, reasoning_tokens=${data.usage?.output_tokens_details?.reasoning_tokens}, duration=${durationMs}ms`,
+      `[NEO-SDR-CHAT] OpenAI call stats: status=${data.status}, model=${data.model}, total_tokens=${data.usage?.total_tokens}, duration=${durationMs}ms`,
     );
 
     if (data.status === "incomplete") {
@@ -318,16 +364,25 @@ O seu principal objetivo é ter uma conversa natural e genuína. Antes de pensar
       JSON.stringify({ reply, session_id: session.session_id }),
       {
         status: 200,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Content-Type-Options": "nosniff",
+        },
       },
     );
   } catch (error: any) {
+    console.error("[NEO-SDR-CHAT] Erro interno no endpoint /api/chat:", error);
     return new Response(
       JSON.stringify({
-        error: "Erro interno no servidor do widget.",
-        message: error?.message || String(error),
+        error: "Erro interno no processamento da requisição.",
       }),
-      { status: 500, headers: { "Content-Type": "application/json" } },
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "X-Content-Type-Options": "nosniff",
+        },
+      },
     );
   }
 };

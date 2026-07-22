@@ -51,6 +51,7 @@ Para instalação, comandos de terminal (`make install` com aprovação automát
 
 Todo o desenvolvimento no repositório obedece a regras estritas de engenharia de operação sênior e governança visual:
 
+* **Especificação do Neo Protocol:** [NEO_PROTOCOL.md](./NEO_PROTOCOL.md)
 * **Regras para Agentes IA:** [AGENTS.md](./AGENTS.md)
 * **Especificação do Codex:** [CODEX.md](./CODEX.md)
 * **Contexto Arquitetural e de Negócio:** [CONTEXT.md](./CONTEXT.md)

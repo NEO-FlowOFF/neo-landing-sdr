@@ -22,8 +22,7 @@ const cleanPathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const cleanCanonical = canonicalURL || `${origin}${cleanPathname !== '/' ? cleanPathname : '/'}`;
 const absoluteImage = image.startsWith('http') ? image : `${origin}${image}`;
 
-const jsonLd: Record<string, any> = {
-  "@context": "https://schema.org",
+const appNodeSchema: Record<string, any> = {
   "@type": type,
   "@id": cleanCanonical,
   "url": cleanCanonical,
@@ -43,24 +42,46 @@ const jsonLd: Record<string, any> = {
 };
 
 if (type === 'SoftwareApplication') {
-  jsonLd.applicationCategory = "BusinessApplication";
-  jsonLd.operatingSystem = "Web";
-  jsonLd.brand = {
+  appNodeSchema.applicationCategory = "BusinessApplication";
+  appNodeSchema.operatingSystem = "Web";
+  appNodeSchema.brand = {
     "@type": "Brand",
     "name": "NEØ:one"
   };
-  jsonLd.provider = {
+  appNodeSchema.provider = {
     "@type": "Organization",
     "name": "neoflowoff.agency",
     "url": "https://neoflowoff.agency"
   };
-  jsonLd.offers = {
+  appNodeSchema.offers = {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "BRL",
     "description": "Diagnóstico e instalação rápida — Operação SDR IA Plug & Play"
   };
 }
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    appNodeSchema,
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "Neo Protocol Node",
+      "alternateName": ["NEO Protocol", "NEØ Protocol"],
+      "programmingLanguage": "Multi-Runtime",
+      "abstract": "A sovereign, modular ecosystem node engineered for autonomous inter-node communication, Agentic AI ingestion, and scalable digital infrastructure.",
+      "keywords": [
+        "Neo Protocol",
+        "Agentic AI Infrastructure",
+        "Modular Systems",
+        "Inter-Node Interoperability",
+        "Autonomous Protocols",
+        "System Sovereignty"
+      ]
+    }
+  ]
+};
 ---
 
 <meta name="description" content={description} />

@@ -10,13 +10,14 @@ const currentYear = new Date().getFullYear();
 <footer class="neo-footer" aria-label="Rodapé do site">
   <div class="footer-top">
     <div class="footer-brand-col">
-      <a class="brand" href="#top" aria-label="neoflowoff.agency — início">neoflowoff.agency</a>
       <div class="badge-wrapper">
         <MetaProviderBadge variant="dark" />
       </div>
+      <a class="brand" href="https://neoflowoff.agency" target="_blank" rel="noopener noreferrer" aria-label="neoflowoff.agency — site oficial">
+        neoflowoff.agency <span class="arrow">↗</span>
+      </a>
       <p class="manifesto">
-        Agentes de IA, páginas, CRM e fluxos comerciais para empresas.<br />
-        Marketing com infraestrutura e precisão operacional.
+        Agentes de IA, páginas, CRM e fluxos comerciais para empresas. Marketing com infraestrutura e precisão operacional.
       </p>
     </div>
 
@@ -61,7 +62,7 @@ const currentYear = new Date().getFullYear();
       <span>© {currentYear} neoflowoff.agency — Todos os direitos reservados.</span>
     </div>
     <div class="footer-protocol">
-      <span>Protocol : NΞØ Protocol <strong class="code-law">(Code is Law)</strong></span>
+      <span>Protocol : NΞØ Protocol</span>
     </div>
   </div>
 </footer>
@@ -96,11 +97,15 @@ const currentYear = new Date().getFullYear();
     color: #ffffff;
     letter-spacing: -0.02em;
     text-decoration: none;
-    transition: color 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.25s ease, transform 0.25s ease;
   }
 
   .brand:hover {
     color: var(--acid, #EDFF00);
+    transform: translateX(3px);
   }
 
   .manifesto {
@@ -117,7 +122,7 @@ const currentYear = new Date().getFullYear();
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--orange, #FF7A05);
+    color: var(--acid, #EDFF00);
     margin: 0 0 18px;
     opacity: 0.9;
   }
@@ -161,7 +166,8 @@ const currentYear = new Date().getFullYear();
     transition: opacity 0.25s ease, transform 0.25s ease;
   }
 
-  .footer-links-list a:hover .arrow {
+  .footer-links-list a:hover .arrow,
+  .brand:hover .arrow {
     opacity: 1;
     transform: translate(2px, -2px);
   }

@@ -57,7 +57,9 @@ export function initOrGetSession(): SdrSessionPayload {
 
   const sessionId =
     sessionData?.session_id ||
-    (typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `neo_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`);
+    (typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `neo_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`);
 
   const updatedPayload: SdrSessionPayload = {
     session_id: sessionId,
@@ -86,7 +88,13 @@ export function initOrGetSession(): SdrSessionPayload {
  * Anexa dados de sessão e rastreamento em links comerciais rastreáveis.
  */
 export function decorateUrl(targetUrl: string): string {
-  if (typeof window === "undefined") return targetUrl;
+  if (typeof window === "undefined" || !targetUrl) return targetUrl;
+  
+  // Valida protocolo seguro para impedir injeção javascript: ou URLs inválidas
+  if (!/^https?:\/\//i.test(targetUrl) && !targetUrl.startsWith("/")) {
+    return targetUrl;
+  }
+
   const session = initOrGetSession();
   try {
     const url = new URL(targetUrl, window.location.origin);

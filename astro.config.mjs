@@ -1,3 +1,14 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
-export default defineConfig({ output: 'static', adapter: cloudflare(), site: 'https://sdr.neoflowoff.agency' });
+
+export default defineConfig({
+  output: 'static',
+  adapter: cloudflare(),
+  site: 'https://sdr.neoflowoff.agency',
+  devToolbar: {
+    enabled: false
+  },
+  build: {
+    inlineStylesheets: 'always'
+  }
+});
