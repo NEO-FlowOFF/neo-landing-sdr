@@ -91,6 +91,7 @@ build: ## Executa a compilação de produção para Cloudflare Edge isolado
 		cp -R dist/server/* dist/client/_worker.js/; \
 		mv dist/client/_worker.js/entry.mjs dist/client/_worker.js/index.js; \
 		rm -f dist/client/_worker.js/wrangler.json; \
+		rm -rf .wrangler; \
 		printf "$(GREEN)✓ Edge Worker (_worker.js + chunks) acoplado a dist/client para o Cloudflare Pages!$(RESET)\n"; \
 	fi
 
