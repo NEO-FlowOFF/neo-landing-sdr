@@ -21,7 +21,9 @@ const { title, description } = Astro.props;
     <slot />
     <script>
       import { initConsoleSignature } from '../lib/console-signature';
+      import { initGlobalHaptics } from '../lib/haptic';
       initConsoleSignature();
+      initGlobalHaptics();
 
       if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
         window.addEventListener('load', () => {

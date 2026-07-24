@@ -56,6 +56,7 @@ import { MessageSquare } from "@lucide/astro";
   const messagesBox = document.getElementById("chat-messages");
 
   import { initOrGetSession } from "../lib/session-handler";
+  import { triggerHaptic } from "../lib/haptic";
 
   let isOpen = false;
   let history: { role: string; content: string }[] = [];
@@ -99,6 +100,7 @@ import { MessageSquare } from "@lucide/astro";
       const reply = data.reply || "Opa! Fique à vontade por aqui. Se travar em algo ou só quiser bater um papo sobre a operação, estou na área.";
       appendMessage("agent", reply);
       pushHistory({ role: "assistant", content: reply });
+      triggerHaptic("double");
     } catch (err) {
       if (typingEl && typingEl.parentNode) {
         typingEl.parentNode.removeChild(typingEl);
@@ -106,6 +108,7 @@ import { MessageSquare } from "@lucide/astro";
       const fallbackMsg = "Opa! Fique à vontade por aqui. Se travar em algo ou só quiser bater um papo sobre a operação, estou na área.";
       appendMessage("agent", fallbackMsg);
       pushHistory({ role: "assistant", content: fallbackMsg });
+      triggerHaptic("double");
     }
   }
 
@@ -187,6 +190,7 @@ import { MessageSquare } from "@lucide/astro";
       const reply = data.reply || "⚠️ Sem conexão. Por favor, tente novamente.";
       appendMessage("agent", reply);
       pushHistory({ role: "assistant", content: reply });
+      triggerHaptic("double");
     } catch (err) {
       if (typingEl && typingEl.parentNode) {
         typingEl.parentNode.removeChild(typingEl);
@@ -194,6 +198,7 @@ import { MessageSquare } from "@lucide/astro";
       const fallbackMsg = "⚠️ Falha na conexão. Verifique sua internet e tente novamente.";
       appendMessage("agent", fallbackMsg);
       pushHistory({ role: "assistant", content: fallbackMsg });
+      triggerHaptic("error");
     } finally {
       setFormDisabled(false);
       chatInput?.focus();

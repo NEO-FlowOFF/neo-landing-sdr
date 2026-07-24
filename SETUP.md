@@ -96,4 +96,5 @@ O Cloudflare Pages identifica a estrutura `dist/client/_worker.js/` como um **Ad
 * **`src/components/TractionPipeline.astro`**: Conector vetorial de fluxo com linha pontilhada (`stroke-dasharray="4 4"`) para transições óticas e quebra de blocos.
 * **`src/components/MetaProviderBadge.astro`**: Selo de autoridade "META Tech Provider" adaptável ao tema light/dark no rodapé.
 * **`src/lib/console-signature.ts`**: Assinatura institucional de console, alerta de segurança cibernética (Anti Self-XSS) e hook de telemetria no DevTools (`window.__NEO_CONSOLE_SIGNED__ = true`).
-* **`src/layouts/Layout.astro` & `src/styles/global.css`**: Wrapper global e Design System contendo a metatag `viewport-fit=cover`, trava anti-deslocamento horizontal (`overflow-x: hidden`), paddings seguros mobile (`env(safe-area-inset-*)`) e injeção do `console-signature.ts`.
+* **`src/lib/haptic.ts`**: Utilitário de feedback tátil progressivo que emula o Taptic Engine do iOS via `navigator.vibrate()` nas interações dos botões, links e summaries do FAQ.
+* **`src/layouts/Layout.astro` & `src/styles/global.css`**: Wrapper global e Design System contendo a metatag `viewport-fit=cover`, trava anti-deslocamento horizontal (`overflow-x: hidden`), paddings seguros mobile (`env(safe-area-inset-*)`), injeção do `console-signature.ts` e inicialização de haptics (`initGlobalHaptics`).
